@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -24,10 +25,12 @@ public interface Tuple<Z> {
 
     Tuple<Z> drop(int index);
 
+    default Stream<Z> stream() {
+        return IntStream.range(0, size()).boxed().map(this::get);
+    }
+
     default Fluents.FluentList<Z> asList() {
-        return IntStream.range(0, size()).boxed()
-                        .map(this::get)
-                        .collect(toCollection(Fluents.FluentList::new));
+        return stream().collect(toCollection(Fluents.FluentList::new));
     }
 
     <X extends Z> Tuple<Z> extend(X value);
