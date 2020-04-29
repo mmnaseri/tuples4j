@@ -22,6 +22,9 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
         if (labels.size() != tuple.size()) {
             throw new IllegalArgumentException("Expected " + tuple.size() + " labels, but received " + labels.size());
         }
+        if (labels.stream().distinct().count() != labels.size()) {
+            throw new IllegalArgumentException("Provided set of labels contains duplicates: " + labels);
+        }
         this.tuple = Objects.requireNonNull(tuple);
         this.labels = Collections.unmodifiableList(Objects.requireNonNull(labels));
         map = mapOf(IntStream.range(0, size())
@@ -83,6 +86,9 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     @Override
     public LabeledTuple<Z> relabel(final int index, final String newLabel) {
+        if (labels().contains(newLabel)) {
+            throw new IllegalArgumentException("Label " + newLabel + " already exists on this tuple");
+        }
         return new DefaultLabeledTuple<>(tuple, listOf(labels).change(index, newLabel));
     }
 
