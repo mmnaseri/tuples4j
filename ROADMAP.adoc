@@ -1,0 +1,29 @@
+= ROADMAP
+
+1. Add more tools to the library
+  a. We need supplier-based methods for all the mappings:
+    - `one.extendWith(() -> new Random().nextInt())`
+    - `one.first(UUID::randomUUID)`
+  b. The above need to exposed statically as well:
+    - `Tuple.extendOne(() -> null)`
+    - `Tuple.mappingFirst(() -> null)`
+  c. All `Has*` facades need to expose type-changing mappings:
+
+      TwoTuple<Object, Integer, Integer> t1 = Tuple.of(1, 2);
+      TwoTuple<Object, String, Integer> t2 = t1.changeFirst(Objects::toString);
+      TwoTuple<Object, String, Double> t3 = t2.changeSecond(t1.first() * 1.0D);
+
+  d. The above methods will need to be exposed statically as well:
+
+      Tuple.changingFirst(Objects::toString)
+
+  e. We might need to remove the `T` type from `FixedTuple` and instead use the
+  generic `Tuple<Z>` with appropriate downstream type-tightening.
+
+2. Write tests for the main module.
+3. Set up TravisCI build.
+4. Write JavaDoc for the main module.
+5. Write an illustrative README with appropriate badging.
+6. Run the code through Codeacy and Coveralls.
+7. Set up deployment via OSSRH.
+8. Implement the reflection utility.
