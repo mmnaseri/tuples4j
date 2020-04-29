@@ -6,8 +6,7 @@ import java.util.function.Function;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
-public class FiveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z>
-        extends AbstractFixedTuple<Z, FiveTuple<Z, A, B, C, D, E>>
+public class FiveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z> extends AbstractFixedTuple<Z, FiveTuple<Z, A, B, C, D, E>>
         implements
         HasFirst<Z, FiveTuple<Z, A, B, C, D, E>, A>,
         HasSecond<Z, FiveTuple<Z, A, B, C, D, E>, B>,
@@ -60,13 +59,11 @@ public class FiveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E 
         return new FourTuple<>(first(), second(), third(), fourth());
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z>
-    Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendWith(X value) {
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z> Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendWith(X value) {
         return tuple -> tuple.extend(value);
     }
 
-    public static <A, B, C, D, E> FiveTuple<Object, A, B, C, D, E> of(
-            A first, B second, C third, D fourth, E fifth) {
+    public static <A, B, C, D, E> FiveTuple<Object, A, B, C, D, E> of(A first, B second, C third, D fourth, E fifth) {
         return new FiveTuple<>(first, second, third, fourth, fifth);
     }
 

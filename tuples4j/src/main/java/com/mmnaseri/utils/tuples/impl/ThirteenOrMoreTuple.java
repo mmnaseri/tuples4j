@@ -9,10 +9,7 @@ import java.util.function.Function;
 import static com.mmnaseri.utils.tuples.utils.Fluents.listOf;
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
-public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z,
-                                        G extends Z
-                                        , H extends Z, I extends Z, J extends Z, K extends Z, L extends Z>
-        extends AbstractFixedTuple<Z, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
+public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z> extends AbstractFixedTuple<Z, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
         implements
         HasFirst<Z, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, A>,
         HasSecond<Z, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, B>,
@@ -28,12 +25,9 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
         HasTwelfth<Z, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, L> {
 
     @SafeVarargs
-    public ThirteenOrMoreTuple(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth,
-            J tenth,
-            K eleventh, L twelfth, Z thirteenth, Z... rest) {
+    public ThirteenOrMoreTuple(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth, Z thirteenth, Z... rest) {
         //noinspection unchecked
-        this(listOf(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth,
-                    thirteenth).withAll(rest));
+        this(listOf(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth).withAll(rest));
     }
 
     private ThirteenOrMoreTuple(final List<Z> values) {
@@ -115,44 +109,31 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
         if (size() == 13) {
             switch (index) {
                 case 0:
-                    return new TwelveTuple<>(second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(),
-                                             ninth(), tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 1:
-                    return new TwelveTuple<>(first(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(),
-                                             tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 2:
-                    return new TwelveTuple<>(first(), second(), fourth(), fifth(), sixth(), seventh(), eighth(),
-                                             ninth(), tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 3:
-                    return new TwelveTuple<>(first(), second(), third(), fifth(), sixth(), seventh(), eighth(), ninth(),
-                                             tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 4:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), sixth(), seventh(), eighth(),
-                                             ninth(), tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 5:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), seventh(), eighth(),
-                                             ninth(), tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 6:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), eighth(), ninth(),
-                                             tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), eighth(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 7:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), ninth(),
-                                             tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), ninth(), tenth(), eleventh(), twelfth(), get(12));
                 case 8:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
-                                             eighth(), tenth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), tenth(), eleventh(), twelfth(), get(12));
                 case 9:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
-                                             eighth(), ninth(), eleventh(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), eleventh(), twelfth(), get(12));
                 case 10:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
-                                             eighth(), ninth(), tenth(), twelfth(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), twelfth(), get(12));
                 case 11:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
-                                             eighth(), ninth(), tenth(), eleventh(), get(12));
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), get(12));
                 case 12:
-                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
-                                             eighth(), ninth(), tenth(), eleventh(), twelfth());
+                    return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth());
                 default:
                     throw new IllegalStateException("Unexpected value: " + index);
             }
@@ -161,24 +142,12 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
         }
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z,
-                          G extends Z, H extends Z, I extends Z, J extends Z, K extends Z,
-                          L extends Z, X extends Z>
-    Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>,
-                    ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
-    extendWith(X value) {
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendWith(X value) {
         return tuple -> tuple.extend(value);
     }
 
-    public static <A, B, C, D, E,
-                          F, G,
-                          H, I, J, K, L> ThirteenOrMoreTuple<Object, A, B, C, D, E, F, G, H, I, J, K, L> of(
-            A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth,
-            J tenth, K eleventh,
-            L twelfth, Object thirteenth, Object... rest) {
-        return new ThirteenOrMoreTuple<>(first, second, third, fourth, fifth, sixth, seventh,
-                                         eighth, ninth, tenth,
-                                         eleventh, twelfth, thirteenth, rest);
+    public static <A, B, C, D, E, F, G, H, I, J, K, L> ThirteenOrMoreTuple<Object, A, B, C, D, E, F, G, H, I, J, K, L> of(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth, Object thirteenth, Object... rest) {
+        return new ThirteenOrMoreTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth, rest);
     }
 
 }

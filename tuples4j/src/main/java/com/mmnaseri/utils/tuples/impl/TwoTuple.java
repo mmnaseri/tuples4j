@@ -7,8 +7,7 @@ import java.util.function.Function;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
-public class TwoTuple<Z, A extends Z, B extends Z>
-        extends AbstractFixedTuple<Z, TwoTuple<Z, A, B>>
+public class TwoTuple<Z, A extends Z, B extends Z> extends AbstractFixedTuple<Z, TwoTuple<Z, A, B>>
         implements
         HasFirst<Z, TwoTuple<Z, A, B>, A>,
         HasSecond<Z, TwoTuple<Z, A, B>, B> {
@@ -48,8 +47,7 @@ public class TwoTuple<Z, A extends Z, B extends Z>
         return new KeyValue<>(first(), second());
     }
 
-    public static <Z, A extends Z, B extends Z, X extends Z>
-    Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendWith(X value) {
+    public static <Z, A extends Z, B extends Z, X extends Z> Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendWith(X value) {
         return tuple -> tuple.extend(value);
     }
 

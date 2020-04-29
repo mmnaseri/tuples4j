@@ -2,15 +2,18 @@ package com.mmnaseri.utils.tuples.impl;
 
 import com.mmnaseri.utils.tuples.LabeledTuple;
 import com.mmnaseri.utils.tuples.Tuple;
+import com.mmnaseri.utils.tuples.utils.Fluents;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.IntStream;
+
+import static com.mmnaseri.utils.tuples.utils.Fluents.mapOf;
 
 public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     private final Tuple<Z> tuple;
     private final List<String> labels;
+    private Fluents.FluentMap<String, Z> map;
 
     public DefaultLabeledTuple(final Tuple<Z> tuple, final List<String> labels) {
         this.tuple = Objects.requireNonNull(tuple);
@@ -33,6 +36,21 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
     @Override
     public boolean equals(final Object obj) {
         return obj instanceof LabeledTuple && Objects.equals(asMap(), ((LabeledTuple<?>) obj).asMap());
+    }
+
+    @Override
+    public Fluents.FluentList<Z> asList() {
+        return tuple.asList();
+    }
+
+    @Override
+    public Fluents.FluentMap<String, Z> asMap() {
+        if (map == null) {
+            map = mapOf(IntStream.range(0, size())
+                                 .boxed()
+                                 .collect(HashMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll));
+        }
+        return map;
     }
 
     @Override

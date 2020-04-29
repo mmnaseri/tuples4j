@@ -1,6 +1,7 @@
 package com.mmnaseri.utils.tuples;
 
-import java.util.HashMap;
+import com.mmnaseri.utils.tuples.utils.Fluents;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -34,9 +35,10 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
         return drop(index);
     }
 
-    default Map<String, Z> asMap() {
-        return IntStream.range(0, size()).boxed()
-                        .collect(HashMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
+    default Fluents.FluentMap<String, Z> asMap() {
+        return IntStream.range(0, size())
+                        .boxed()
+                        .collect(Fluents.FluentMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
     }
 
 }

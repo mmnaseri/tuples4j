@@ -6,10 +6,7 @@ import java.util.function.Function;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
-public class EightTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                               F extends Z, G extends Z
-                               , H extends Z>
-        extends AbstractFixedTuple<Z, EightTuple<Z, A, B, C, D, E, F, G, H>>
+public class EightTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z> extends AbstractFixedTuple<Z, EightTuple<Z, A, B, C, D, E, F, G, H>>
         implements
         HasFirst<Z, EightTuple<Z, A, B, C, D, E, F, G, H>, A>,
         HasSecond<Z, EightTuple<Z, A, B, C, D, E, F, G, H>, B>,
@@ -40,8 +37,7 @@ public class EightTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
 
     @Override
     public <X extends Z> NineTuple<Z, A, B, C, D, E, F, G, H, X> extend(final X value) {
-        return new NineTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
-                               eighth(), value);
+        return new NineTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), value);
     }
 
     @Override
@@ -84,18 +80,11 @@ public class EightTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
         return new SevenTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh());
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                          F extends Z, G extends Z
-                          , H extends Z, X extends Z>
-    Function<EightTuple<Z, A, B, C, D, E, F, G, H>, NineTuple<Z, A, B, C, D, E, F, G, H, X>> extendWith(
-            X value) {
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, X extends Z> Function<EightTuple<Z, A, B, C, D, E, F, G, H>, NineTuple<Z, A, B, C, D, E, F, G, H, X>> extendWith(X value) {
         return tuple -> tuple.extend(value);
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                          F extends Z, G extends Z, H extends Z> EightTuple<Z, A, B, C, D, E, F, G, H>
-    of(A first,
-            B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth) {
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z> EightTuple<Z, A, B, C, D, E, F, G, H> of(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth) {
         return new EightTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth);
     }
 

@@ -9,8 +9,7 @@ import java.util.function.Function;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
-public class FourTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z>
-        extends AbstractFixedTuple<Z, FourTuple<Z, A, B, C, D>>
+public class FourTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z> extends AbstractFixedTuple<Z, FourTuple<Z, A, B, C, D>>
         implements
         HasFirst<Z, FourTuple<Z, A, B, C, D>, A>,
         HasSecond<Z, FourTuple<Z, A, B, C, D>, B>,
@@ -56,13 +55,11 @@ public class FourTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z>
         return new ThreeTuple<>(first(), second(), third());
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, X extends Z>
-    Function<FourTuple<Z, A, B, C, D>, FiveTuple<Z, A, B, C, D, X>> extendWith(X value) {
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, X extends Z> Function<FourTuple<Z, A, B, C, D>, FiveTuple<Z, A, B, C, D, X>> extendWith(X value) {
         return tuple -> tuple.extend(value);
     }
 
-    public static <A, B, C, D>
-    FourTuple<Object, A, B, C, D> of(A first, B second, C third, D fourth) {
+    public static <A, B, C, D> FourTuple<Object, A, B, C, D> of(A first, B second, C third, D fourth) {
         return new FourTuple<>(first, second, third, fourth);
     }
 

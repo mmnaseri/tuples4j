@@ -6,9 +6,7 @@ import java.util.function.Function;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
-public class SevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                               F extends Z, G extends Z>
-        extends AbstractFixedTuple<Z, SevenTuple<Z, A, B, C, D, E, F, G>>
+public class SevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z> extends AbstractFixedTuple<Z, SevenTuple<Z, A, B, C, D, E, F, G>>
         implements
         HasFirst<Z, SevenTuple<Z, A, B, C, D, E, F, G>, A>,
         HasSecond<Z, SevenTuple<Z, A, B, C, D, E, F, G>, B>,
@@ -37,8 +35,7 @@ public class SevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
 
     @Override
     public <X extends Z> EightTuple<Z, A, B, C, D, E, F, G, X> extend(final X value) {
-        return new EightTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
-                                value);
+        return new EightTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), value);
     }
 
     @Override
@@ -76,16 +73,11 @@ public class SevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
         return new SixTuple<>(first(), second(), third(), fourth(), fifth(), sixth());
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                          F extends Z, G extends Z, X extends Z>
-    Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendWith(
-            X value) {
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, X extends Z> Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendWith(X value) {
         return tuple -> tuple.extend(value);
     }
 
-    public static <A, B, C, D, E,
-                          F, G> SevenTuple<Object, A, B, C, D, E, F, G> of(
-            A first, B second, C third, D fourth, E fifth, F sixth, G seventh) {
+    public static <A, B, C, D, E, F, G> SevenTuple<Object, A, B, C, D, E, F, G> of(A first, B second, C third, D fourth, E fifth, F sixth, G seventh) {
         return new SevenTuple<>(first, second, third, fourth, fifth, sixth, seventh);
     }
 

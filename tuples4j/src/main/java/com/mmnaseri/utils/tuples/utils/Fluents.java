@@ -1,8 +1,6 @@
 package com.mmnaseri.utils.tuples.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 public final class Fluents {
 
@@ -13,6 +11,10 @@ public final class Fluents {
     @SuppressWarnings("unchecked")
     public static <E> FluentList<E> listOf(E... values) {
         return new FluentList<E>().withAll(values);
+    }
+
+    public static <K, V> FluentMap<K, V> mapOf(Map<? extends K, ? extends V> map) {
+        return new FluentMap<K, V>().withAll(map);
     }
 
     public static class FluentList<E> extends ArrayList<E> {
@@ -46,6 +48,30 @@ public final class Fluents {
             set(index, value);
             return this;
         }
+    }
+
+    public static class FluentMap<K, V> extends HashMap<K, V> {
+
+        public FluentMap<K, V> with(K key, V value) {
+            put(key, value);
+            return this;
+        }
+
+        public FluentMap<K, V> withAll(Map<? extends K, ? extends V> values) {
+            putAll(values);
+            return this;
+        }
+
+        public FluentMap<K, V> without(K key) {
+            remove(key);
+            return this;
+        }
+
+        public FluentMap<K, V> without(K key, V value) {
+            remove(key, value);
+            return this;
+        }
+
     }
 
 }

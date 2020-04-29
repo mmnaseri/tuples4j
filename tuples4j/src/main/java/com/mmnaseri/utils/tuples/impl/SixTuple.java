@@ -6,9 +6,7 @@ import java.util.function.Function;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
-public class SixTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                             F extends Z>
-        extends AbstractFixedTuple<Z, SixTuple<Z, A, B, C, D, E, F>>
+public class SixTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z> extends AbstractFixedTuple<Z, SixTuple<Z, A, B, C, D, E, F>>
         implements
         HasFirst<Z, SixTuple<Z, A, B, C, D, E, F>, A>,
         HasSecond<Z, SixTuple<Z, A, B, C, D, E, F>, B>,
@@ -68,16 +66,11 @@ public class SixTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E e
         return new FiveTuple<>(first(), second(), third(), fourth(), fifth());
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                          F extends Z, X extends Z>
-    Function<SixTuple<Z, A, B, C, D, E, F>, SevenTuple<Z, A, B, C, D, E, F, X>> extendWith(
-            X value) {
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, X extends Z> Function<SixTuple<Z, A, B, C, D, E, F>, SevenTuple<Z, A, B, C, D, E, F, X>> extendWith(X value) {
         return tuple -> tuple.extend(value);
     }
 
-    public static <A, B, C, D, E,
-                          F> SixTuple<Object, A, B, C, D, E, F> of(
-            A first, B second, C third, D fourth, E fifth, F sixth) {
+    public static <A, B, C, D, E, F> SixTuple<Object, A, B, C, D, E, F> of(A first, B second, C third, D fourth, E fifth, F sixth) {
         return new SixTuple<>(first, second, third, fourth, fifth, sixth);
     }
 
