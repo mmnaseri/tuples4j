@@ -1,0 +1,17 @@
+# IntelliJ IDEA files
+.idea/
+*.ipr
+*.iws
+*.iml
+out/
+
+# Eclipse IDE stuff
+.settings/
+.classpath
+.project
+
+# Maven Target
+target
+
+# macOS junk
+.DS_Store
