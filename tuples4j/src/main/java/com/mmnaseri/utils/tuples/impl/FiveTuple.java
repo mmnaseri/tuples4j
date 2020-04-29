@@ -65,4 +65,9 @@ public class FiveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E 
         return new FourTuple<>(first(), second(), third(), fourth());
     }
 
+    public static <A, B, C, D, E> FiveTuple<Object, A, B, C, D, E> of(
+            A first, B second, C third, D fourth, E fifth) {
+        return new FiveTuple<>(first, second, third, fourth, fifth);
+    }
+
 }

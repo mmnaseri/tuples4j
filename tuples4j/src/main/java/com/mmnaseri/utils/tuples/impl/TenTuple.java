@@ -117,4 +117,15 @@ public class TenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E e
         return new NineTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(),
                                eighth(), ninth());
     }
+
+    public static <A, B, C, D, E,
+                          F, G,
+                          H, I, J> TenTuple<Object, A, B, C, D, E, F, G, H, I, J> of(
+            A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth,
+            J tenth) {
+        return new TenTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth,
+                              tenth);
+    }
+
+
 }

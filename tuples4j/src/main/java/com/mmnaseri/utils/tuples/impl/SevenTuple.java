@@ -83,4 +83,10 @@ public class SevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
         return new SixTuple<>(first(), second(), third(), fourth(), fifth(), sixth());
     }
 
+    public static <A, B, C, D, E,
+                          F, G> SevenTuple<Object, A, B, C, D, E, F, G> of(
+            A first, B second, C third, D fourth, E fifth, F sixth, G seventh) {
+        return new SevenTuple<>(first, second, third, fourth, fifth, sixth, seventh);
+    }
+
 }

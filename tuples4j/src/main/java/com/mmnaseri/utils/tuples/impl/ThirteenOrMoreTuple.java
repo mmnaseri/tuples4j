@@ -170,4 +170,15 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
         }
     }
 
+    public static <A, B, C, D, E,
+                          F, G,
+                          H, I, J, K, L> ThirteenOrMoreTuple<Object, A, B, C, D, E, F, G, H, I, J, K, L> of(
+            A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth,
+            J tenth, K eleventh,
+            L twelfth, Object thirteenth, Object... rest) {
+        return new ThirteenOrMoreTuple<>(first, second, third, fourth, fifth, sixth, seventh,
+                                         eighth, ninth, tenth,
+                                         eleventh, twelfth, thirteenth, rest);
+    }
+
 }

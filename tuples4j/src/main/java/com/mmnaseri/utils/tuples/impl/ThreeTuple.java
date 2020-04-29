@@ -53,4 +53,9 @@ public class ThreeTuple<Z, A extends Z, B extends Z, C extends Z>
         return new TwoTuple<>(first(), second());
     }
 
+    public static <A, B, C> ThreeTuple<Object, A, B, C> of(A first,
+            B second, C third) {
+        return new ThreeTuple<>(first, second, third);
+    }
+
 }

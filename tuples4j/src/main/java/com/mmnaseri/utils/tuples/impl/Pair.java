@@ -6,4 +6,8 @@ public class Pair<A, B> extends TwoTuple<Object, A, B> {
         super(first, second);
     }
 
+    public static <A, B> Pair<A, B> of(A first, B second) {
+        return new Pair<>(first, second);
+    }
+
 }

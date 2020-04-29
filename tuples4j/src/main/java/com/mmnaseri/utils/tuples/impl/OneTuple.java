@@ -37,4 +37,8 @@ public class OneTuple<Z, A extends Z>
         return new EmptyTuple<>();
     }
 
+    public static <Z, A extends Z> OneTuple<Z, A> of(A first) {
+        return new OneTuple<>(first);
+    }
+
 }

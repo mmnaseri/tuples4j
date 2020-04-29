@@ -61,4 +61,9 @@ public class FourTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z>
         return new ThreeTuple<>(first(), second(), third());
     }
 
+    public static <A, B, C, D>
+    FourTuple<Object, A, B, C, D> of(A first, B second, C third, D fourth) {
+        return new FourTuple<>(first, second, third, fourth);
+    }
+
 }

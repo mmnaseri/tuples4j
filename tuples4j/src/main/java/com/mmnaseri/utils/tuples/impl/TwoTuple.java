@@ -53,4 +53,8 @@ public class TwoTuple<Z, A extends Z, B extends Z>
         return new KeyValue<>(first(), second());
     }
 
+    public static <A, B> TwoTuple<Object, A, B> of(A first, B second) {
+        return new TwoTuple<>(first, second);
+    }
+
 }

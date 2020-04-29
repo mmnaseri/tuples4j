@@ -92,4 +92,11 @@ public class EightTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
         return new SevenTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh());
     }
 
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, G extends Z, H extends Z> EightTuple<Z, A, B, C, D, E, F, G, H>
+    of(A first,
+            B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth) {
+        return new EightTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth);
+    }
+
 }

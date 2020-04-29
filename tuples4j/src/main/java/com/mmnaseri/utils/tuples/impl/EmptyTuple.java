@@ -24,4 +24,8 @@ public class EmptyTuple<Z> extends AbstractFixedTuple<Z, EmptyTuple<Z>> {
         return tuple -> tuple.extend(value);
     }
 
+    public static <Z> EmptyTuple<Z> of() {
+        return new EmptyTuple<>();
+    }
+
 }

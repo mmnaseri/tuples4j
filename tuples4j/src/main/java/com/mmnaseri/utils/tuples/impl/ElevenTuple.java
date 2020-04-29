@@ -123,4 +123,11 @@ public class ElevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, 
                               tenth());
     }
 
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z,
+                   G extends Z, H extends Z, I extends Z, J extends Z, K extends Z>
+    ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K> of(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth,
+            K eleventh) {
+        return new ElevenTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh);
+    }
+
 }

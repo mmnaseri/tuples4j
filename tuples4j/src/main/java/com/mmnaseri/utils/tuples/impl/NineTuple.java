@@ -110,4 +110,10 @@ public class NineTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E 
                                 eighth());
     }
 
+    public static <A, B, C, D, E,
+                          F, G,
+                          H, I> NineTuple<Object, A, B, C, D, E, F, G, H, I> of(
+            A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth) {
+        return new NineTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth);
+    }
 }
