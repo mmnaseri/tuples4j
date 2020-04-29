@@ -23,8 +23,4 @@ public interface HasThird<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
         return predicate.test(third());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasThird<Z, T, A>> matchingThird(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.third());
-    }
 }

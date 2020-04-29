@@ -23,8 +23,4 @@ public interface HasEighth<Z, T extends FixedTuple<Z, T>, A extends Z> extends F
         return predicate.test(eighth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasEighth<Z, T, A>> matchingEighth(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.eighth());
-    }
 }

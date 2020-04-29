@@ -23,8 +23,4 @@ public interface HasFourth<Z, T extends FixedTuple<Z, T>, A extends Z> extends F
         return predicate.test(fourth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasFourth<Z, T, A>> matchingFourth(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.fourth());
-    }
 }

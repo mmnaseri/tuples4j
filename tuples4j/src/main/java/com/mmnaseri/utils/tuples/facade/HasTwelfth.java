@@ -23,8 +23,4 @@ public interface HasTwelfth<Z, T extends FixedTuple<Z, T>, A extends Z> extends 
         return predicate.test(twelfth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasTwelfth<Z, T, A>> matchingTwelfth(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.twelfth());
-    }
 }

@@ -23,8 +23,4 @@ public interface HasTenth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
         return predicate.test(tenth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasTenth<Z, T, A>> matchingTenth(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.tenth());
-    }
 }

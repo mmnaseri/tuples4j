@@ -23,8 +23,4 @@ public interface HasFifth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
         return predicate.test(fifth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasFifth<Z, T, A>> matchingFifth(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.fifth());
-    }
 }

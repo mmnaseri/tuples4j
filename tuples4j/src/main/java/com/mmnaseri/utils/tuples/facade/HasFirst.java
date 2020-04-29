@@ -23,8 +23,4 @@ public interface HasFirst<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
         return predicate.test(first());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasFirst<Z, T, A>> matchingFirst(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.first());
-    }
 }

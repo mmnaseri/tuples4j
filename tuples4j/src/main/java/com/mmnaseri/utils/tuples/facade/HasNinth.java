@@ -23,8 +23,4 @@ public interface HasNinth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
         return predicate.test(ninth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasNinth<Z, T, A>> matchingNinth(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.ninth());
-    }
 }

@@ -23,8 +23,4 @@ public interface HasSeventh<Z, T extends FixedTuple<Z, T>, A extends Z> extends 
         return predicate.test(seventh());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasSeventh<Z, T, A>> matchingSeventh(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.seventh());
-    }
 }

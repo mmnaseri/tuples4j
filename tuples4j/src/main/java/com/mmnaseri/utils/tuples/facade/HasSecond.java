@@ -23,8 +23,4 @@ public interface HasSecond<Z, T extends FixedTuple<Z, T>, A extends Z> extends F
         return predicate.test(second());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasSecond<Z, T, A>> matchingSecond(
-            Predicate<A> predicate) {
-        return tuple -> tuple.checkSecond(predicate);
-    }
 }

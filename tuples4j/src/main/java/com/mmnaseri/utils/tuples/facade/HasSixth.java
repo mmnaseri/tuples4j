@@ -23,8 +23,4 @@ public interface HasSixth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
         return predicate.test(sixth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasSixth<Z, T, A>> matchingSixth(
-            Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.sixth());
-    }
 }
