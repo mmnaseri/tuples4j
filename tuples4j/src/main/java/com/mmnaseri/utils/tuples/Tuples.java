@@ -2,6 +2,8 @@ package com.mmnaseri.utils.tuples;
 
 import com.mmnaseri.utils.tuples.impl.*;
 
+import java.util.function.Function;
+
 public final class Tuples {
 
     private Tuples() {
@@ -109,4 +111,96 @@ public final class Tuples {
                                          eighth, ninth, tenth,
                                          eleventh, twelfth, thirteenth, rest);
     }
+
+    public static <Z, X extends Z> Function<EmptyTuple<Z>, OneTuple<Z, X>> extendEmpty(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, X extends Z> Function<OneTuple<Z, A>, TwoTuple<Z, A, X>> extendOne(
+            X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, X extends Z>
+    Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendTwo(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, X extends Z>
+    Function<ThreeTuple<Z, A, B, C>, FourTuple<Z, A, B, C, X>> extendThree(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, X extends Z>
+    Function<FourTuple<Z, A, B, C, D>, FiveTuple<Z, A, B, C, D, X>> extendFour(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z>
+    Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendFive(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, X extends Z>
+    Function<SixTuple<Z, A, B, C, D, E, F>, SevenTuple<Z, A, B, C, D, E, F, X>> extendSix(
+            X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, G extends Z, X extends Z>
+    Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendSeven(
+            X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, G extends Z
+                          , H extends Z, X extends Z>
+    Function<EightTuple<Z, A, B, C, D, E, F, G, H>, NineTuple<Z, A, B, C, D, E, F, G, H, X>> extendEight(
+            X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, G extends Z
+                          , H extends Z, I extends Z, X extends Z>
+    Function<NineTuple<Z, A, B, C, D, E, F, G, H, I>, TenTuple<Z, A, B, C, D, E, F, G, H, I, X>> extendNine(
+            X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, G extends Z
+                          , H extends Z, I extends Z, J extends Z, X extends Z>
+    Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, X>>
+    extendTen(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z
+                          , H extends Z, I extends Z, J extends Z, K extends Z, X extends Z>
+    Function<ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K>, TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, X>>
+    extendEleven(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z
+                          , H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z>
+    Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>,
+                    ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
+    extendTwelve(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z,
+                          G extends Z, H extends Z, I extends Z, J extends Z, K extends Z,
+                          L extends Z, X extends Z>
+    Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>,
+                    ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
+    extendLarge(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
 }
