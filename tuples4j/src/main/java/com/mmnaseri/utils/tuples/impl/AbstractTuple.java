@@ -3,25 +3,44 @@ package com.mmnaseri.utils.tuples.impl;
 import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.utils.Fluents;
 
+import java.util.List;
 import java.util.Objects;
 
-import static java.util.stream.Collectors.toList;
+import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
+import static java.util.stream.Collectors.joining;
 
 public abstract class AbstractTuple<Z> implements Tuple<Z> {
 
-    private Fluents.FluentList<Z> list;
+    private static final String STRING_FORMAT = "<%s>";
+    private final String string;
+    private final int hashCode;
+    private final Fluents.FluentList<Z> values;
+
+    protected AbstractTuple(List<? extends Z> values) {
+        this.values = Fluents.listOf(values);
+        string = String.format(STRING_FORMAT, stream().map(Objects::toString).collect(joining(", ")));
+        hashCode = Objects.hashCode(asList());
+    }
 
     @Override
     public Fluents.FluentList<Z> asList() {
-        if (list == null) {
-            list = new Fluents.FluentList<Z>().withAll(stream().collect(toList()));
-        }
-        return list;
+        return values;
+    }
+
+    @Override
+    public int size() {
+        return values.size();
+    }
+
+    @Override
+    public Z get(final int i) {
+        checkIndex(i, size());
+        return values.get(i);
     }
 
     @Override
     public String toString() {
-        return asList().toString();
+        return string;
     }
 
     @Override
@@ -31,7 +50,7 @@ public abstract class AbstractTuple<Z> implements Tuple<Z> {
 
     @Override
     public int hashCode() {
-        return asList().hashCode();
+        return hashCode;
     }
 
 }

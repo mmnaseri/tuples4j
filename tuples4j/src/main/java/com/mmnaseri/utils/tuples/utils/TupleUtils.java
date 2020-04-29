@@ -13,4 +13,11 @@ public final class TupleUtils {
         return null;
     }
 
+    public static <E> E checkSize(int size, int expected) {
+        if (size < expected) {
+            throw new IllegalStateException("Expected a size of at least " + expected + " but received " + size);
+        }
+        return null;
+    }
+
 }

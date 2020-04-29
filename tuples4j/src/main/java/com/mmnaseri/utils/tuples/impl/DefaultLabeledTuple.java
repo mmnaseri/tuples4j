@@ -7,30 +7,38 @@ import com.mmnaseri.utils.tuples.utils.Fluents;
 import java.util.*;
 import java.util.stream.IntStream;
 
+import static com.mmnaseri.utils.tuples.utils.Fluents.listOf;
 import static com.mmnaseri.utils.tuples.utils.Fluents.mapOf;
 
 public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     private final Tuple<Z> tuple;
     private final List<String> labels;
-    private Fluents.FluentMap<String, Z> map;
+    private final Fluents.FluentMap<String, Z> map;
+    private final String string;
+    private final int hashCode;
 
     public DefaultLabeledTuple(final Tuple<Z> tuple, final List<String> labels) {
+        if (labels.size() != size()) {
+            throw new IllegalArgumentException("Expected " + tuple.size() + " labels, but received " + labels.size());
+        }
         this.tuple = Objects.requireNonNull(tuple);
         this.labels = Collections.unmodifiableList(Objects.requireNonNull(labels));
-        if (labels.size() != size()) {
-            throw new IllegalArgumentException("Expected " + size() + " labels, but received " + labels.size());
-        }
+        map = mapOf(IntStream.range(0, size())
+                             .boxed()
+                             .collect(HashMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll));
+        string = map.toString();
+        hashCode = map.hashCode();
     }
 
     @Override
     public String toString() {
-        return asMap().toString();
+        return string;
     }
 
     @Override
     public int hashCode() {
-        return asMap().hashCode();
+        return hashCode;
     }
 
     @Override
@@ -45,11 +53,6 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     @Override
     public Fluents.FluentMap<String, Z> asMap() {
-        if (map == null) {
-            map = mapOf(IntStream.range(0, size())
-                                 .boxed()
-                                 .collect(HashMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll));
-        }
         return map;
     }
 
@@ -69,23 +72,23 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
     }
 
     @Override
-    public Tuple<Z> change(final int index, final Z value) {
-        return tuple.change(index, value);
+    public LabeledTuple<Z> change(final int index, final Z value) {
+        return new DefaultLabeledTuple<>(tuple.change(index, value), labels);
     }
 
     @Override
-    public Tuple<Z> clear() {
-        return tuple.clear();
+    public LabeledTuple<Z> drop(final int index) {
+        return new DefaultLabeledTuple<>(tuple.drop(index), listOf(labels).without(index));
     }
 
     @Override
-    public Tuple<Z> drop(final int index) {
-        return tuple.drop(index);
+    public LabeledTuple<Z> relabel(final int index, final String newLabel) {
+        return new DefaultLabeledTuple<>(tuple, listOf(labels).change(index, newLabel));
     }
 
     @Override
-    public <X extends Z> Tuple<Z> extend(final X value) {
-        return tuple.extend(value);
+    public <X extends Z> LabeledTuple<Z> extend(final X value) {
+        return new DefaultLabeledTuple<>(tuple.extend(value), listOf(labels).with("l" + (labels.size() + 1)));
     }
 
 }

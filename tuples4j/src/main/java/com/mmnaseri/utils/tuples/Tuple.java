@@ -4,14 +4,17 @@ import com.mmnaseri.utils.tuples.facade.*;
 import com.mmnaseri.utils.tuples.impl.*;
 import com.mmnaseri.utils.tuples.utils.Fluents;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkSize;
 import static java.util.stream.Collectors.toCollection;
 
 public interface Tuple<Z> {
@@ -22,7 +25,9 @@ public interface Tuple<Z> {
 
     Tuple<Z> change(int index, Z value);
 
-    Tuple<Z> clear();
+    default Tuple<Z> clear() {
+        return EmptyTuple.of();
+    }
 
     Tuple<Z> drop(int index);
 
@@ -48,14 +53,68 @@ public interface Tuple<Z> {
         return new DefaultLabeledTuple<>(this, labels);
     }
 
-    static <Z> Collector<Z, Tuple<Z>, Tuple<Z>> toTuple() {
-        return Collector.of(ImmutableTuple::new, Tuple::extend, (left, right) -> {
-            Tuple<Z> tuple = left;
-            for (int i = 0; i < right.size(); i++) {
-                tuple = tuple.extend(right.get(i));
-            }
-            return tuple;
-        });
+    default EmptyTuple<Z> asEmpty() {
+        return EmptyTuple.of();
+    }
+
+    default OneTuple<Object, Z> asOne() {
+        checkSize(size(), 1);
+        return OneTuple.of(get(0));
+    }
+
+    default TwoTuple<Object, Z, Z> asTwo() {
+        checkSize(size(), 2);
+        return of(get(0), get(1));
+    }
+
+    default ThreeTuple<Object, Z, Z, Z> asThree() {
+        checkSize(size(), 3);
+        return of(get(0), get(1), get(2));
+    }
+
+    default FourTuple<Object, Z, Z, Z, Z> asFour() {
+        checkSize(size(), 4);
+        return of(get(0), get(1), get(2), get(3));
+    }
+
+    default FiveTuple<Object, Z, Z, Z, Z, Z> asFive() {
+        checkSize(size(), 5);
+        return of(get(0), get(1), get(2), get(3), get(4));
+    }
+
+    default SixTuple<Object, Z, Z, Z, Z, Z, Z> asSix() {
+        checkSize(size(), 6);
+        return of(get(0), get(1), get(2), get(3), get(4), get(5));
+    }
+
+    default SevenTuple<Object, Z, Z, Z, Z, Z, Z, Z> asSeven() {
+        checkSize(size(), 7);
+        return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6));
+    }
+
+    default EightTuple<Object, Z, Z, Z, Z, Z, Z, Z, Z> asEight() {
+        checkSize(size(), 8);
+        return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6), get(7));
+    }
+
+    default NineTuple<Object, Z, Z, Z, Z, Z, Z, Z, Z, Z> asNine() {
+        checkSize(size(), 9);
+        return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6), get(7), get(8));
+    }
+
+    default TenTuple<Object, Z, Z, Z, Z, Z, Z, Z, Z, Z, Z> asTen() {
+        checkSize(size(), 10);
+        return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6), get(7), get(8), get(9));
+    }
+
+    default ElevenTuple<Object, Z, Z, Z, Z, Z, Z, Z, Z, Z, Z, Z> asEleven() {
+        checkSize(size(), 11);
+        return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6), get(7), get(8), get(9), get(10));
+    }
+
+    default TwelveTuple<Object, Z, Z, Z, Z, Z, Z, Z, Z, Z, Z, Z, Z> asTwelve() {
+        checkSize(size(), 12);
+        return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6), get(7), get(8), get(9), get(10), get(11));
     }
 
     static <Z> Function<Tuple<Z>, LabeledTuple<Z>> labelWith(String... labels) {
@@ -64,6 +123,21 @@ public interface Tuple<Z> {
 
     static <Z> Function<Tuple<Z>, LabeledTuple<Z>> labelWith(List<String> labels) {
         return zTuple -> zTuple.withLabels(labels);
+    }
+
+    static <Z> Tuple<Z> asTuple(List<? extends Z> values) {
+        return new ImmutableTuple<>(values);
+    }
+
+    static <Z> Collector<Z, List<Z>, Tuple<Z>> toTuple() {
+        return toTuple(ArrayList::new);
+    }
+
+    static <Z> Collector<Z, List<Z>, Tuple<Z>> toTuple(final Supplier<List<Z>> listSupplier) {
+        return Collector.of(listSupplier, List::add, (left, right) -> {
+            left.addAll(right);
+            return left;
+        }, ImmutableTuple::new);
     }
 
     static <Z> EmptyTuple<Z> empty() {

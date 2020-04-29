@@ -1,7 +1,9 @@
 package com.mmnaseri.utils.tuples;
 
+import com.mmnaseri.utils.tuples.impl.DefaultLabeledTuple;
 import com.mmnaseri.utils.tuples.utils.Fluents;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -11,6 +13,11 @@ import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 public interface LabeledTuple<Z> extends Tuple<Z> {
 
     List<String> labels();
+
+    @Override
+    default LabeledTuple<Z> clear() {
+        return empty();
+    }
 
     default String label(int index) {
         checkIndex(index, size());
@@ -23,7 +30,10 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
         return get(index);
     }
 
-    default Tuple<Z> change(String label, Z value) {
+    @Override
+    LabeledTuple<Z> change(int index, Z value);
+
+    default LabeledTuple<Z> change(String label, Z value) {
         final int index = labels().indexOf(label);
         checkIndex(index, size());
         return change(index, value);
@@ -35,10 +45,28 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
         return drop(index);
     }
 
+    @Override
+    LabeledTuple<Z> drop(int index);
+
+    LabeledTuple<Z> relabel(int index, String newLabel);
+
+    default LabeledTuple<Z> relabel(String oldLabel, String newLabel) {
+        final int index = labels().indexOf(oldLabel);
+        checkIndex(index, size());
+        return relabel(index, newLabel);
+    }
+
+    @Override
+    <X extends Z> LabeledTuple<Z> extend(X value);
+
     default Fluents.FluentMap<String, Z> asMap() {
         return IntStream.range(0, size())
                         .boxed()
                         .collect(Fluents.FluentMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
+    }
+
+    static <Z> LabeledTuple<Z> empty() {
+        return new DefaultLabeledTuple<>(Tuple.empty(), Collections.emptyList());
     }
 
 }

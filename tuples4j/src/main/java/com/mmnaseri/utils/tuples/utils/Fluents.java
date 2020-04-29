@@ -13,6 +13,10 @@ public final class Fluents {
         return new FluentList<E>().withAll(values);
     }
 
+    public static <E> FluentList<E> listOf(Collection<? extends E> values) {
+        return new FluentList<E>().withAll(values);
+    }
+
     public static <K, V> FluentMap<K, V> mapOf(Map<? extends K, ? extends V> map) {
         return new FluentMap<K, V>().withAll(map);
     }

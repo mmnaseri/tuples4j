@@ -5,7 +5,6 @@ import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.facade.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
@@ -13,26 +12,13 @@ import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 public abstract class AbstractFixedTuple<Z, T extends AbstractFixedTuple<Z, T>> extends AbstractTuple<Z>
         implements FixedTuple<Z, T> {
 
-    private final List<Z> values;
-
     @SafeVarargs
     protected AbstractFixedTuple(Z... values) {
         this(Arrays.asList(values));
     }
 
     public AbstractFixedTuple(List<Z> values) {
-        this.values = Collections.unmodifiableList(values);
-    }
-
-    @Override
-    public final int size() {
-        return values.size();
-    }
-
-    @Override
-    public final Z get(final int i) {
-        checkIndex(i, size());
-        return values.get(i);
+        super(values);
     }
 
     @SuppressWarnings("unchecked")
