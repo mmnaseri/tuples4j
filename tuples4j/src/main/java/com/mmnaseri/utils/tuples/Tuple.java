@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -45,6 +46,16 @@ public interface Tuple<Z> {
 
     default LabeledTuple<Z> withLabels(List<String> labels) {
         return new DefaultLabeledTuple<>(this, labels);
+    }
+
+    static <Z> Collector<Z, Tuple<Z>, Tuple<Z>> toTuple() {
+        return Collector.of(ImmutableTuple::new, Tuple::extend, (left, right) -> {
+            Tuple<Z> tuple = left;
+            for (int i = 0; i < right.size(); i++) {
+                tuple = tuple.extend(right.get(i));
+            }
+            return tuple;
+        });
     }
 
     static <Z> Function<Tuple<Z>, LabeledTuple<Z>> labelWith(String... labels) {
