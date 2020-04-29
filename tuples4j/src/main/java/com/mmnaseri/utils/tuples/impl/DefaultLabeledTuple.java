@@ -19,7 +19,7 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
     private final int hashCode;
 
     public DefaultLabeledTuple(final Tuple<Z> tuple, final List<String> labels) {
-        if (labels.size() != size()) {
+        if (labels.size() != tuple.size()) {
             throw new IllegalArgumentException("Expected " + tuple.size() + " labels, but received " + labels.size());
         }
         this.tuple = Objects.requireNonNull(tuple);

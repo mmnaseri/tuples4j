@@ -59,6 +59,10 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
     @Override
     <X extends Z> LabeledTuple<Z> extend(X value);
 
+    default <X extends Z> LabeledTuple<Z> extend(X value, String label) {
+        return extend(value).relabel(size(), label);
+    }
+
     default Fluents.FluentMap<String, Z> asMap() {
         return IntStream.range(0, size())
                         .boxed()
