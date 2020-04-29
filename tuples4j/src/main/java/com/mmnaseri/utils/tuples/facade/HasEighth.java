@@ -19,11 +19,11 @@ public interface HasEighth<Z, T extends FixedTuple<Z, T>, A extends Z> extends F
     Tuple<Z> dropEighth();
 
 
-    default Predicate<? extends HasEighth<Z, T, A>> checkEighth(Predicate<A> predicate) {
-        return tuple -> predicate.test(eighth());
+    default boolean checkEighth(Predicate<A> predicate) {
+        return predicate.test(eighth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasEighth<Z, T, A>> matchingEighth(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasEighth<Z, T, A>> matchingEighth(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.eighth());
     }

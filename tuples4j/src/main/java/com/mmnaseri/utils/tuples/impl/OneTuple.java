@@ -27,14 +27,14 @@ public class OneTuple<Z, A extends Z>
         return new TwoTuple<>(first(), value);
     }
 
-    public static <Z, A extends Z, X extends Z> Function<OneTuple<Z, A>, TwoTuple<Z, A, X>> extendWith(
-            X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public EmptyTuple<Z> dropFirst() {
         return new EmptyTuple<>();
+    }
+
+    public static <Z, A extends Z, X extends Z> Function<OneTuple<Z, A>, TwoTuple<Z, A, X>> extendWith(
+            X value) {
+        return tuple -> tuple.extend(value);
     }
 
     public static <Z, A extends Z> OneTuple<Z, A> of(A first) {

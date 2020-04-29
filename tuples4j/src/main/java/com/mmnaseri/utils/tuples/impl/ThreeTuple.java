@@ -33,11 +33,6 @@ public class ThreeTuple<Z, A extends Z, B extends Z, C extends Z>
         return new FourTuple<>(first(), second(), third(), value);
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, X extends Z>
-    Function<ThreeTuple<Z, A, B, C>, FourTuple<Z, A, B, C, X>> extendWith(X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public TwoTuple<Z, B, C> dropFirst() {
         return new TwoTuple<>(second(), third());
@@ -51,6 +46,11 @@ public class ThreeTuple<Z, A extends Z, B extends Z, C extends Z>
     @Override
     public TwoTuple<Z, A, B> dropThird() {
         return new TwoTuple<>(first(), second());
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, X extends Z>
+    Function<ThreeTuple<Z, A, B, C>, FourTuple<Z, A, B, C, X>> extendWith(X value) {
+        return tuple -> tuple.extend(value);
     }
 
     public static <A, B, C> ThreeTuple<Object, A, B, C> of(A first,

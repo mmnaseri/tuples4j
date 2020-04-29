@@ -19,11 +19,11 @@ public interface HasFifth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
     Tuple<Z> dropFifth();
 
 
-    default Predicate<? extends HasFifth<Z, T, A>> checkFifth(Predicate<A> predicate) {
-        return tuple -> predicate.test(fifth());
+    default boolean checkFifth(Predicate<A> predicate) {
+        return predicate.test(fifth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasFifth<Z, T, A>> matchingFifth(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasFifth<Z, T, A>> matchingFifth(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.fifth());
     }

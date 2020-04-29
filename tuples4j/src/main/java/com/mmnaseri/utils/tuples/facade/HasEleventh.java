@@ -19,11 +19,11 @@ public interface HasEleventh<Z, T extends FixedTuple<Z, T>, A extends Z> extends
     Tuple<Z> dropEleventh();
 
 
-    default Predicate<? extends HasEleventh<Z, T, A>> checkEleventh(Predicate<A> predicate) {
-        return tuple -> predicate.test(eleventh());
+    default boolean checkEleventh(Predicate<A> predicate) {
+        return predicate.test(eleventh());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasEleventh<Z, T, A>> matchingEleventh(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasEleventh<Z, T, A>> matchingEleventh(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.eleventh());
     }

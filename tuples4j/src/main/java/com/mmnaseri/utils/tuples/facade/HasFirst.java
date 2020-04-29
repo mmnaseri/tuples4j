@@ -19,11 +19,11 @@ public interface HasFirst<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
     Tuple<Z> dropFirst();
 
 
-    default Predicate<? extends HasFirst<Z, T, A>> checkFirst(Predicate<A> predicate) {
-        return tuple -> predicate.test(first());
+    default boolean checkFirst(Predicate<A> predicate) {
+        return predicate.test(first());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasFirst<Z, T, A>> matchingFirst(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasFirst<Z, T, A>> matchingFirst(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.first());
     }

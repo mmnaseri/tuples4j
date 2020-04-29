@@ -35,11 +35,6 @@ public class FiveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E 
         return new SixTuple<>(first(), second(), third(), fourth(), fifth(), value);
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z>
-    Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendWith(X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public FourTuple<Z, B, C, D, E> dropFirst() {
         return new FourTuple<>(second(), third(), fourth(), fifth());
@@ -63,6 +58,11 @@ public class FiveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E 
     @Override
     public FourTuple<Z, A, B, C, D> dropFifth() {
         return new FourTuple<>(first(), second(), third(), fourth());
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z>
+    Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendWith(X value) {
+        return tuple -> tuple.extend(value);
     }
 
     public static <A, B, C, D, E> FiveTuple<Object, A, B, C, D, E> of(

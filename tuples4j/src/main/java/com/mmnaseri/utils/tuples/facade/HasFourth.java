@@ -19,11 +19,11 @@ public interface HasFourth<Z, T extends FixedTuple<Z, T>, A extends Z> extends F
     Tuple<Z> dropFourth();
 
 
-    default Predicate<? extends HasFourth<Z, T, A>> checkFourth(Predicate<A> predicate) {
-        return tuple -> predicate.test(fourth());
+    default boolean checkFourth(Predicate<A> predicate) {
+        return predicate.test(fourth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasFourth<Z, T, A>> matchingFourth(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasFourth<Z, T, A>> matchingFourth(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.fourth());
     }

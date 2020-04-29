@@ -41,13 +41,6 @@ public class SevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
                                 value);
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                          F extends Z, G extends Z, X extends Z>
-    Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendWith(
-            X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public SixTuple<Z, B, C, D, E, F, G> dropFirst() {
         return new SixTuple<>(second(), third(), fourth(), fifth(), sixth(), seventh());
@@ -81,6 +74,13 @@ public class SevenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E
     @Override
     public SixTuple<Z, A, B, C, D, E, F> dropSeventh() {
         return new SixTuple<>(first(), second(), third(), fourth(), fifth(), sixth());
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, G extends Z, X extends Z>
+    Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendWith(
+            X value) {
+        return tuple -> tuple.extend(value);
     }
 
     public static <A, B, C, D, E,

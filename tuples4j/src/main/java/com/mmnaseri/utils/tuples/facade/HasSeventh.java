@@ -19,11 +19,11 @@ public interface HasSeventh<Z, T extends FixedTuple<Z, T>, A extends Z> extends 
     Tuple<Z> dropSeventh();
 
 
-    default Predicate<? extends HasSeventh<Z, T, A>> checkSeventh(Predicate<A> predicate) {
-        return tuple -> predicate.test(seventh());
+    default boolean checkSeventh(Predicate<A> predicate) {
+        return predicate.test(seventh());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasSeventh<Z, T, A>> matchingSeventh(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasSeventh<Z, T, A>> matchingSeventh(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.seventh());
     }

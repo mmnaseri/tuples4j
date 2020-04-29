@@ -19,12 +19,12 @@ public interface HasSecond<Z, T extends FixedTuple<Z, T>, A extends Z> extends F
     Tuple<Z> dropSecond();
 
 
-    default Predicate<? extends HasSecond<Z, T, A>> checkSecond(Predicate<A> predicate) {
-        return tuple -> predicate.test(second());
+    default boolean checkSecond(Predicate<A> predicate) {
+        return predicate.test(second());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasSecond<Z, T, A>> matchingSecond(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasSecond<Z, T, A>> matchingSecond(
             Predicate<A> predicate) {
-        return tuple -> predicate.test(tuple.second());
+        return tuple -> tuple.checkSecond(predicate);
     }
 }

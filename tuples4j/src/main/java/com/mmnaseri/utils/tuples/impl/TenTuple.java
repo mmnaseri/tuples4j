@@ -50,14 +50,6 @@ public class TenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E e
                                  tenth(), value);
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
-                          F extends Z, G extends Z
-                          , H extends Z, I extends Z, J extends Z, X extends Z>
-    Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, X>>
-    extendWith(X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public NineTuple<Z, B, C, D, E, F, G, H, I, J> dropFirst() {
         return new NineTuple<>(second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(),
@@ -118,6 +110,14 @@ public class TenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E e
                                eighth(), ninth());
     }
 
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z,
+                          F extends Z, G extends Z
+                          , H extends Z, I extends Z, J extends Z, X extends Z>
+    Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, X>>
+    extendWith(X value) {
+        return tuple -> tuple.extend(value);
+    }
+
     public static <A, B, C, D, E,
                           F, G,
                           H, I, J> TenTuple<Object, A, B, C, D, E, F, G, H, I, J> of(
@@ -126,6 +126,5 @@ public class TenTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, E e
         return new TenTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth,
                               tenth);
     }
-
 
 }

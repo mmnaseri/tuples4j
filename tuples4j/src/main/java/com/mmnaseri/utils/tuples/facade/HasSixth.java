@@ -19,11 +19,11 @@ public interface HasSixth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
     Tuple<Z> dropSixth();
 
 
-    default Predicate<? extends HasSixth<Z, T, A>> checkSixth(Predicate<A> predicate) {
-        return tuple -> predicate.test(sixth());
+    default boolean checkSixth(Predicate<A> predicate) {
+        return predicate.test(sixth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasSixth<Z, T, A>> matchingSixth(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasSixth<Z, T, A>> matchingSixth(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.sixth());
     }

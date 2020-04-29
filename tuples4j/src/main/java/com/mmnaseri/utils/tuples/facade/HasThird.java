@@ -19,11 +19,11 @@ public interface HasThird<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
     Tuple<Z> dropThird();
 
 
-    default Predicate<? extends HasThird<Z, T, A>> checkThird(Predicate<A> predicate) {
-        return tuple -> predicate.test(third());
+    default boolean checkThird(Predicate<A> predicate) {
+        return predicate.test(third());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasThird<Z, T, A>> matchingThird(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasThird<Z, T, A>> matchingThird(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.third());
     }

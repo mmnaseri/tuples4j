@@ -51,15 +51,6 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
         return new ThirteenOrMoreTuple<>(asList().with(value));
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z,
-                          G extends Z, H extends Z, I extends Z, J extends Z, K extends Z,
-                          L extends Z, X extends Z>
-    Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>,
-                    ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
-    extendWith(X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public Tuple<Z> dropFirst() {
         return dropAt(0);
@@ -168,6 +159,15 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
         } else {
             return new ThirteenOrMoreTuple<>(asList().without(index));
         }
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z,
+                          G extends Z, H extends Z, I extends Z, J extends Z, K extends Z,
+                          L extends Z, X extends Z>
+    Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>,
+                    ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
+    extendWith(X value) {
+        return tuple -> tuple.extend(value);
     }
 
     public static <A, B, C, D, E,

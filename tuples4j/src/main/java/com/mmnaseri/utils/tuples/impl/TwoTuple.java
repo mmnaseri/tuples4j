@@ -30,11 +30,6 @@ public class TwoTuple<Z, A extends Z, B extends Z>
         return new ThreeTuple<>(first(), second(), value);
     }
 
-    public static <Z, A extends Z, B extends Z, X extends Z>
-    Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendWith(X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public OneTuple<Z, B> dropFirst() {
         return new OneTuple<>(second());
@@ -51,6 +46,11 @@ public class TwoTuple<Z, A extends Z, B extends Z>
 
     public KeyValue<A, B> asKeyValue() {
         return new KeyValue<>(first(), second());
+    }
+
+    public static <Z, A extends Z, B extends Z, X extends Z>
+    Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendWith(X value) {
+        return tuple -> tuple.extend(value);
     }
 
     public static <A, B> TwoTuple<Object, A, B> of(A first, B second) {

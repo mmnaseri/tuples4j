@@ -19,11 +19,11 @@ public interface HasTenth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
     Tuple<Z> dropTenth();
 
 
-    default Predicate<? extends HasTenth<Z, T, A>> checkTenth(Predicate<A> predicate) {
-        return tuple -> predicate.test(tenth());
+    default boolean checkTenth(Predicate<A> predicate) {
+        return predicate.test(tenth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasTenth<Z, T, A>> matchingTenth(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasTenth<Z, T, A>> matchingTenth(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.tenth());
     }

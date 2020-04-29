@@ -52,14 +52,6 @@ public class TwelveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, 
                                          ninth(), tenth(), eleventh(), twelfth(), value);
     }
 
-    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z
-                          , H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z>
-    Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>,
-                    ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
-    extendWith(X value) {
-        return tuple -> tuple.extend(value);
-    }
-
     @Override
     public ElevenTuple<Z, B, C, D, E, F, G, H, I, J, K, L> dropFirst() {
         return new ElevenTuple<>(second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(),
@@ -130,6 +122,14 @@ public class TwelveTuple<Z, A extends Z, B extends Z, C extends Z, D extends Z, 
     public ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K> dropTwelfth() {
         return new ElevenTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(),
                                  tenth(), eleventh());
+    }
+
+    public static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z
+                          , H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z>
+    Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>,
+                    ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>>
+    extendWith(X value) {
+        return tuple -> tuple.extend(value);
     }
 
     public static <A, B, C, D, E,

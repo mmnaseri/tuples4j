@@ -19,11 +19,11 @@ public interface HasTwelfth<Z, T extends FixedTuple<Z, T>, A extends Z> extends 
     Tuple<Z> dropTwelfth();
 
 
-    default Predicate<? extends HasTwelfth<Z, T, A>> checkTwelfth(Predicate<A> predicate) {
-        return tuple -> predicate.test(twelfth());
+    default boolean checkTwelfth(Predicate<A> predicate) {
+        return predicate.test(twelfth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasTwelfth<Z, T, A>> matchingTwelfth(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasTwelfth<Z, T, A>> matchingTwelfth(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.twelfth());
     }

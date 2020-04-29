@@ -19,11 +19,11 @@ public interface HasNinth<Z, T extends FixedTuple<Z, T>, A extends Z> extends Fi
     Tuple<Z> dropNinth();
 
 
-    default Predicate<? extends HasNinth<Z, T, A>> checkNinth(Predicate<A> predicate) {
-        return tuple -> predicate.test(ninth());
+    default boolean checkNinth(Predicate<A> predicate) {
+        return predicate.test(ninth());
     }
 
-    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<? extends HasNinth<Z, T, A>> matchingNinth(
+    static <Z, T extends FixedTuple<Z, T>, A extends Z> Predicate<HasNinth<Z, T, A>> matchingNinth(
             Predicate<A> predicate) {
         return tuple -> predicate.test(tuple.ninth());
     }
