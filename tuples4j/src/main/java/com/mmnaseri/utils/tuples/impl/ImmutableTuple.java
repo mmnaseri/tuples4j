@@ -3,7 +3,6 @@ package com.mmnaseri.utils.tuples.impl;
 import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.utils.Fluents;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
