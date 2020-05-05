@@ -17,7 +17,7 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
 
     @Override
     default LabeledTuple<Z> clear() {
-        return empty();
+        return new DefaultLabeledTuple<>(this, Collections.emptyList());
     }
 
     default String label(int index) {
@@ -75,7 +75,7 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
                         .collect(Fluents.FluentMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
     }
 
-    static <Z> LabeledTuple<Z> empty() {
+    static LabeledTuple<Object> empty() {
         return new DefaultLabeledTuple<>(Tuple.empty(), Collections.emptyList());
     }
 

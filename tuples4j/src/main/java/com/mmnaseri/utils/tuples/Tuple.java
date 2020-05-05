@@ -1,15 +1,14 @@
 package com.mmnaseri.utils.tuples;
 
+import com.mmnaseri.utils.tuples.facade.*;
 import com.mmnaseri.utils.tuples.impl.*;
 import com.mmnaseri.utils.tuples.utils.Fluents;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collector;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -20,7 +19,7 @@ public interface Tuple<Z> {
 
     int size();
 
-    Z get(int i);
+    Z get(int index);
 
     default Tuple<Z> change(int index, Z value) {
         return change(index, () -> value);
@@ -60,13 +59,14 @@ public interface Tuple<Z> {
         return new DefaultLabeledTuple<>(this, labels);
     }
 
-    default EmptyTuple<Z> asEmpty() {
-        return EmptyTuple.of();
+    default EmptyTuple<Object> asEmpty() {
+        checkSize(size(), 0);
+        return of();
     }
 
     default OneTuple<Object, Z> asOne() {
         checkSize(size(), 1);
-        return OneTuple.of(get(0));
+        return of(get(0));
     }
 
     default TwoTuple<Object, Z, Z> asTwo() {
@@ -124,87 +124,18 @@ public interface Tuple<Z> {
         return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6), get(7), get(8), get(9), get(10), get(11));
     }
 
+    // Static utility and builder methods.
+
     static <Z> Function<Tuple<Z>, LabeledTuple<Z>> labelWith(String... labels) {
         return labelWith(Arrays.asList(labels));
     }
 
     static <Z> Function<Tuple<Z>, LabeledTuple<Z>> labelWith(List<String> labels) {
-        return zTuple -> zTuple.withLabels(labels);
+        return tuple -> tuple.withLabels(labels);
     }
 
-    static <Z> Tuple<Z> asTuple(List<? extends Z> values) {
-        return new ImmutableTuple<>(values);
-    }
-
-    static <Z> Collector<Z, List<Z>, Tuple<Z>> toTuple() {
-        return toTuple(ArrayList::new);
-    }
-
-    static <Z> Collector<Z, List<Z>, Tuple<Z>> toTuple(final Supplier<List<Z>> listSupplier) {
-        return Collector.of(listSupplier, List::add, (left, right) -> {
-            left.addAll(right);
-            return left;
-        }, ImmutableTuple::new);
-    }
-
-    static <Z> EmptyTuple<Z> empty() {
+    static EmptyTuple<Object> of() {
         return new EmptyTuple<>();
-    }
-
-    static <A> OneTuple<Object, A> one(A first) {
-        return new OneTuple<>(first);
-    }
-
-    static <A, B> TwoTuple<Object, A, B> two(A first, B second) {
-        return new TwoTuple<>(first, second);
-    }
-
-    static <A, B, C> ThreeTuple<Object, A, B, C> three(A first, B second, C third) {
-        return new ThreeTuple<>(first, second, third);
-    }
-
-    static <A, B, C, D> FourTuple<Object, A, B, C, D> four(A first, B second, C third, D fourth) {
-        return new FourTuple<>(first, second, third, fourth);
-    }
-
-    static <A, B, C, D, E> FiveTuple<Object, A, B, C, D, E> five(A first, B second, C third, D fourth, E fifth) {
-        return new FiveTuple<>(first, second, third, fourth, fifth);
-    }
-
-    static <A, B, C, D, E, F> SixTuple<Object, A, B, C, D, E, F> six(A first, B second, C third, D fourth, E fifth, F sixth) {
-        return new SixTuple<>(first, second, third, fourth, fifth, sixth);
-    }
-
-    static <A, B, C, D, E, F, G> SevenTuple<Object, A, B, C, D, E, F, G> seven(A first, B second, C third, D fourth, E fifth, F sixth, G seventh) {
-        return new SevenTuple<>(first, second, third, fourth, fifth, sixth, seventh);
-    }
-
-    static <A, B, C, D, E, F, G, H> EightTuple<Object, A, B, C, D, E, F, G, H> eight(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth) {
-        return new EightTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth);
-    }
-
-    static <A, B, C, D, E, F, G, H, I> NineTuple<Object, A, B, C, D, E, F, G, H, I> nine(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth) {
-        return new NineTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth);
-    }
-
-    static <A, B, C, D, E, F, G, H, I, J> TenTuple<Object, A, B, C, D, E, F, G, H, I, J> ten(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth) {
-        return new TenTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth);
-    }
-
-    static <A, B, C, D, E, F, G, H, I, J, K> ElevenTuple<Object, A, B, C, D, E, F, G, H, I, J, K> eleven(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh) {
-        return new ElevenTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh);
-    }
-
-    static <A, B, C, D, E, F, G, H, I, J, K, L> TwelveTuple<Object, A, B, C, D, E, F, G, H, I, J, K, L> twelve(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth) {
-        return new TwelveTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth);
-    }
-
-    static <A, B, C, D, E, F, G, H, I, J, K, L> ThirteenOrMoreTuple<Object, A, B, C, D, E, F, G, H, I, J, K, L> large(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth, Object thirteenth, Object... rest) {
-        return new ThirteenOrMoreTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth, rest);
-    }
-
-    static <Z> EmptyTuple<Z> of() {
-        return empty();
     }
 
     static <A> OneTuple<Object, A> of(A first) {
@@ -259,116 +190,471 @@ public interface Tuple<Z> {
         return new ThirteenOrMoreTuple<>(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth, rest);
     }
 
-    static <Z, X extends Z> Function<EmptyTuple<Z>, OneTuple<Z, X>> extendEmpty(X value) {
-        return extendEmpty(() -> value);
+    static <A, B, C, D, E, F, G, H, I, J, K, L> EmptyTuple<Object> empty() {
+        return of();
     }
 
-    static <Z, X extends Z> Function<EmptyTuple<Z>, OneTuple<Z, X>> extendEmpty(Supplier<X> value) {
+    static <A, B, C, D, E, F, G, H, I, J, K, L> OneTuple<Object, A> one(A first) {
+        return of(first);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> TwoTuple<Object, A, B> two(A first, B second) {
+        return of(first, second);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> ThreeTuple<Object, A, B, C> three(A first, B second, C third) {
+        return of(first, second, third);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> FourTuple<Object, A, B, C, D> four(A first, B second, C third, D fourth) {
+        return of(first, second, third, fourth);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> FiveTuple<Object, A, B, C, D, E> five(A first, B second, C third, D fourth, E fifth) {
+        return of(first, second, third, fourth, fifth);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> SixTuple<Object, A, B, C, D, E, F> six(A first, B second, C third, D fourth, E fifth, F sixth) {
+        return of(first, second, third, fourth, fifth, sixth);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> SevenTuple<Object, A, B, C, D, E, F, G> seven(A first, B second, C third, D fourth, E fifth, F sixth, G seventh) {
+        return of(first, second, third, fourth, fifth, sixth, seventh);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> EightTuple<Object, A, B, C, D, E, F, G, H> eight(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth) {
+        return of(first, second, third, fourth, fifth, sixth, seventh, eighth);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> NineTuple<Object, A, B, C, D, E, F, G, H, I> nine(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth) {
+        return of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> TenTuple<Object, A, B, C, D, E, F, G, H, I, J> ten(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth) {
+        return of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> ElevenTuple<Object, A, B, C, D, E, F, G, H, I, J, K> eleven(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh) {
+        return of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> TwelveTuple<Object, A, B, C, D, E, F, G, H, I, J, K, L> twelve(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth) {
+        return of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth);
+    }
+
+    static <A, B, C, D, E, F, G, H, I, J, K, L> ThirteenOrMoreTuple<Object, A, B, C, D, E, F, G, H, I, J, K, L> large(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth, Object thirteenth, Object... rest) {
+        return of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth, rest);
+    }
+
+    static <Z, X extends Z> Function<EmptyTuple<Z>, OneTuple<Z, X>> extendEmpty(X value) {
         return tuple -> tuple.extend(value);
+    }
+
+    static <Z, X extends Z> Function<EmptyTuple<Z>, OneTuple<Z, X>> extendEmpty(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, X extends Z> Function<EmptyTuple<Z>, OneTuple<Z, X>> extendEmpty(Function<EmptyTuple<Z>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, X extends Z> Function<OneTuple<Z, A>, TwoTuple<Z, A, X>> extendOne(X value) {
-        return extendOne(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, X extends Z> Function<OneTuple<Z, A>, TwoTuple<Z, A, X>> extendOne(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, X extends Z> Function<OneTuple<Z, A>, TwoTuple<Z, A, X>> extendOne(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, X extends Z> Function<OneTuple<Z, A>, TwoTuple<Z, A, X>> extendOne(Function<OneTuple<Z, A>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, X extends Z> Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendTwo(X value) {
-        return extendTwo(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, X extends Z> Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendTwo(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, X extends Z> Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendTwo(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, X extends Z> Function<TwoTuple<Z, A, B>, ThreeTuple<Z, A, B, X>> extendTwo(Function<TwoTuple<Z, A, B>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, X extends Z> Function<ThreeTuple<Z, A, B, C>, FourTuple<Z, A, B, C, X>> extendThree(X value) {
-        return extendThree(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, X extends Z> Function<ThreeTuple<Z, A, B, C>, FourTuple<Z, A, B, C, X>> extendThree(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, X extends Z> Function<ThreeTuple<Z, A, B, C>, FourTuple<Z, A, B, C, X>> extendThree(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, X extends Z> Function<ThreeTuple<Z, A, B, C>, FourTuple<Z, A, B, C, X>> extendThree(Function<ThreeTuple<Z, A, B, C>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, X extends Z> Function<FourTuple<Z, A, B, C, D>, FiveTuple<Z, A, B, C, D, X>> extendFour(X value) {
-        return extendFour(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, X extends Z> Function<FourTuple<Z, A, B, C, D>, FiveTuple<Z, A, B, C, D, X>> extendFour(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, X extends Z> Function<FourTuple<Z, A, B, C, D>, FiveTuple<Z, A, B, C, D, X>> extendFour(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, X extends Z> Function<FourTuple<Z, A, B, C, D>, FiveTuple<Z, A, B, C, D, X>> extendFour(Function<FourTuple<Z, A, B, C, D>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z> Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendFive(X value) {
-        return extendFive(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z> Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendFive(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z> Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendFive(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, X extends Z> Function<FiveTuple<Z, A, B, C, D, E>, SixTuple<Z, A, B, C, D, E, X>> extendFive(Function<FiveTuple<Z, A, B, C, D, E>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, X extends Z> Function<SixTuple<Z, A, B, C, D, E, F>, SevenTuple<Z, A, B, C, D, E, F, X>> extendSix(X value) {
-        return extendSix(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, X extends Z> Function<SixTuple<Z, A, B, C, D, E, F>, SevenTuple<Z, A, B, C, D, E, F, X>> extendSix(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, X extends Z> Function<SixTuple<Z, A, B, C, D, E, F>, SevenTuple<Z, A, B, C, D, E, F, X>> extendSix(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, X extends Z> Function<SixTuple<Z, A, B, C, D, E, F>, SevenTuple<Z, A, B, C, D, E, F, X>> extendSix(Function<SixTuple<Z, A, B, C, D, E, F>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, X extends Z> Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendSeven(X value) {
-        return extendSeven(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, X extends Z> Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendSeven(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, X extends Z> Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendSeven(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, X extends Z> Function<SevenTuple<Z, A, B, C, D, E, F, G>, EightTuple<Z, A, B, C, D, E, F, G, X>> extendSeven(Function<SevenTuple<Z, A, B, C, D, E, F, G>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, X extends Z> Function<EightTuple<Z, A, B, C, D, E, F, G, H>, NineTuple<Z, A, B, C, D, E, F, G, H, X>> extendEight(X value) {
-        return extendEight(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, X extends Z> Function<EightTuple<Z, A, B, C, D, E, F, G, H>, NineTuple<Z, A, B, C, D, E, F, G, H, X>> extendEight(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, X extends Z> Function<EightTuple<Z, A, B, C, D, E, F, G, H>, NineTuple<Z, A, B, C, D, E, F, G, H, X>> extendEight(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, X extends Z> Function<EightTuple<Z, A, B, C, D, E, F, G, H>, NineTuple<Z, A, B, C, D, E, F, G, H, X>> extendEight(Function<EightTuple<Z, A, B, C, D, E, F, G, H>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, X extends Z> Function<NineTuple<Z, A, B, C, D, E, F, G, H, I>, TenTuple<Z, A, B, C, D, E, F, G, H, I, X>> extendNine(X value) {
-        return extendNine(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, X extends Z> Function<NineTuple<Z, A, B, C, D, E, F, G, H, I>, TenTuple<Z, A, B, C, D, E, F, G, H, I, X>> extendNine(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, X extends Z> Function<NineTuple<Z, A, B, C, D, E, F, G, H, I>, TenTuple<Z, A, B, C, D, E, F, G, H, I, X>> extendNine(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, X extends Z> Function<NineTuple<Z, A, B, C, D, E, F, G, H, I>, TenTuple<Z, A, B, C, D, E, F, G, H, I, X>> extendNine(Function<NineTuple<Z, A, B, C, D, E, F, G, H, I>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, X extends Z> Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, X>> extendTen(X value) {
-        return extendTen(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, X extends Z> Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, X>> extendTen(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, X extends Z> Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, X>> extendTen(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, X extends Z> Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, X>> extendTen(Function<TenTuple<Z, A, B, C, D, E, F, G, H, I, J>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, X extends Z> Function<ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K>, TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, X>> extendEleven(X value) {
-        return extendEleven(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, X extends Z> Function<ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K>, TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, X>> extendEleven(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, X extends Z> Function<ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K>, TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, X>> extendEleven(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, X extends Z> Function<ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K>, TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, X>> extendEleven(
+            Function<ElevenTuple<Z, A, B, C, D, E, F, G, H, I, J, K>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendTwelve(X value) {
-        return extendTwelve(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendTwelve(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendTwelve(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendTwelve(
+            Function<TwelveTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, X> function) {
+        return tuple -> tuple.extend(function);
     }
 
     static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendLarge(X value) {
-        return extendLarge(() -> value);
+        return tuple -> tuple.extend(value);
     }
 
-    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendLarge(Supplier<X> value) {
-        return tuple -> tuple.extend(value);
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendLarge(Supplier<X> supplier) {
+        return tuple -> tuple.extend(supplier);
+    }
+
+    static <Z, A extends Z, B extends Z, C extends Z, D extends Z, E extends Z, F extends Z, G extends Z, H extends Z, I extends Z, J extends Z, K extends Z, L extends Z, X extends Z> Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> extendLarge(
+            Function<ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>, X> function) {
+        return tuple -> tuple.extend(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFirst<Z, A, T>, U extends HasFirst<Z, X, U>> Function<T, U> mapFirst(X value) {
+        return tuple -> (U) tuple.first(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFirst<Z, A, T>, U extends HasFirst<Z, X, U>> Function<T, U> mapFirst(Supplier<X> supplier) {
+        return tuple -> (U) tuple.first(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFirst<Z, A, T>, U extends HasFirst<Z, X, U>> Function<T, U> mapFirst(Function<A, X> function) {
+        return tuple -> (U) tuple.first(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSecond<Z, A, T>, U extends HasSecond<Z, X, U>> Function<T, U> mapSecond(X value) {
+        return tuple -> (U) tuple.second(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSecond<Z, A, T>, U extends HasSecond<Z, X, U>> Function<T, U> mapSecond(Supplier<X> supplier) {
+        return tuple -> (U) tuple.second(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSecond<Z, A, T>, U extends HasSecond<Z, X, U>> Function<T, U> mapSecond(Function<A, X> function) {
+        return tuple -> (U) tuple.second(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasThird<Z, A, T>, U extends HasThird<Z, X, U>> Function<T, U> mapThird(X value) {
+        return tuple -> (U) tuple.third(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasThird<Z, A, T>, U extends HasThird<Z, X, U>> Function<T, U> mapThird(Supplier<X> supplier) {
+        return tuple -> (U) tuple.third(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasThird<Z, A, T>, U extends HasThird<Z, X, U>> Function<T, U> mapThird(Function<A, X> function) {
+        return tuple -> (U) tuple.third(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFourth<Z, A, T>, U extends HasFourth<Z, X, U>> Function<T, U> mapFourth(X value) {
+        return tuple -> (U) tuple.fourth(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFourth<Z, A, T>, U extends HasFourth<Z, X, U>> Function<T, U> mapFourth(Supplier<X> supplier) {
+        return tuple -> (U) tuple.fourth(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFourth<Z, A, T>, U extends HasFourth<Z, X, U>> Function<T, U> mapFourth(Function<A, X> function) {
+        return tuple -> (U) tuple.fourth(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFifth<Z, A, T>, U extends HasFifth<Z, X, U>> Function<T, U> mapFifth(X value) {
+        return tuple -> (U) tuple.fifth(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFifth<Z, A, T>, U extends HasFifth<Z, X, U>> Function<T, U> mapFifth(Supplier<X> supplier) {
+        return tuple -> (U) tuple.fifth(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasFifth<Z, A, T>, U extends HasFifth<Z, X, U>> Function<T, U> mapFifth(Function<A, X> function) {
+        return tuple -> (U) tuple.fifth(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSixth<Z, A, T>, U extends HasSixth<Z, X, U>> Function<T, U> mapSixth(X value) {
+        return tuple -> (U) tuple.sixth(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSixth<Z, A, T>, U extends HasSixth<Z, X, U>> Function<T, U> mapSixth(Supplier<X> supplier) {
+        return tuple -> (U) tuple.sixth(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSixth<Z, A, T>, U extends HasSixth<Z, X, U>> Function<T, U> mapSixth(Function<A, X> function) {
+        return tuple -> (U) tuple.sixth(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSeventh<Z, A, T>, U extends HasSeventh<Z, X, U>> Function<T, U> mapSeventh(X value) {
+        return tuple -> (U) tuple.seventh(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSeventh<Z, A, T>, U extends HasSeventh<Z, X, U>> Function<T, U> mapSeventh(Supplier<X> supplier) {
+        return tuple -> (U) tuple.seventh(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasSeventh<Z, A, T>, U extends HasSeventh<Z, X, U>> Function<T, U> mapSeventh(Function<A, X> function) {
+        return tuple -> (U) tuple.seventh(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasEighth<Z, A, T>, U extends HasEighth<Z, X, U>> Function<T, U> mapEighth(X value) {
+        return tuple -> (U) tuple.eighth(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasEighth<Z, A, T>, U extends HasEighth<Z, X, U>> Function<T, U> mapEighth(Supplier<X> supplier) {
+        return tuple -> (U) tuple.eighth(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasEighth<Z, A, T>, U extends HasEighth<Z, X, U>> Function<T, U> mapEighth(Function<A, X> function) {
+        return tuple -> (U) tuple.eighth(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasNinth<Z, A, T>, U extends HasNinth<Z, X, U>> Function<T, U> mapNinth(X value) {
+        return tuple -> (U) tuple.ninth(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasNinth<Z, A, T>, U extends HasNinth<Z, X, U>> Function<T, U> mapNinth(Supplier<X> supplier) {
+        return tuple -> (U) tuple.ninth(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasNinth<Z, A, T>, U extends HasNinth<Z, X, U>> Function<T, U> mapNinth(Function<A, X> function) {
+        return tuple -> (U) tuple.ninth(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasTenth<Z, A, T>, U extends HasTenth<Z, X, U>> Function<T, U> mapTenth(X value) {
+        return tuple -> (U) tuple.tenth(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasTenth<Z, A, T>, U extends HasTenth<Z, X, U>> Function<T, U> mapTenth(Supplier<X> supplier) {
+        return tuple -> (U) tuple.tenth(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasTenth<Z, A, T>, U extends HasTenth<Z, X, U>> Function<T, U> mapTenth(Function<A, X> function) {
+        return tuple -> (U) tuple.tenth(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasEleventh<Z, A, T>, U extends HasEleventh<Z, X, U>> Function<T, U> mapEleventh(X value) {
+        return tuple -> (U) tuple.eleventh(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasEleventh<Z, A, T>, U extends HasEleventh<Z, X, U>> Function<T, U> mapEleventh(Supplier<X> supplier) {
+        return tuple -> (U) tuple.eleventh(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasEleventh<Z, A, T>, U extends HasEleventh<Z, X, U>> Function<T, U> mapEleventh(Function<A, X> function) {
+        return tuple -> (U) tuple.eleventh(function);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasTwelfth<Z, A, T>, U extends HasTwelfth<Z, X, U>> Function<T, U> mapTwelfth(X value) {
+        return tuple -> (U) tuple.twelfth(value);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasTwelfth<Z, A, T>, U extends HasTwelfth<Z, X, U>> Function<T, U> mapTwelfth(Supplier<X> supplier) {
+        return tuple -> (U) tuple.twelfth(supplier);
+    }
+
+    @SuppressWarnings("unchecked")
+    static <Z, A extends Z, X extends Z, T extends HasTwelfth<Z, A, T>, U extends HasTwelfth<Z, X, U>> Function<T, U> mapTwelfth(Function<A, X> function) {
+        return tuple -> (U) tuple.twelfth(function);
+    }
+
+    static <Z, A extends Z> Function<Tuple<Z>, Tuple<Z>> mapNth(int index, A value) {
+        return tuple -> tuple.change(index, value);
+    }
+
+    static <Z, A extends Z> Function<Tuple<Z>, Tuple<Z>> mapNth(int index, Supplier<A> supplier) {
+        return tuple -> tuple.change(index, supplier);
+    }
+
+    static <Z, T extends HasFirst<Z, A, T>, A extends Z> Predicate<HasFirst<Z, A, T>> checkFirst(Predicate<A> predicate) {
+        return tuple -> tuple.checkFirst(predicate);
+    }
+
+    static <Z, T extends HasSecond<Z, A, T>, A extends Z> Predicate<HasSecond<Z, A, T>> checkSecond(Predicate<A> predicate) {
+        return tuple -> tuple.checkSecond(predicate);
+    }
+
+    static <Z, T extends HasThird<Z, A, T>, A extends Z> Predicate<HasThird<Z, A, T>> checkThird(Predicate<A> predicate) {
+        return tuple -> tuple.checkThird(predicate);
+    }
+
+    static <Z, T extends HasFourth<Z, A, T>, A extends Z> Predicate<HasFourth<Z, A, T>> checkFourth(Predicate<A> predicate) {
+        return tuple -> tuple.checkFourth(predicate);
+    }
+
+    static <Z, T extends HasFifth<Z, A, T>, A extends Z> Predicate<HasFifth<Z, A, T>> checkFifth(Predicate<A> predicate) {
+        return tuple -> tuple.checkFifth(predicate);
+    }
+
+    static <Z, T extends HasSixth<Z, A, T>, A extends Z> Predicate<HasSixth<Z, A, T>> checkSixth(Predicate<A> predicate) {
+        return tuple -> tuple.checkSixth(predicate);
+    }
+
+    static <Z, T extends HasSeventh<Z, A, T>, A extends Z> Predicate<HasSeventh<Z, A, T>> checkSeventh(Predicate<A> predicate) {
+        return tuple -> tuple.checkSeventh(predicate);
+    }
+
+    static <Z, T extends HasEighth<Z, A, T>, A extends Z> Predicate<HasEighth<Z, A, T>> checkEighth(Predicate<A> predicate) {
+        return tuple -> tuple.checkEighth(predicate);
+    }
+
+    static <Z, T extends HasNinth<Z, A, T>, A extends Z> Predicate<HasNinth<Z, A, T>> checkNinth(Predicate<A> predicate) {
+        return tuple -> tuple.checkNinth(predicate);
+    }
+
+    static <Z, T extends HasTenth<Z, A, T>, A extends Z> Predicate<HasTenth<Z, A, T>> checkTenth(Predicate<A> predicate) {
+        return tuple -> tuple.checkTenth(predicate);
+    }
+
+    static <Z, T extends HasEleventh<Z, A, T>, A extends Z> Predicate<HasEleventh<Z, A, T>> checkEleventh(Predicate<A> predicate) {
+        return tuple -> tuple.checkEleventh(predicate);
+    }
+
+    static <Z, T extends HasTwelfth<Z, A, T>, A extends Z> Predicate<HasTwelfth<Z, A, T>> checkTwelfth(Predicate<A> predicate) {
+        return tuple -> tuple.checkTwelfth(predicate);
+    }
+
+    static <Z> Predicate<Tuple<Z>> checkNth(int index, Predicate<Z> predicate) {
+        return tuple -> tuple.check(index, predicate);
     }
 
 }
