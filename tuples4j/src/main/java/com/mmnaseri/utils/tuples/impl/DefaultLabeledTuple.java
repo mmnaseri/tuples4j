@@ -5,6 +5,7 @@ import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.utils.Fluents;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 import static com.mmnaseri.utils.tuples.utils.Fluents.listOf;
@@ -75,7 +76,7 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
     }
 
     @Override
-    public LabeledTuple<Z> change(final int index, final Z value) {
+    public LabeledTuple<Z> change(final int index, final Supplier<? extends Z> value) {
         return new DefaultLabeledTuple<>(tuple.change(index, value), labels);
     }
 
@@ -94,7 +95,12 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     @Override
     public <X extends Z> LabeledTuple<Z> extend(final X value) {
-        return new DefaultLabeledTuple<>(tuple.extend(value), listOf(labels).with("l" + (labels.size() + 1)));
+        return extend((Supplier<X>) () -> value);
+    }
+
+    @Override
+    public <X extends Z> LabeledTuple<Z> extend(final Supplier<X> value) {
+        return new DefaultLabeledTuple<>(tuple.extend(value.get()), listOf(labels).with("l" + (labels.size() + 1)));
     }
 
 }

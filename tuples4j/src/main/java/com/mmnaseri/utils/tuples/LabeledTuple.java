@@ -6,6 +6,7 @@ import com.mmnaseri.utils.tuples.utils.Fluents;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
@@ -31,7 +32,12 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
     }
 
     @Override
-    LabeledTuple<Z> change(int index, Z value);
+    default LabeledTuple<Z> change(int index, Z value) {
+        return change(index, () -> value);
+    }
+
+    @Override
+    LabeledTuple<Z> change(int index, Supplier<? extends Z> value);
 
     default LabeledTuple<Z> change(String label, Z value) {
         final int index = labels().indexOf(label);
