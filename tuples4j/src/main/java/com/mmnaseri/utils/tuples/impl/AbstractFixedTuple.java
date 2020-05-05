@@ -9,21 +9,30 @@ import java.util.List;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
+/**
+ * Base class for all the {@link FixedTuple} classes in the library.
+ *
+ * @author Milad Naseri (m.m.naseri@gmail.com)
+ */
 public abstract class AbstractFixedTuple<Z, T extends AbstractFixedTuple<Z, T>> extends AbstractTuple<Z>
-        implements FixedTuple<Z, T> {
+        implements
+        FixedTuple<Z, T> {
 
     @SafeVarargs
     protected AbstractFixedTuple(Z... values) {
         this(Arrays.asList(values));
     }
 
-    public AbstractFixedTuple(List<Z> values) {
+    protected AbstractFixedTuple(List<Z> values) {
         super(values);
     }
 
+    /**
+     * Returns a new tuple by keeping all the elements from this tuple except the element at the indicated index.
+     */
     @SuppressWarnings("unchecked")
     @Override
-    public Tuple<Z> drop(final int index) {
+    public Tuple<Z> drop(int index) {
         checkIndex(index, size());
         switch (index) {
             case 0:
@@ -55,8 +64,9 @@ public abstract class AbstractFixedTuple<Z, T extends AbstractFixedTuple<Z, T>> 
         }
     }
 
-    protected Tuple<Z> dropAtIndex(final int index) {
+    protected Tuple<Z> dropAtIndex(int index) {
         throw new UnsupportedOperationException();
     }
 
 }
+
