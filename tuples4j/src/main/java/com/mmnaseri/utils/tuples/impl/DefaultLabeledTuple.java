@@ -5,6 +5,7 @@ import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.utils.FluentList;
 import com.mmnaseri.utils.tuples.utils.FluentMap;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,10 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
     private final FluentMap<String, Z> map;
     private final String string;
     private final int hashCode;
+
+    public DefaultLabeledTuple(final Tuple<Z> tuple, String... labels) {
+        this(tuple, Arrays.asList(labels));
+    }
 
     public DefaultLabeledTuple(final Tuple<Z> tuple, final List<String> labels) {
         if (labels.size() != tuple.size()) {

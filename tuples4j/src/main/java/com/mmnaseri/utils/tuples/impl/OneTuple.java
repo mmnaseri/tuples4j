@@ -1,5 +1,6 @@
 package com.mmnaseri.utils.tuples.impl;
 
+import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.facade.HasFirst;
 
 import java.util.function.Function;
