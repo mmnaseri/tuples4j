@@ -109,3 +109,9 @@ This means that to get the second element in the tuple, instead of writing `tupl
 write `tuple.second()`. This also applies to changing values on the tuples. Instead of calling
 `tuple.change(2, "a")`, you can write `tuple.third("a")`. Not only is this syntax semantically
 stronger, but also it can help preserve type arguments on the tuple itself.
+
+## Availability
+
+This project will be soon deployed to Maven Central, at which point you can just use Maven dependencies to grab a copy.
+
+Meanwhile, you can clone the repo.
