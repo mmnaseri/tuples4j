@@ -40,28 +40,38 @@ public final class Fluents {
      */
     public static class FluentList<E> extends ArrayList<E> {
 
+        public FluentList() {
+        }
+
+        public FluentList(final Collection<? extends E> c) {
+            super(c);
+        }
+
         /**
          * Adds the given value to the current list.
          */
         public FluentList<E> with(E value) {
-            add(value);
-            return this;
+            FluentList<E> list = new FluentList<>(this);
+            list.add(value);
+            return list;
         }
 
         /**
          * Removes the given value from the current list.
          */
         public FluentList<E> without(E value) {
-            remove(value);
-            return this;
+            FluentList<E> list = new FluentList<>(this);
+            list.remove(value);
+            return list;
         }
 
         /**
          * Removes the value at the given index from the current list.
          */
         public FluentList<E> without(int index) {
-            remove(index);
-            return this;
+            FluentList<E> list = new FluentList<>(this);
+            list.remove(index);
+            return list;
         }
 
         /**
@@ -76,16 +86,18 @@ public final class Fluents {
          * Adds all the provided items to this list.
          */
         public final FluentList<E> withAll(Collection<? extends E> values) {
-            addAll(values);
-            return this;
+            FluentList<E> list = new FluentList<>(this);
+            list.addAll(values);
+            return list;
         }
 
         /**
          * Changes the value of the item at the given index.
          */
         public FluentList<E> change(final int index, final E value) {
-            set(index, value);
-            return this;
+            FluentList<E> list = new FluentList<>(this);
+            list.set(index, value);
+            return list;
         }
     }
 
@@ -94,36 +106,47 @@ public final class Fluents {
      */
     public static class FluentMap<K, V> extends HashMap<K, V> {
 
+        public FluentMap() {
+        }
+
+        public FluentMap(final Map<? extends K, ? extends V> m) {
+            super(m);
+        }
+
         /**
          * Adds the provided key and value to the current map.
          */
         public FluentMap<K, V> with(K key, V value) {
-            put(key, value);
-            return this;
+            FluentMap<K, V> map = new FluentMap<>(this);
+            map.put(key, value);
+            return map;
         }
 
         /**
          * Adds all the items from the provided map to this map.
          */
         public FluentMap<K, V> withAll(Map<? extends K, ? extends V> values) {
-            putAll(values);
-            return this;
+            FluentMap<K, V> map = new FluentMap<>(this);
+            map.putAll(values);
+            return map;
         }
 
         /**
          * Removes the item with the given key from this map.
          */
         public FluentMap<K, V> without(K key) {
-            remove(key);
-            return this;
+            FluentMap<K, V> map = new FluentMap<>(this);
+            map.remove(key);
+            return map;
         }
 
         /**
          * Removes the item with the given key and value from the map.
          */
         public FluentMap<K, V> without(K key, V value) {
-            remove(key, value);
-            return this;
+            FluentMap<K, V> map = new FluentMap<>(this);
+            map.remove(key, value);
+            return map;
         }
 
     }
