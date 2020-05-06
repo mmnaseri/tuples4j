@@ -58,7 +58,7 @@ Set<Tuple<?>> tuples = Stream.of(Tuple.of(1), Tuple.of(2))
 
 ### JDK 8-14 Compatible
 
-This project is regular built against and tested with OpenJDK 8 - 14. Click on the build badge abobe to find out more.
+This project is regular built against and tested with OpenJDK 8 - 14. Click on the build badge above to find out more.
 
 ### Tuple Sizes
 
