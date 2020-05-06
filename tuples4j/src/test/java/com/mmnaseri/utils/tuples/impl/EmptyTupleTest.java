@@ -8,8 +8,9 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 /**
  * Tests for {@link EmptyTuple}.
  *
@@ -44,11 +45,6 @@ public class EmptyTupleTest {
         EmptyTuple<Object> tuple = Tuple.empty();
         List<Object> items = tuple.asList();
         assertThat(items, is(hasSize(0)));
-    }
-
-    @Test
-    public void checkingPredicateByAccessor() {
-        EmptyTuple<Integer> tuple = EmptyTuple.of();
     }
 
     @Test
