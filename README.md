@@ -50,19 +50,19 @@ This library offers a wide set of tuples, from size 0 (the *empty* tuple), to si
 
 The build-in tuple sizes are:
 
-* `EmptyTuple`,
-* `OneTuple`,
-* `TwoTuple`, also available as `Pair` and `KeyValue`,
-* `ThreeTuple`,
-* `FourTuple`,
-* `FiveTuple`,
-* `SixTuple`,
-* `SevenTuple`,
-* `EightTuple`,
-* `NineTuple`,
-* `TenTuple`,
-* `ElevenTuple`,
-* `TwelveTuple`.
+  * `EmptyTuple`,
+  * `OneTuple`,
+  * `TwoTuple`, also available as `Pair` and `KeyValue`,
+  * `ThreeTuple`,
+  * `FourTuple`,
+  * `FiveTuple`,
+  * `SixTuple`,
+  * `SevenTuple`,
+  * `EightTuple`,
+  * `NineTuple`,
+  * `TenTuple`,
+  * `ElevenTuple`,
+  * `TwelveTuple`.
 
 Beyond these, there is the `ThirteenOrMoreTuple` class which holds data for thirteen or more elements.
 

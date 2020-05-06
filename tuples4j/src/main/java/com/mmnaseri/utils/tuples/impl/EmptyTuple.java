@@ -13,13 +13,6 @@ import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 public class EmptyTuple<Z> extends AbstractFixedTuple<Z, EmptyTuple<Z>> {
 
     /**
-     * Creates a new instance of this class from the provided values.
-     */
-    public EmptyTuple() {
-        super();
-    }
-
-    /**
      * Returns a new tuple by keeping all the values from this tuple and overriding the value at the provided index with the value returned from the supplier.
      */
     @Override

@@ -1,7 +1,7 @@
 package com.mmnaseri.utils.tuples;
 
 import com.mmnaseri.utils.tuples.impl.DefaultLabeledTuple;
-import com.mmnaseri.utils.tuples.utils.Fluents;
+import com.mmnaseri.utils.tuples.utils.FluentMap;
 
 import java.util.Collections;
 import java.util.List;
@@ -135,10 +135,10 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
     /**
      * Returns a map from the labels to the values of this tuple.
      */
-    default Fluents.FluentMap<String, Z> asMap() {
+    default FluentMap<String, Z> asMap() {
         return IntStream.range(0, size())
                         .boxed()
-                        .collect(Fluents.FluentMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
+                        .collect(FluentMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
     }
 
     /**

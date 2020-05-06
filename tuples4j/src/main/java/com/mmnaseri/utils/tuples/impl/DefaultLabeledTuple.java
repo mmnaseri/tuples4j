@@ -2,14 +2,16 @@ package com.mmnaseri.utils.tuples.impl;
 
 import com.mmnaseri.utils.tuples.LabeledTuple;
 import com.mmnaseri.utils.tuples.Tuple;
-import com.mmnaseri.utils.tuples.utils.Fluents;
+import com.mmnaseri.utils.tuples.utils.FluentList;
+import com.mmnaseri.utils.tuples.utils.FluentMap;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
-
-import static com.mmnaseri.utils.tuples.utils.Fluents.listOf;
-import static com.mmnaseri.utils.tuples.utils.Fluents.mapOf;
 
 /**
  * The default implementation for {@link LabeledTuple}.
@@ -20,7 +22,7 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     private final Tuple<Z> tuple;
     private final List<String> labels;
-    private final Fluents.FluentMap<String, Z> map;
+    private final FluentMap<String, Z> map;
     private final String string;
     private final int hashCode;
 
@@ -33,9 +35,9 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
         }
         this.tuple = Objects.requireNonNull(tuple);
         this.labels = Collections.unmodifiableList(Objects.requireNonNull(labels));
-        map = mapOf(IntStream.range(0, size())
-                             .boxed()
-                             .collect(HashMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll));
+        map = FluentMap.of(IntStream.range(0, size())
+                                    .boxed()
+                                    .collect(HashMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll));
         string = map.toString();
         hashCode = map.hashCode();
     }
@@ -56,12 +58,12 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
     }
 
     @Override
-    public Fluents.FluentList<Z> asList() {
+    public FluentList<Z> asList() {
         return tuple.asList();
     }
 
     @Override
-    public Fluents.FluentMap<String, Z> asMap() {
+    public FluentMap<String, Z> asMap() {
         return map;
     }
 
@@ -87,7 +89,7 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     @Override
     public LabeledTuple<Z> drop(final int index) {
-        return new DefaultLabeledTuple<>(tuple.drop(index), listOf(labels).without(index));
+        return new DefaultLabeledTuple<>(tuple.drop(index), FluentList.of(labels).without(index));
     }
 
     @Override
@@ -95,7 +97,7 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
         if (labels().contains(newLabel)) {
             throw new IllegalArgumentException("Label " + newLabel + " already exists on this tuple");
         }
-        return new DefaultLabeledTuple<>(tuple, listOf(labels).change(index, newLabel));
+        return new DefaultLabeledTuple<>(tuple, FluentList.of(labels).change(index, newLabel));
     }
 
     @Override
@@ -105,7 +107,7 @@ public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     @Override
     public <X extends Z> LabeledTuple<Z> extend(final Supplier<X> value) {
-        return new DefaultLabeledTuple<>(tuple.extend(value.get()), listOf(labels).with("l" + (labels.size() + 1)));
+        return new DefaultLabeledTuple<>(tuple.extend(value.get()), FluentList.of(labels).with("l" + (labels.size() + 1)));
     }
 
 }

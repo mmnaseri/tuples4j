@@ -2,7 +2,7 @@ package com.mmnaseri.utils.tuples;
 
 import com.mmnaseri.utils.tuples.facade.*;
 import com.mmnaseri.utils.tuples.impl.*;
-import com.mmnaseri.utils.tuples.utils.Fluents;
+import com.mmnaseri.utils.tuples.utils.FluentList;
 
 import java.util.Arrays;
 import java.util.List;
@@ -64,10 +64,10 @@ public interface Tuple<Z> {
     }
 
     /**
-     * Returns the items in the tuple as an instance of {@link Fluents.FluentList}.
+     * Returns the items in the tuple as an instance of {@link FluentList}.
      */
-    default Fluents.FluentList<Z> asList() {
-        return stream().collect(toCollection(Fluents.FluentList::new));
+    default FluentList<Z> asList() {
+        return stream().collect(toCollection(FluentList::new));
     }
 
     /**
