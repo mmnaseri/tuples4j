@@ -1,0 +1,17 @@
+language: java
+jdk:
+  - openjdk8
+  - openjdk9
+  - openjdk10
+  - openjdk11
+  - openjdk12
+  - openjdk13
+  - openjdk14
+script:
+  - cd tuples4j
+  - mvn test -B
+after_success:
+  - cd tuples4j
+  - mvn -P coverage clean cobertura:cobertura coveralls:report
+os: linux
+dist: bionic
