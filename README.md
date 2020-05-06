@@ -16,7 +16,19 @@ functional programming paradigm familiar to Java 8 developers.
 
 This code is well tested, and is easy to parse.
 
-## Getting Starting  
+## Getting Starting
+
+To download the code and use it in your project, you can either clone this project and start using it:
+
+    $ git clone https://github.com/mmnaseri/tuples4j.git
+
+or you can add a maven dependency since it is now available in Maven central:
+
+    <dependency>
+        <groupId>com.mmnaseri.utils</groupId>
+        <artifactId>tuples4j</artifactId>
+        <version>${tuples4j.version}</version>
+    </dependency>
 
 To get started, use one of the many utility methods under the `Tuple` interface as the entrypoint:
 
@@ -43,6 +55,10 @@ Set<Tuple<?>> tuples = Stream.of(Tuple.of(1), Tuple.of(2))
 ```
 
 ## Features
+
+### JDK 8-14 Compatible
+
+This project is regular built against and tested with OpenJDK 8 - 14. Click on the build badge abobe to find out more.
 
 ### Tuple Sizes
 
@@ -109,9 +125,3 @@ This means that to get the second element in the tuple, instead of writing `tupl
 write `tuple.second()`. This also applies to changing values on the tuples. Instead of calling
 `tuple.change(2, "a")`, you can write `tuple.third("a")`. Not only is this syntax semantically
 stronger, but also it can help preserve type arguments on the tuple itself.
-
-## Availability
-
-This project will be soon deployed to Maven Central, at which point you can just use Maven dependencies to grab a copy.
-
-Meanwhile, you can clone the repo.
