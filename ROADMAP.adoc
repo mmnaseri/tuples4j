@@ -1,6 +1,6 @@
 = ROADMAP
 
-1. Add more tools to the library
+1. Add more tools to the library [**DONE**]
   a. We need supplier-based methods for all the mappings:
     - `one.extendWith(() -> new Random().nextInt())`
     - `one.first(UUID::randomUUID)`
@@ -20,10 +20,10 @@
   e. We might need to remove the `T` type from `FixedTuple` and instead use the
   generic `Tuple<Z>` with appropriate downstream type-tightening.
 
-2. Write tests for the main module.
-3. Set up TravisCI build.
-4. Write JavaDoc for the main module.
-5. Write an illustrative README with appropriate badging.
-6. Run the code through Codeacy and Coveralls.
+2. Write tests for the main module. [**DONE**]
+3. Set up TravisCI build. [**DONE**]
+4. Write JavaDoc for the main module. [**DONE**]
+5. Write an illustrative README with appropriate badging. [**DONE**]
+6. Run the code through Codeacy and Coveralls. [**DONE**]
 7. Set up deployment via OSSRH.
 8. Implement the reflection utility.

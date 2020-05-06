@@ -1,13 +1,24 @@
 package com.mmnaseri.utils.tuples.impl;
 
 import com.mmnaseri.utils.tuples.Tuple;
-import com.mmnaseri.utils.tuples.facade.*;
+import com.mmnaseri.utils.tuples.facade.HasEighth;
+import com.mmnaseri.utils.tuples.facade.HasEleventh;
+import com.mmnaseri.utils.tuples.facade.HasFifth;
+import com.mmnaseri.utils.tuples.facade.HasFirst;
+import com.mmnaseri.utils.tuples.facade.HasFourth;
+import com.mmnaseri.utils.tuples.facade.HasNinth;
+import com.mmnaseri.utils.tuples.facade.HasSecond;
+import com.mmnaseri.utils.tuples.facade.HasSeventh;
+import com.mmnaseri.utils.tuples.facade.HasSixth;
+import com.mmnaseri.utils.tuples.facade.HasTenth;
+import com.mmnaseri.utils.tuples.facade.HasThird;
+import com.mmnaseri.utils.tuples.facade.HasTwelfth;
+import com.mmnaseri.utils.tuples.utils.FluentList;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static com.mmnaseri.utils.tuples.utils.Fluents.listOf;
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 
 /**
@@ -36,7 +47,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
     @SafeVarargs
     public ThirteenOrMoreTuple(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth, Z thirteenth, Z... rest) {
         //noinspection unchecked
-        this(listOf(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth).withAll(rest));
+        this(FluentList.of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth).with(rest));
     }
 
     private ThirteenOrMoreTuple(List<Z> values) {

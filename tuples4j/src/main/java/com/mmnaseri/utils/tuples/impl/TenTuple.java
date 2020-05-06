@@ -1,6 +1,15 @@
 package com.mmnaseri.utils.tuples.impl;
 
-import com.mmnaseri.utils.tuples.facade.*;
+import com.mmnaseri.utils.tuples.facade.HasEighth;
+import com.mmnaseri.utils.tuples.facade.HasFifth;
+import com.mmnaseri.utils.tuples.facade.HasFirst;
+import com.mmnaseri.utils.tuples.facade.HasFourth;
+import com.mmnaseri.utils.tuples.facade.HasNinth;
+import com.mmnaseri.utils.tuples.facade.HasSecond;
+import com.mmnaseri.utils.tuples.facade.HasSeventh;
+import com.mmnaseri.utils.tuples.facade.HasSixth;
+import com.mmnaseri.utils.tuples.facade.HasTenth;
+import com.mmnaseri.utils.tuples.facade.HasThird;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
