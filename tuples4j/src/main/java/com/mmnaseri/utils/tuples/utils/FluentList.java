@@ -11,27 +11,18 @@ import java.util.Collection;
  */
 public class FluentList<E> extends ArrayList<E> {
 
-    public FluentList() {
-    }
-
     public FluentList(final Collection<? extends E> c) {
         super(c);
     }
 
-    /**
-     * Adds the given value to the current list.
-     */
-    public FluentList<E> with(E value) {
-        FluentList<E> list = new FluentList<>(this);
-        list.add(value);
-        return list;
+    public FluentList() {
     }
 
     /**
      * Removes the given value from the current list.
      */
     public FluentList<E> without(E value) {
-        FluentList<E> list = new FluentList<>(this);
+        FluentList<E> list = of(this);
         list.remove(value);
         return list;
     }
@@ -40,8 +31,17 @@ public class FluentList<E> extends ArrayList<E> {
      * Removes the value at the given index from the current list.
      */
     public FluentList<E> without(int index) {
-        FluentList<E> list = new FluentList<>(this);
+        FluentList<E> list = of(this);
         list.remove(index);
+        return list;
+    }
+
+    /**
+     * Adds the given value to the current list.
+     */
+    public FluentList<E> with(E value) {
+        FluentList<E> list = of(this);
+        list.add(value);
         return list;
     }
 
@@ -49,15 +49,15 @@ public class FluentList<E> extends ArrayList<E> {
      * Adds all the provided items to this list.
      */
     @SafeVarargs
-    public final FluentList<E> withAll(E... value) {
-        return withAll(Arrays.asList(value));
+    public final FluentList<E> with(E... value) {
+        return with(Arrays.asList(value));
     }
 
     /**
      * Adds all the provided items to this list.
      */
-    public final FluentList<E> withAll(Collection<? extends E> values) {
-        FluentList<E> list = new FluentList<>(this);
+    public final FluentList<E> with(Collection<? extends E> values) {
+        FluentList<E> list = of(this);
         list.addAll(values);
         return list;
     }
@@ -66,7 +66,7 @@ public class FluentList<E> extends ArrayList<E> {
      * Changes the value of the item at the given index.
      */
     public FluentList<E> change(final int index, final E value) {
-        FluentList<E> list = new FluentList<>(this);
+        FluentList<E> list = of(this);
         list.set(index, value);
         return list;
     }
@@ -76,13 +76,13 @@ public class FluentList<E> extends ArrayList<E> {
      */
     @SuppressWarnings("unchecked")
     public static <E> FluentList<E> of(E... values) {
-        return new FluentList<E>().withAll(values);
+        return of(Arrays.asList(values));
     }
 
     /**
      * Returns a fluent list from the provided objects.
      */
     public static <E> FluentList<E> of(Collection<? extends E> values) {
-        return new FluentList<E>().withAll(values);
+        return new FluentList<>(values);
     }
 }

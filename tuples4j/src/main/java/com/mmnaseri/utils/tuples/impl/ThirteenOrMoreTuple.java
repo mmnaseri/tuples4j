@@ -47,7 +47,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
     @SafeVarargs
     public ThirteenOrMoreTuple(A first, B second, C third, D fourth, E fifth, F sixth, G seventh, H eighth, I ninth, J tenth, K eleventh, L twelfth, Z thirteenth, Z... rest) {
         //noinspection unchecked
-        this(FluentList.of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth).withAll(rest));
+        this(FluentList.of(first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth, eleventh, twelfth, thirteenth).with(rest));
     }
 
     private ThirteenOrMoreTuple(List<Z> values) {
