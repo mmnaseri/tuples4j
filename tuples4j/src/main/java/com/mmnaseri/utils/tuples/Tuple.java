@@ -1,7 +1,32 @@
 package com.mmnaseri.utils.tuples;
 
-import com.mmnaseri.utils.tuples.facade.*;
-import com.mmnaseri.utils.tuples.impl.*;
+import com.mmnaseri.utils.tuples.facade.HasEighth;
+import com.mmnaseri.utils.tuples.facade.HasEleventh;
+import com.mmnaseri.utils.tuples.facade.HasFifth;
+import com.mmnaseri.utils.tuples.facade.HasFirst;
+import com.mmnaseri.utils.tuples.facade.HasFourth;
+import com.mmnaseri.utils.tuples.facade.HasNinth;
+import com.mmnaseri.utils.tuples.facade.HasSecond;
+import com.mmnaseri.utils.tuples.facade.HasSeventh;
+import com.mmnaseri.utils.tuples.facade.HasSixth;
+import com.mmnaseri.utils.tuples.facade.HasTenth;
+import com.mmnaseri.utils.tuples.facade.HasThird;
+import com.mmnaseri.utils.tuples.facade.HasTwelfth;
+import com.mmnaseri.utils.tuples.impl.DefaultLabeledTuple;
+import com.mmnaseri.utils.tuples.impl.EightTuple;
+import com.mmnaseri.utils.tuples.impl.ElevenTuple;
+import com.mmnaseri.utils.tuples.impl.EmptyTuple;
+import com.mmnaseri.utils.tuples.impl.FiveTuple;
+import com.mmnaseri.utils.tuples.impl.FourTuple;
+import com.mmnaseri.utils.tuples.impl.NineTuple;
+import com.mmnaseri.utils.tuples.impl.OneTuple;
+import com.mmnaseri.utils.tuples.impl.SevenTuple;
+import com.mmnaseri.utils.tuples.impl.SixTuple;
+import com.mmnaseri.utils.tuples.impl.TenTuple;
+import com.mmnaseri.utils.tuples.impl.ThirteenOrMoreTuple;
+import com.mmnaseri.utils.tuples.impl.ThreeTuple;
+import com.mmnaseri.utils.tuples.impl.TwelveTuple;
+import com.mmnaseri.utils.tuples.impl.TwoTuple;
 import com.mmnaseri.utils.tuples.utils.FluentList;
 
 import java.util.Arrays;
