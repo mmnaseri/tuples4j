@@ -9,6 +9,10 @@ import java.util.Objects;
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
 import static java.util.stream.Collectors.joining;
 
+/**
+ * The base class for the tuples. This class caches the list value for the tuple and uses that to
+ * calculate the hash code and string representation of the tuple.
+ */
 public abstract class AbstractTuple<Z> implements Tuple<Z> {
 
     private static final String STRING_FORMAT = "<%s>";

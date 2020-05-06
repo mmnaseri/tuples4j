@@ -11,6 +11,11 @@ import java.util.stream.IntStream;
 import static com.mmnaseri.utils.tuples.utils.Fluents.listOf;
 import static com.mmnaseri.utils.tuples.utils.Fluents.mapOf;
 
+/**
+ * The default implementation for {@link LabeledTuple}.
+ *
+ * @author Milad Naseri (m.m.naseri@gmail.com)
+ */
 public class DefaultLabeledTuple<Z> implements LabeledTuple<Z> {
 
     private final Tuple<Z> tuple;
