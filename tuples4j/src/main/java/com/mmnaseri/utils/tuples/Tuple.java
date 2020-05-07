@@ -232,6 +232,15 @@ public interface Tuple<Z> {
         return of(get(0), get(1), get(2), get(3), get(4), get(5), get(6), get(7), get(8), get(9), get(10), get(11));
     }
 
+    /**
+     * Tightens the current tuple's super-type. If the tightened type is not applicable to all elements,
+     * this would lead to an eventual {@link ClassCastException} when trying to access those elements.
+     */
+    @SuppressWarnings("unchecked")
+    default <X extends Z> Tuple<X> tighten() {
+        return (Tuple<X>) this;
+    }
+
     // Static utility and builder methods.
 
     /**

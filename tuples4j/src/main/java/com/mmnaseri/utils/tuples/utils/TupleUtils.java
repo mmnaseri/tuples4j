@@ -13,8 +13,15 @@ public final class TupleUtils {
      * Checks the index to see if it is within range.
      */
     public static <E> E checkIndex(int index, int size) {
+        return checkIndex(index, size, String.valueOf(index));
+    }
+
+    /**
+     * Checks the index to see if it is within range.
+     */
+    public static <E> E checkIndex(int index, int size, String value) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of range: " + index);
+            throw new IndexOutOfBoundsException("Index out of range: " + value);
         }
         return null;
     }

@@ -28,7 +28,7 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
      */
     @Override
     default LabeledTuple<Z> clear() {
-        return new DefaultLabeledTuple<>(this, Collections.emptyList());
+        return new DefaultLabeledTuple<>(Tuple.empty().tighten());
     }
 
     /**
@@ -44,7 +44,7 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
      */
     default Z get(String label) {
         final int index = labels().indexOf(label);
-        checkIndex(index, size());
+        checkIndex(index, size(), label);
         return get(index);
     }
 
@@ -66,9 +66,7 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
      * Changes the value of the element at the given label.
      */
     default LabeledTuple<Z> change(String label, Z value) {
-        final int index = labels().indexOf(label);
-        checkIndex(index, size());
-        return change(index, value);
+        return change(label, () -> value);
     }
 
     /**
@@ -76,16 +74,16 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
      */
     default LabeledTuple<Z> change(String label, Supplier<Z> value) {
         final int index = labels().indexOf(label);
-        checkIndex(index, size());
+        checkIndex(index, size(), label);
         return change(index, value);
     }
 
     /**
      * Drops the element with the provided label.
      */
-    default Tuple<Z> drop(String label) {
+    default LabeledTuple<Z> drop(String label) {
         final int index = labels().indexOf(label);
-        checkIndex(index, size());
+        checkIndex(index, size(), label);
         return drop(index);
     }
 
@@ -102,7 +100,7 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
      */
     default LabeledTuple<Z> relabel(String oldLabel, String newLabel) {
         final int index = labels().indexOf(oldLabel);
-        checkIndex(index, size());
+        checkIndex(index, size(), oldLabel);
         return relabel(index, newLabel);
     }
 
@@ -141,11 +139,45 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
                         .collect(FluentMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    default <X extends Z> LabeledTuple<X> tighten() {
+        return (LabeledTuple<X>) this;
+    }
+
+    /**
+     * Determines if the tuple has the given label.
+     */
+    default boolean has(String label) {
+        return labels().contains(label);
+    }
+
     /**
      * Returns an empty labeled tuple.
      */
     static LabeledTuple<Object> empty() {
         return new DefaultLabeledTuple<>(Tuple.empty(), Collections.emptyList());
+    }
+
+    /**
+     * Creates a labeled tuple with one element.
+     */
+    static LabeledTuple<Object> of(String label, Object value) {
+        return new DefaultLabeledTuple<>(Tuple.of(value), label);
+    }
+
+    /**
+     * Creates a labeled tuple with two elements.
+     */
+    static LabeledTuple<Object> of(String label1, Object value1, String label2, Object value2) {
+        return new DefaultLabeledTuple<>(Tuple.of(value1, value2), label1, label2);
+    }
+
+    /**
+     * Creates a labeled tuple with three elements.
+     */
+    static LabeledTuple<Object> of(String label1, Object value1, String label2, Object value2, String label3, Object value3) {
+        return new DefaultLabeledTuple<>(Tuple.of(value1, value2, value3), label1, label2, label3);
     }
 
 }
