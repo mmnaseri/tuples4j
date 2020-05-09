@@ -68,15 +68,8 @@ public abstract class AbstractFixedTuple<Z, T extends AbstractFixedTuple<Z, T>> 
                 return ((HasTenth<Z, ?, ?>) this).dropTenth();
             case 10:
                 return ((HasEleventh<Z, ?, ?>) this).dropEleventh();
-            case 11:
-                return ((HasTwelfth<Z, ?, ?>) this).dropTwelfth();
-            default:
-                return dropAtIndex(index);
         }
-    }
-
-    protected Tuple<Z> dropAtIndex(int index) {
-        throw new UnsupportedOperationException();
+        return ((HasTwelfth<Z, ?, ?>) this).dropTwelfth();
     }
 
 }

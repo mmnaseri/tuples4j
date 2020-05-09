@@ -131,7 +131,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropFirst() {
-        return dropAtIndex(0);
+        return drop(0);
     }
 
     /**
@@ -139,7 +139,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> second(X value) {
-        return change(0, value);
+        return change(1, value);
     }
 
     /**
@@ -147,7 +147,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> second(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(1, supplier.get());
     }
 
     /**
@@ -155,7 +155,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> second(Function<B, X> function) {
-        return change(0, function.apply(second()));
+        return change(1, function.apply(second()));
     }
 
     /**
@@ -163,7 +163,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropSecond() {
-        return dropAtIndex(1);
+        return drop(1);
     }
 
     /**
@@ -171,7 +171,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> third(X value) {
-        return change(0, value);
+        return change(2, value);
     }
 
     /**
@@ -179,7 +179,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> third(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(2, supplier.get());
     }
 
     /**
@@ -187,7 +187,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> third(Function<C, X> function) {
-        return change(0, function.apply(third()));
+        return change(2, function.apply(third()));
     }
 
     /**
@@ -195,7 +195,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropThird() {
-        return dropAtIndex(2);
+        return drop(2);
     }
 
     /**
@@ -203,7 +203,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> fourth(X value) {
-        return change(0, value);
+        return change(3, value);
     }
 
     /**
@@ -211,7 +211,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> fourth(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(3, supplier.get());
     }
 
     /**
@@ -219,7 +219,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> fourth(Function<D, X> function) {
-        return change(0, function.apply(fourth()));
+        return change(3, function.apply(fourth()));
     }
 
     /**
@@ -227,7 +227,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropFourth() {
-        return dropAtIndex(3);
+        return drop(3);
     }
 
     /**
@@ -235,7 +235,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> fifth(X value) {
-        return change(0, value);
+        return change(4, value);
     }
 
     /**
@@ -243,7 +243,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> fifth(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(4, supplier.get());
     }
 
     /**
@@ -251,7 +251,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> fifth(Function<E, X> function) {
-        return change(0, function.apply(fifth()));
+        return change(4, function.apply(fifth()));
     }
 
     /**
@@ -259,7 +259,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropFifth() {
-        return dropAtIndex(4);
+        return drop(4);
     }
 
     /**
@@ -267,7 +267,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> sixth(X value) {
-        return change(0, value);
+        return change(5, value);
     }
 
     /**
@@ -275,7 +275,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> sixth(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(5, supplier.get());
     }
 
     /**
@@ -283,7 +283,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> sixth(Function<F, X> function) {
-        return change(0, function.apply(sixth()));
+        return change(5, function.apply(sixth()));
     }
 
     /**
@@ -291,7 +291,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropSixth() {
-        return dropAtIndex(5);
+        return drop(5);
     }
 
     /**
@@ -299,7 +299,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> seventh(X value) {
-        return change(0, value);
+        return change(6, value);
     }
 
     /**
@@ -307,7 +307,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> seventh(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(6, supplier.get());
     }
 
     /**
@@ -315,7 +315,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> seventh(Function<G, X> function) {
-        return change(0, function.apply(seventh()));
+        return change(6, function.apply(seventh()));
     }
 
     /**
@@ -323,7 +323,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropSeventh() {
-        return dropAtIndex(6);
+        return drop(6);
     }
 
     /**
@@ -331,7 +331,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> eighth(X value) {
-        return change(0, value);
+        return change(7, value);
     }
 
     /**
@@ -339,7 +339,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> eighth(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(7, supplier.get());
     }
 
     /**
@@ -347,7 +347,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> eighth(Function<H, X> function) {
-        return change(0, function.apply(eighth()));
+        return change(7, function.apply(eighth()));
     }
 
     /**
@@ -355,7 +355,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropEighth() {
-        return dropAtIndex(7);
+        return drop(7);
     }
 
     /**
@@ -363,7 +363,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> ninth(X value) {
-        return change(0, value);
+        return change(8, value);
     }
 
     /**
@@ -371,7 +371,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> ninth(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(8, supplier.get());
     }
 
     /**
@@ -379,7 +379,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> ninth(Function<I, X> function) {
-        return change(0, function.apply(ninth()));
+        return change(8, function.apply(ninth()));
     }
 
     /**
@@ -387,7 +387,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropNinth() {
-        return dropAtIndex(8);
+        return drop(8);
     }
 
     /**
@@ -395,7 +395,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> tenth(X value) {
-        return change(0, value);
+        return change(9, value);
     }
 
     /**
@@ -403,7 +403,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> tenth(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(9, supplier.get());
     }
 
     /**
@@ -411,7 +411,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> tenth(Function<J, X> function) {
-        return change(0, function.apply(tenth()));
+        return change(9, function.apply(tenth()));
     }
 
     /**
@@ -419,7 +419,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropTenth() {
-        return dropAtIndex(9);
+        return drop(9);
     }
 
     /**
@@ -427,7 +427,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> eleventh(X value) {
-        return change(0, value);
+        return change(10, value);
     }
 
     /**
@@ -435,7 +435,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> eleventh(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(10, supplier.get());
     }
 
     /**
@@ -443,7 +443,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> eleventh(Function<K, X> function) {
-        return change(0, function.apply(eleventh()));
+        return change(10, function.apply(eleventh()));
     }
 
     /**
@@ -451,7 +451,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropEleventh() {
-        return dropAtIndex(10);
+        return drop(10);
     }
 
     /**
@@ -459,7 +459,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> twelfth(X value) {
-        return change(0, value);
+        return change(11, value);
     }
 
     /**
@@ -467,7 +467,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> twelfth(Supplier<X> supplier) {
-        return change(0, supplier.get());
+        return change(11, supplier.get());
     }
 
     /**
@@ -475,7 +475,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public <X extends Z> Tuple<Z> twelfth(Function<L, X> function) {
-        return change(0, function.apply(twelfth()));
+        return change(11, function.apply(twelfth()));
     }
 
     /**
@@ -483,11 +483,11 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropTwelfth() {
-        return dropAtIndex(11);
+        return drop(11);
     }
 
     @Override
-    protected Tuple<Z> dropAtIndex(int index) {
+    public Tuple<Z> drop(int index) {
         if (size() == 13) {
             switch (index) {
                 case 0:
@@ -516,12 +516,9 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
                     return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), get(12));
                 case 12:
                     return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth());
-                default:
-                    throw new IllegalStateException("Unexpected value: " + index);
             }
-        } else {
-            return new ThirteenOrMoreTuple<>(asList().without(index));
         }
+        return new ThirteenOrMoreTuple<>(asList().without(index));
     }
 
     /**
