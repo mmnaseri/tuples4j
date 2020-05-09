@@ -131,7 +131,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropFirst() {
-        return dropAtIndex(0);
+        return drop(0);
     }
 
     /**
@@ -163,7 +163,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropSecond() {
-        return dropAtIndex(1);
+        return drop(1);
     }
 
     /**
@@ -195,7 +195,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropThird() {
-        return dropAtIndex(2);
+        return drop(2);
     }
 
     /**
@@ -227,7 +227,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropFourth() {
-        return dropAtIndex(3);
+        return drop(3);
     }
 
     /**
@@ -259,7 +259,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropFifth() {
-        return dropAtIndex(4);
+        return drop(4);
     }
 
     /**
@@ -291,7 +291,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropSixth() {
-        return dropAtIndex(5);
+        return drop(5);
     }
 
     /**
@@ -323,7 +323,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropSeventh() {
-        return dropAtIndex(6);
+        return drop(6);
     }
 
     /**
@@ -355,7 +355,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropEighth() {
-        return dropAtIndex(7);
+        return drop(7);
     }
 
     /**
@@ -387,7 +387,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropNinth() {
-        return dropAtIndex(8);
+        return drop(8);
     }
 
     /**
@@ -419,7 +419,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropTenth() {
-        return dropAtIndex(9);
+        return drop(9);
     }
 
     /**
@@ -451,7 +451,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropEleventh() {
-        return dropAtIndex(10);
+        return drop(10);
     }
 
     /**
@@ -483,11 +483,11 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
      */
     @Override
     public Tuple<Z> dropTwelfth() {
-        return dropAtIndex(11);
+        return drop(11);
     }
 
     @Override
-    protected Tuple<Z> dropAtIndex(int index) {
+    public Tuple<Z> drop(int index) {
         if (size() == 13) {
             switch (index) {
                 case 0:
@@ -516,12 +516,9 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
                     return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), get(12));
                 case 12:
                     return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth());
-                default:
-                    throw new IllegalStateException("Unexpected value: " + index);
             }
-        } else {
-            return new ThirteenOrMoreTuple<>(asList().without(index));
         }
+        return new ThirteenOrMoreTuple<>(asList().without(index));
     }
 
     /**

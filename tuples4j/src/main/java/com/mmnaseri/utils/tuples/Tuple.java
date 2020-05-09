@@ -233,12 +233,18 @@ public interface Tuple<Z> {
     }
 
     /**
-     * Tightens the current tuple's super-type. If the tightened type is not applicable to all elements,
-     * this would lead to an eventual {@link ClassCastException} when trying to access those elements.
+     * Tightens the current tuple's super-type. If the tightened type is not applicable to all elements, this would lead to an eventual {@link ClassCastException} when trying to access those elements.
      */
     @SuppressWarnings("unchecked")
     default <X extends Z> Tuple<X> tighten() {
         return (Tuple<X>) this;
+    }
+
+    /**
+     * Tightens the current tuple's super-type. If the tightened type is not applicable to all elements, this would lead to an eventual {@link ClassCastException} when trying to access those elements.
+     */
+    default <X extends Z> Tuple<X> tighten(Class<X> type) {
+        return tighten();
     }
 
     // Static utility and builder methods.

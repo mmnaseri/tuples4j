@@ -11,6 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+
 /**
  * Tests for {@link EmptyTuple}.
  *
@@ -110,5 +111,26 @@ public class EmptyTupleTest {
         assertThat(tuple.toString(), is(secondTuple.toString()));
     }
 
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testChangeBySupplier() {
+        Tuple.empty().change(0, () -> 1);
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testChangeByValue() {
+        Tuple.empty().change(0, 1);
+    }
+
+    @Test(expectedExceptions = IllegalStateException.class, expectedExceptionsMessageRegExp = "Expected a size of at least 1 but received 0")
+    public void testResizing() {
+        Tuple.empty().asOne();
+    }
+
+    @Test
+    public void testResizingToEmpty() {
+        EmptyTuple<Object> empty = Tuple.empty().asEmpty();
+        assertThat(empty, is(notNullValue()));
+        assertThat(empty.size(), is(0));
+    }
 }
 

@@ -133,11 +133,7 @@ public interface LabeledTuple<Z> extends Tuple<Z> {
     /**
      * Returns a map from the labels to the values of this tuple.
      */
-    default FluentMap<String, Z> asMap() {
-        return IntStream.range(0, size())
-                        .boxed()
-                        .collect(FluentMap::new, (map, index) -> map.put(label(index), get(index)), Map::putAll);
-    }
+    FluentMap<String, Z> asMap();
 
     @SuppressWarnings("unchecked")
     @Override
