@@ -25,53 +25,51 @@ import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkIndex;
  *
  * @author Milad Naseri (m.m.naseri@gmail.com)
  */
-public abstract class AbstractFixedTuple<Z, T extends AbstractFixedTuple<Z, T>> extends AbstractTuple<Z>
-        implements
-        FixedTuple<Z, T> {
+public abstract class AbstractFixedTuple<Z, T extends AbstractFixedTuple<Z, T>>
+    extends AbstractTuple<Z> implements FixedTuple<Z, T> {
 
-    @SafeVarargs
-    protected AbstractFixedTuple(Z... values) {
-        this(Arrays.asList(values));
+  @SafeVarargs
+  protected AbstractFixedTuple(Z... values) {
+    this(Arrays.asList(values));
+  }
+
+  protected AbstractFixedTuple(List<Z> values) {
+    super(values);
+  }
+
+  /**
+   * Returns a new tuple by keeping all the elements from this tuple except the element at the
+   * indicated index.
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public Tuple<Z> drop(int index) {
+    checkIndex(index, size());
+    switch (index) {
+      case 0:
+        return ((HasFirst<Z, ?, ?>) this).dropFirst();
+      case 1:
+        return ((HasSecond<Z, ?, ?>) this).dropSecond();
+      case 2:
+        return ((HasThird<Z, ?, ?>) this).dropThird();
+      case 3:
+        return ((HasFourth<Z, ?, ?>) this).dropFourth();
+      case 4:
+        return ((HasFifth<Z, ?, ?>) this).dropFifth();
+      case 5:
+        return ((HasSixth<Z, ?, ?>) this).dropSixth();
+      case 6:
+        return ((HasSeventh<Z, ?, ?>) this).dropSeventh();
+      case 7:
+        return ((HasEighth<Z, ?, ?>) this).dropEighth();
+      case 8:
+        return ((HasNinth<Z, ?, ?>) this).dropNinth();
+      case 9:
+        return ((HasTenth<Z, ?, ?>) this).dropTenth();
+      case 10:
+        return ((HasEleventh<Z, ?, ?>) this).dropEleventh();
+      default:
+        return ((HasTwelfth<Z, ?, ?>) this).dropTwelfth();
     }
-
-    protected AbstractFixedTuple(List<Z> values) {
-        super(values);
-    }
-
-    /**
-     * Returns a new tuple by keeping all the elements from this tuple except the element at the indicated index.
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public Tuple<Z> drop(int index) {
-        checkIndex(index, size());
-        switch (index) {
-            case 0:
-                return ((HasFirst<Z, ?, ?>) this).dropFirst();
-            case 1:
-                return ((HasSecond<Z, ?, ?>) this).dropSecond();
-            case 2:
-                return ((HasThird<Z, ?, ?>) this).dropThird();
-            case 3:
-                return ((HasFourth<Z, ?, ?>) this).dropFourth();
-            case 4:
-                return ((HasFifth<Z, ?, ?>) this).dropFifth();
-            case 5:
-                return ((HasSixth<Z, ?, ?>) this).dropSixth();
-            case 6:
-                return ((HasSeventh<Z, ?, ?>) this).dropSeventh();
-            case 7:
-                return ((HasEighth<Z, ?, ?>) this).dropEighth();
-            case 8:
-                return ((HasNinth<Z, ?, ?>) this).dropNinth();
-            case 9:
-                return ((HasTenth<Z, ?, ?>) this).dropTenth();
-            case 10:
-                return ((HasEleventh<Z, ?, ?>) this).dropEleventh();
-            default:
-                return ((HasTwelfth<Z, ?, ?>) this).dropTwelfth();
-        }
-    }
-
+  }
 }
-

@@ -1,39 +1,31 @@
 package com.mmnaseri.utils.tuples.utils;
 
-/**
- * Internal utility methods.
- */
+/** Internal utility methods. */
 public final class TupleUtils {
 
-    private TupleUtils() {
-        throw new IllegalStateException("This class should not be instantiated.");
-    }
+  private TupleUtils() {
+    throw new IllegalStateException("This class should not be instantiated.");
+  }
 
-    /**
-     * Checks the index to see if it is within range.
-     */
-    public static <E> E checkIndex(int index, int size) {
-        return checkIndex(index, size, String.valueOf(index));
-    }
+  /** Checks the index to see if it is within range. */
+  public static <E> E checkIndex(int index, int size) {
+    return checkIndex(index, size, String.valueOf(index));
+  }
 
-    /**
-     * Checks the index to see if it is within range.
-     */
-    public static <E> E checkIndex(int index, int size, String value) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of range: " + value);
-        }
-        return null;
+  /** Checks the index to see if it is within range. */
+  public static <E> E checkIndex(int index, int size, String value) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException("Index out of range: " + value);
     }
+    return null;
+  }
 
-    /**
-     * Checks to see if the size is at least the expected number.
-     */
-    public static <E> E checkSize(int size, int expected) {
-        if (size < expected) {
-            throw new IllegalStateException("Expected a size of at least " + expected + " but received " + size);
-        }
-        return null;
+  /** Checks to see if the size is at least the expected number. */
+  public static <E> E checkSize(int size, int expected) {
+    if (size < expected) {
+      throw new IllegalStateException(
+          "Expected a size of at least " + expected + " but received " + size);
     }
-
+    return null;
+  }
 }

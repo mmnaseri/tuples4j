@@ -16,43 +16,28 @@ import java.util.function.Supplier;
  * @author Milad Naseri (m.m.naseri@gmail.com)
  */
 public interface HasEleventh<Z, A extends Z, T extends HasEleventh<Z, A, T>>
-        extends
-        FixedTuple<Z, T> {
+    extends FixedTuple<Z, T> {
 
-    /**
-     * Returns the eleventh element in the current tuple.
-     */
-    @SuppressWarnings("unchecked")
-    default A eleventh() {
-        return (A) get(10);
-    }
+  /** Returns the eleventh element in the current tuple. */
+  @SuppressWarnings("unchecked")
+  default A eleventh() {
+    return (A) get(10);
+  }
 
-    /**
-     * Sets the eleventh element of the tuple to the indicated value.
-     */
-    <X extends Z> Tuple<Z> eleventh(X value);
+  /** Sets the eleventh element of the tuple to the indicated value. */
+  <X extends Z> Tuple<Z> eleventh(X value);
 
-    /**
-     * Sets the eleventh element of the tuple to the supplied value.
-     */
-    <X extends Z> Tuple<Z> eleventh(Supplier<X> supplier);
+  /** Sets the eleventh element of the tuple to the supplied value. */
+  <X extends Z> Tuple<Z> eleventh(Supplier<X> supplier);
 
-    /**
-     * Sets the eleventh element of the tuple to the value returned from the function.
-     */
-    <X extends Z> Tuple<Z> eleventh(Function<A, X> function);
+  /** Sets the eleventh element of the tuple to the value returned from the function. */
+  <X extends Z> Tuple<Z> eleventh(Function<A, X> function);
 
-    /**
-     * Drops the eleventh element of the tuple, to return a tuple of one size smaller.
-     */
-    Tuple<Z> dropEleventh();
+  /** Drops the eleventh element of the tuple, to return a tuple of one size smaller. */
+  Tuple<Z> dropEleventh();
 
-    /**
-     * Checks to see if the eleventh element of this tuple matches the given predicate.
-     */
-    default boolean checkEleventh(Predicate<A> predicate) {
-        return predicate.test(eleventh());
-    }
-
+  /** Checks to see if the eleventh element of this tuple matches the given predicate. */
+  default boolean checkEleventh(Predicate<A> predicate) {
+    return predicate.test(eleventh());
+  }
 }
-

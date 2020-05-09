@@ -16,43 +16,28 @@ import java.util.function.Supplier;
  * @author Milad Naseri (m.m.naseri@gmail.com)
  */
 public interface HasSeventh<Z, A extends Z, T extends HasSeventh<Z, A, T>>
-        extends
-        FixedTuple<Z, T> {
+    extends FixedTuple<Z, T> {
 
-    /**
-     * Returns the seventh element in the current tuple.
-     */
-    @SuppressWarnings("unchecked")
-    default A seventh() {
-        return (A) get(6);
-    }
+  /** Returns the seventh element in the current tuple. */
+  @SuppressWarnings("unchecked")
+  default A seventh() {
+    return (A) get(6);
+  }
 
-    /**
-     * Sets the seventh element of the tuple to the indicated value.
-     */
-    <X extends Z> Tuple<Z> seventh(X value);
+  /** Sets the seventh element of the tuple to the indicated value. */
+  <X extends Z> Tuple<Z> seventh(X value);
 
-    /**
-     * Sets the seventh element of the tuple to the supplied value.
-     */
-    <X extends Z> Tuple<Z> seventh(Supplier<X> supplier);
+  /** Sets the seventh element of the tuple to the supplied value. */
+  <X extends Z> Tuple<Z> seventh(Supplier<X> supplier);
 
-    /**
-     * Sets the seventh element of the tuple to the value returned from the function.
-     */
-    <X extends Z> Tuple<Z> seventh(Function<A, X> function);
+  /** Sets the seventh element of the tuple to the value returned from the function. */
+  <X extends Z> Tuple<Z> seventh(Function<A, X> function);
 
-    /**
-     * Drops the seventh element of the tuple, to return a tuple of one size smaller.
-     */
-    Tuple<Z> dropSeventh();
+  /** Drops the seventh element of the tuple, to return a tuple of one size smaller. */
+  Tuple<Z> dropSeventh();
 
-    /**
-     * Checks to see if the seventh element of this tuple matches the given predicate.
-     */
-    default boolean checkSeventh(Predicate<A> predicate) {
-        return predicate.test(seventh());
-    }
-
+  /** Checks to see if the seventh element of this tuple matches the given predicate. */
+  default boolean checkSeventh(Predicate<A> predicate) {
+    return predicate.test(seventh());
+  }
 }
-
