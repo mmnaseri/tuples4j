@@ -2,13 +2,17 @@ package com.mmnaseri.utils.tuples.utils;
 
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class FluentMapTest {
@@ -76,4 +80,25 @@ public class FluentMapTest {
         assertThat(other.containsKey("b"), is(false));
     }
 
+    @Test
+    public void testCreatingInverse() {
+        FluentMap<String, Integer> map = FluentMap.of("a", 1).with("b", 2).with("c", 1).with("d", 2);
+        FluentMap<Integer, Set<String>> inverse = map.inverse();
+        assertThat(inverse.size(), is(2));
+        assertThat(inverse.keySet(), contains(1, 2));
+        assertThat(inverse.get(1), hasSize(2));
+        assertThat(inverse.get(1), contains("a", "c"));
+        assertThat(inverse.get(2), hasSize(2));
+        assertThat(inverse.get(2), contains("b", "d"));
+    }
+
+    @Test
+    public void testCreatingLossyInverse() {
+        FluentMap<String, Integer> map = FluentMap.of("a", 1).with("b", 2).with("c", 1).with("d", 2);
+        FluentMap<Integer, String> inverse = map.inverseLossy();
+        assertThat(inverse.size(), is(2));
+        assertThat(inverse.keySet(), contains(1, 2));
+        assertThat(inverse.get(1), isIn(Arrays.asList("a", "c")));
+        assertThat(inverse.get(2), isIn(Arrays.asList("b", "d")));
+    }
 }

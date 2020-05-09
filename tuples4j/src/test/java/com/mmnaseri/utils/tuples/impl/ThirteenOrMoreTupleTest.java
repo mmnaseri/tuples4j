@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+
 /**
  * Tests for {@link ThirteenOrMoreTuple}.
  *
@@ -67,6 +68,317 @@ public class ThirteenOrMoreTupleTest {
     }
 
     @Test
+    public void changingElementByIndexThroughSupplier() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        for (int i = 0; i < 13; i++) {
+            Tuple<?> other = tuple.change(i, () -> -1);
+            assertThat(other, is(notNullValue()));
+            assertThat(other.size(), is(13));
+            assertThat(other.get(i), is(-1));
+        }
+    }
+
+    @Test
+    public void changingFirstElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.first(-1);
+        Tuple<Object> thirdTuple = tuple.first(() -> -1);
+        Tuple<Object> fourthTuple = tuple.first(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 0) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingSecondElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.second(-1);
+        Tuple<Object> thirdTuple = tuple.second(() -> -1);
+        Tuple<Object> fourthTuple = tuple.second(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 1) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingThirdElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.third(-1);
+        Tuple<Object> thirdTuple = tuple.third(() -> -1);
+        Tuple<Object> fourthTuple = tuple.third(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 2) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingFourthElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.fourth(-1);
+        Tuple<Object> thirdTuple = tuple.fourth(() -> -1);
+        Tuple<Object> fourthTuple = tuple.fourth(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 3) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingFifthElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.fifth(-1);
+        Tuple<Object> thirdTuple = tuple.fifth(() -> -1);
+        Tuple<Object> fourthTuple = tuple.fifth(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 4) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingSixthElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.sixth(-1);
+        Tuple<Object> thirdTuple = tuple.sixth(() -> -1);
+        Tuple<Object> fourthTuple = tuple.sixth(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 5) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingSeventhElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.seventh(-1);
+        Tuple<Object> thirdTuple = tuple.seventh(() -> -1);
+        Tuple<Object> fourthTuple = tuple.seventh(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 6) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingEighthElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.eighth(-1);
+        Tuple<Object> thirdTuple = tuple.eighth(() -> -1);
+        Tuple<Object> fourthTuple = tuple.eighth(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 7) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingNinthElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.ninth(-1);
+        Tuple<Object> thirdTuple = tuple.ninth(() -> -1);
+        Tuple<Object> fourthTuple = tuple.ninth(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 8) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingTenthElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.tenth(-1);
+        Tuple<Object> thirdTuple = tuple.tenth(() -> -1);
+        Tuple<Object> fourthTuple = tuple.tenth(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 9) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingEleventhElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.eleventh(-1);
+        Tuple<Object> thirdTuple = tuple.eleventh(() -> -1);
+        Tuple<Object> fourthTuple = tuple.eleventh(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 10) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
+    public void changingTwelfthElementByAccessor() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> secondTuple = tuple.twelfth(-1);
+        Tuple<Object> thirdTuple = tuple.twelfth(() -> -1);
+        Tuple<Object> fourthTuple = tuple.twelfth(previous -> -1);
+        assertThat(secondTuple, is(notNullValue()));
+        assertThat(secondTuple.size(), is(tuple.size()));
+        assertThat(thirdTuple, is(notNullValue()));
+        assertThat(thirdTuple.size(), is(tuple.size()));
+        assertThat(fourthTuple, is(notNullValue()));
+        assertThat(fourthTuple.size(), is(tuple.size()));
+        for (int i = 0; i < tuple.size(); i++) {
+            if (i == 11) {
+                assertThat(secondTuple.get(i), is(-1));
+                assertThat(thirdTuple.get(i), is(-1));
+                assertThat(fourthTuple.get(i), is(-1));
+                continue;
+            }
+            assertThat(secondTuple.get(i), is(tuple.get(i)));
+            assertThat(thirdTuple.get(i), is(tuple.get(i)));
+            assertThat(fourthTuple.get(i), is(tuple.get(i)));
+        }
+    }
+
+    @Test
     public void droppingByIndex() {
         ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
         for (int i = 0; i < 13; i++) {
@@ -78,6 +390,159 @@ public class ThirteenOrMoreTupleTest {
                     continue;
                 }
                 assertThat(other.get(j < i ? j : j - 1), is(tuple.get(j)));
+            }
+        }
+    }
+
+    @Test
+    public void testDroppingFirst() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropFirst();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            assertThat(other.get(i), is(tuple.get(i + 1)));
+        }
+    }
+    @Test
+    public void testDroppingSecond() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropSecond();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 1) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingThird() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropThird();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 2) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingFourth() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropFourth();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 3) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingFifth() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropFifth();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 4) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingSixth() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropSixth();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 5) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingSeventh() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropSeventh();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 6) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingEighth() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropEighth();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 7) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingNinth() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropNinth();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 8) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingTenth() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropTenth();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 9) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingEleventh() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropEleventh();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 10) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
+            }
+        }
+    }
+    @Test
+    public void testDroppingTwelfth() {
+        ThirteenOrMoreTuple<Object, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> tuple = Tuple.large(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        Tuple<Object> other = tuple.dropTwelfth();
+        assertThat(other.size(), is(12));
+        for (int i = 0; i < other.size(); i++) {
+            if (i < 11) {
+                assertThat(other.get(i), is(tuple.get(i)));
+            } else {
+                assertThat(other.get(i), is(tuple.get(i + 1)));
             }
         }
     }

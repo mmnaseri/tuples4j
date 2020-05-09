@@ -85,4 +85,12 @@ public class FluentList<E> extends ArrayList<E> {
     public static <E> FluentList<E> of(Collection<? extends E> values) {
         return new FluentList<>(values);
     }
+
+    /**
+     * Returns an empty fluent list.
+     */
+    public static <E> FluentList<E> empty() {
+        return new FluentList<>();
+    }
+
 }

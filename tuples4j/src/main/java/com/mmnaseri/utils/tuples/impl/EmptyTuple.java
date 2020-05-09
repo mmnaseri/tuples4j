@@ -17,8 +17,7 @@ public class EmptyTuple<Z> extends AbstractFixedTuple<Z, EmptyTuple<Z>> {
      */
     @Override
     public EmptyTuple<Z> change(int index, Supplier<? extends Z> supplier) {
-        checkIndex(index, size());
-        return new EmptyTuple<>();
+        return checkIndex(index, size());
     }
 
     /**
@@ -26,8 +25,7 @@ public class EmptyTuple<Z> extends AbstractFixedTuple<Z, EmptyTuple<Z>> {
      */
     @Override
     public EmptyTuple<Z> change(int index, Function<EmptyTuple<Z>, ? extends Z> function) {
-        checkIndex(index, size());
-        return new EmptyTuple<>();
+        return checkIndex(index, size());
     }
 
     /**

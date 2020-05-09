@@ -1,16 +1,20 @@
 package com.mmnaseri.utils.tuples.impl;
 
 import com.mmnaseri.utils.tuples.Tuple;
+import com.mmnaseri.utils.tuples.utils.FluentMap;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+
 /**
  * Tests for {@link KeyValue}.
  *
@@ -192,5 +196,15 @@ public class KeyValueTest {
         assertThat(tuple.first(), is(tuple.key()));
     }
 
+    @Test
+    public void buildingKeyValuesFromMap() {
+        Set<KeyValue<String, Integer>> keyValues
+                = FluentMap.of("a", 1).with("b", 2).entrySet().stream()
+                           .map(KeyValue::create)
+                           .collect(toSet());
+        assertThat(keyValues, hasSize(2));
+        //noinspection unchecked
+        assertThat(keyValues, contains(KeyValue.create("a", 1), KeyValue.create("b", 2)));
+    }
 }
 
