@@ -16,43 +16,28 @@ import java.util.function.Supplier;
  * @author Milad Naseri (m.m.naseri@gmail.com)
  */
 public interface HasTwelfth<Z, A extends Z, T extends HasTwelfth<Z, A, T>>
-        extends
-        FixedTuple<Z, T> {
+    extends FixedTuple<Z, T> {
 
-    /**
-     * Returns the twelfth element in the current tuple.
-     */
-    @SuppressWarnings("unchecked")
-    default A twelfth() {
-        return (A) get(11);
-    }
+  /** Returns the twelfth element in the current tuple. */
+  @SuppressWarnings("unchecked")
+  default A twelfth() {
+    return (A) get(11);
+  }
 
-    /**
-     * Sets the twelfth element of the tuple to the indicated value.
-     */
-    <X extends Z> Tuple<Z> twelfth(X value);
+  /** Sets the twelfth element of the tuple to the indicated value. */
+  <X extends Z> Tuple<Z> twelfth(X value);
 
-    /**
-     * Sets the twelfth element of the tuple to the supplied value.
-     */
-    <X extends Z> Tuple<Z> twelfth(Supplier<X> supplier);
+  /** Sets the twelfth element of the tuple to the supplied value. */
+  <X extends Z> Tuple<Z> twelfth(Supplier<X> supplier);
 
-    /**
-     * Sets the twelfth element of the tuple to the value returned from the function.
-     */
-    <X extends Z> Tuple<Z> twelfth(Function<A, X> function);
+  /** Sets the twelfth element of the tuple to the value returned from the function. */
+  <X extends Z> Tuple<Z> twelfth(Function<A, X> function);
 
-    /**
-     * Drops the twelfth element of the tuple, to return a tuple of one size smaller.
-     */
-    Tuple<Z> dropTwelfth();
+  /** Drops the twelfth element of the tuple, to return a tuple of one size smaller. */
+  Tuple<Z> dropTwelfth();
 
-    /**
-     * Checks to see if the twelfth element of this tuple matches the given predicate.
-     */
-    default boolean checkTwelfth(Predicate<A> predicate) {
-        return predicate.test(twelfth());
-    }
-
+  /** Checks to see if the twelfth element of this tuple matches the given predicate. */
+  default boolean checkTwelfth(Predicate<A> predicate) {
+    return predicate.test(twelfth());
+  }
 }
-

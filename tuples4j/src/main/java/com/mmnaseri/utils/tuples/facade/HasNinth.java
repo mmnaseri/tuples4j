@@ -15,44 +15,28 @@ import java.util.function.Supplier;
  * @param <T> the concrete type of the fixed-size tuple.
  * @author Milad Naseri (m.m.naseri@gmail.com)
  */
-public interface HasNinth<Z, A extends Z, T extends HasNinth<Z, A, T>>
-        extends
-        FixedTuple<Z, T> {
+public interface HasNinth<Z, A extends Z, T extends HasNinth<Z, A, T>> extends FixedTuple<Z, T> {
 
-    /**
-     * Returns the ninth element in the current tuple.
-     */
-    @SuppressWarnings("unchecked")
-    default A ninth() {
-        return (A) get(8);
-    }
+  /** Returns the ninth element in the current tuple. */
+  @SuppressWarnings("unchecked")
+  default A ninth() {
+    return (A) get(8);
+  }
 
-    /**
-     * Sets the ninth element of the tuple to the indicated value.
-     */
-    <X extends Z> Tuple<Z> ninth(X value);
+  /** Sets the ninth element of the tuple to the indicated value. */
+  <X extends Z> Tuple<Z> ninth(X value);
 
-    /**
-     * Sets the ninth element of the tuple to the supplied value.
-     */
-    <X extends Z> Tuple<Z> ninth(Supplier<X> supplier);
+  /** Sets the ninth element of the tuple to the supplied value. */
+  <X extends Z> Tuple<Z> ninth(Supplier<X> supplier);
 
-    /**
-     * Sets the ninth element of the tuple to the value returned from the function.
-     */
-    <X extends Z> Tuple<Z> ninth(Function<A, X> function);
+  /** Sets the ninth element of the tuple to the value returned from the function. */
+  <X extends Z> Tuple<Z> ninth(Function<A, X> function);
 
-    /**
-     * Drops the ninth element of the tuple, to return a tuple of one size smaller.
-     */
-    Tuple<Z> dropNinth();
+  /** Drops the ninth element of the tuple, to return a tuple of one size smaller. */
+  Tuple<Z> dropNinth();
 
-    /**
-     * Checks to see if the ninth element of this tuple matches the given predicate.
-     */
-    default boolean checkNinth(Predicate<A> predicate) {
-        return predicate.test(ninth());
-    }
-
+  /** Checks to see if the ninth element of this tuple matches the given predicate. */
+  default boolean checkNinth(Predicate<A> predicate) {
+    return predicate.test(ninth());
+  }
 }
-
