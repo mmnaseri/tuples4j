@@ -514,7 +514,7 @@ public class ThirteenOrMoreTuple<Z, A extends Z, B extends Z, C extends Z, D ext
                     return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), twelfth(), get(12));
                 case 11:
                     return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), get(12));
-                case 12:
+                default:
                     return new TwelveTuple<>(first(), second(), third(), fourth(), fifth(), sixth(), seventh(), eighth(), ninth(), tenth(), eleventh(), twelfth());
             }
         }
