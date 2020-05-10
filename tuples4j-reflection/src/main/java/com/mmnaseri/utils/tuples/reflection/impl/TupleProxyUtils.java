@@ -4,6 +4,7 @@ import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.annotations.Metadata;
 import com.mmnaseri.utils.tuples.facade.HasFirst;
 import com.mmnaseri.utils.tuples.facade.HasSecond;
+import com.mmnaseri.utils.tuples.utils.FluentList;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 /**
@@ -107,8 +109,25 @@ public final class TupleProxyUtils {
     if (element.isAnnotationPresent(annotationType)) {
       return element.getAnnotation(annotationType);
     }
-    return Arrays.stream(element.getAnnotations())
-        .map(annotation -> getAnnotation(annotationType, annotation.annotationType(), considered))
+    FluentList<AnnotatedElement> search =
+        FluentList.of(
+            Arrays.stream(element.getAnnotations())
+                .map(Annotation::annotationType)
+                .collect(toList()));
+    if (element instanceof Class && !((Class<?>) element).isAnnotation()) {
+      if (((Class<?>) element).getSuperclass() != null) {
+        search = search.with(((Class<?>) element).getSuperclass());
+      }
+      if (((Class<?>) element).getInterfaces().length > 0) {
+        search = search.with(((Class<?>) element).getInterfaces());
+      }
+      if (((Class<?>) element).getAnnotatedInterfaces().length > 0) {
+        search = search.with(((Class<?>) element).getAnnotatedInterfaces());
+      }
+    }
+    return search.stream()
+        .distinct()
+        .map(annotation -> getAnnotation(annotationType, annotation, considered))
         .filter(Objects::nonNull)
         .findFirst()
         .orElse(null);

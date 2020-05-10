@@ -113,6 +113,32 @@ public class DeclaredHandlersTupleInvocationHandlerTest {
         is("10"));
   }
 
+  @Test
+  public void testHandlesForInheritedAnnotation() throws Exception {
+    DeclaredHandlersTupleInvocationHandler handler =
+        new DeclaredHandlersTupleInvocationHandler(ProxyInterfaceWithInheritedAnnotation.class);
+    assertThat(
+        handler.handles(
+            Tuple.of(), invocation(ProxyInterfaceWithInheritedAnnotation.class, "getX")),
+        is(true));
+    assertThat(
+        handler.handles(
+            Tuple.of(), invocation(ProxyInterfaceWithInheritedAnnotation.class, "getY")),
+        is(true));
+  }
+
+  @Test
+  public void testHandleForInheritedAnnotation() throws Throwable {
+    DeclaredHandlersTupleInvocationHandler handler =
+        new DeclaredHandlersTupleInvocationHandler(ProxyInterfaceWithInheritedAnnotation.class);
+    assertThat(
+        handler.handle(Tuple.of(), invocation(ProxyInterfaceWithInheritedAnnotation.class, "getX")),
+        is(10));
+    assertThat(
+        handler.handle(Tuple.of(), invocation(ProxyInterfaceWithInheritedAnnotation.class, "getY")),
+        is("10"));
+  }
+
   private ImmutableMethodInvocation invocation(final Class<?> proxyType, final String method)
       throws NoSuchMethodException {
     return new ImmutableMethodInvocation(
@@ -149,6 +175,15 @@ public class DeclaredHandlersTupleInvocationHandlerTest {
   @SampleHandled
   private interface ProxyInterfaceWithReferencingAnnotation {
 
+    int getX(int x);
+
+    String getY(int y);
+  }
+
+  @SampleHandled
+  private interface HandlerDefiningInterface {}
+
+  private interface ProxyInterfaceWithInheritedAnnotation extends HandlerDefiningInterface {
     int getX(int x);
 
     String getY(int y);
