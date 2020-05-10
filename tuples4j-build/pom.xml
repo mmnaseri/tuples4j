@@ -20,6 +20,7 @@
 
     <modules>
         <module>../tuples4j</module>
+        <module>../tuples4j-reflection</module>
     </modules>
 
 </project>
