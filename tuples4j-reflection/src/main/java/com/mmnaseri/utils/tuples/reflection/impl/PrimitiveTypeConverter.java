@@ -37,7 +37,6 @@ public class PrimitiveTypeConverter extends ClassTypeConverter {
   protected boolean supportsConversion(final Class<?> expectedType, final Object value) {
     return value != null
             && PRIMITIVES.containsKey(value.getClass())
-            && PRIMITIVES.get(value.getClass()).equals(expectedType)
         || value != null
             && PRIMITIVES.containsKey(expectedType)
             && PRIMITIVES.get(expectedType).equals(value.getClass());

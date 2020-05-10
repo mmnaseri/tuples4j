@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContaining;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 public class ImmutableMethodInvocationTest {
 
@@ -53,6 +54,8 @@ public class ImmutableMethodInvocationTest {
             new Object[] {1},
             getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
 
+    assertThat(first, is(first));
+    assertThat(first, is(not(new Object())));
     assertThat(first, is(second));
     assertThat(second, is(first));
   }

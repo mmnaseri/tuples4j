@@ -16,7 +16,7 @@ public class ImmutableMethodInvocation implements MethodInvocation {
   public ImmutableMethodInvocation(
       final Object instance, final Object[] arguments, final Method method) {
     this.instance = instance;
-    this.arguments = Arrays.copyOf(arguments, arguments.length);
+    this.arguments = arguments == null ? new Object[0] : Arrays.copyOf(arguments, arguments.length);
     this.method = method;
   }
 
