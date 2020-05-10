@@ -5,9 +5,7 @@ import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.reflection.InvocationElementResolver;
 import com.mmnaseri.utils.tuples.reflection.type.TypeConverter;
 
-/**
- * Reflective tuple using {@link CachingReflector}.
- */
+/** Reflective tuple using {@link CachingReflector}. */
 public class CachingReflectiveTuple<Z> extends DelegatingTuple<Z> implements ReflectiveTuple<Z> {
 
   private final CachingReflector reflector;

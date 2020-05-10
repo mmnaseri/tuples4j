@@ -189,6 +189,12 @@ public class DeclaredHandlersTupleInvocationHandlerTest {
     String getY(int y);
   }
 
+  @WithHandler(HandlerForX.class)
+  @WithHandler(HandlerForY.class)
+  @Retention(RetentionPolicy.RUNTIME)
+  @Target(ElementType.TYPE)
+  private @interface SampleHandled {}
+
   private static class HandlerForX implements TupleInvocationHandler {
 
     @Override
@@ -214,10 +220,4 @@ public class DeclaredHandlersTupleInvocationHandlerTest {
       return String.valueOf(invocation.arguments()[0]);
     }
   }
-
-  @WithHandler(HandlerForX.class)
-  @WithHandler(HandlerForY.class)
-  @Retention(RetentionPolicy.RUNTIME)
-  @Target(ElementType.TYPE)
-  private @interface SampleHandled {}
 }

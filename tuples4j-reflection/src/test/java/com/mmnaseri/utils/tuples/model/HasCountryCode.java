@@ -5,5 +5,4 @@ public interface HasCountryCode {
   String countryCode();
 
   String countryCodeLowerCase();
-
 }

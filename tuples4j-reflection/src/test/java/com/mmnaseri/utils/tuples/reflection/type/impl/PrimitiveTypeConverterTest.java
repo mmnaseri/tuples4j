@@ -1,6 +1,5 @@
 package com.mmnaseri.utils.tuples.reflection.type.impl;
 
-import com.mmnaseri.utils.tuples.reflection.type.impl.PrimitiveTypeConverter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

@@ -32,7 +32,8 @@ public class DefaultElementConverterRegistryTest {
       assertThat(e, is(instanceOf(RuntimeException.class)));
       assertThat(e.getCause(), is(notNullValue()));
       assertThat(e.getCause(), is(instanceOf(RuntimeException.class)));
-      assertThat(e.getCause().getMessage(), containsString("Another instance of class already exists"));
+      assertThat(
+          e.getCause().getMessage(), containsString("Another instance of class already exists"));
       return;
     }
     fail();

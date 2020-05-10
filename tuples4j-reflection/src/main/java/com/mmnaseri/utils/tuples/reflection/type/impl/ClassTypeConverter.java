@@ -4,9 +4,7 @@ import com.mmnaseri.utils.tuples.reflection.type.TypeConverter;
 
 import java.lang.reflect.Type;
 
-/**
- * A converter that converts based on a {@link Class} rather than a generic type.
- */
+/** A converter that converts based on a {@link Class} rather than a generic type. */
 public abstract class ClassTypeConverter implements TypeConverter {
 
   @Override

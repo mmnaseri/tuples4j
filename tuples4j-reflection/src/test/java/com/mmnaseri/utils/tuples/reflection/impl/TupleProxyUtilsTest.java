@@ -7,8 +7,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +62,9 @@ public class TupleProxyUtilsTest {
     assertThat(annotation.value(), is("mno"));
   }
 
-  @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = "Could not call method.*\\.value\\(\\).*")
+  @Test(
+      expectedExceptions = RuntimeException.class,
+      expectedExceptionsMessageRegExp = "Could not call method.*\\.value\\(\\).*")
   public void testExceptingMethodPreventsMapCreation() {
     TupleProxyUtils.mapOf(ExceptingInterface.class, new ExceptingClass());
   }
@@ -93,6 +93,28 @@ public class TupleProxyUtilsTest {
       throw new IllegalAccessException();
     }
   }
+
+  @SecondAnnotation("mno")
+  @Target(ElementType.METHOD)
+  @Retention(RetentionPolicy.RUNTIME)
+  private @interface FirstAnnotation {}
+
+  @Metadata
+  @Target(ElementType.ANNOTATION_TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  private @interface SecondAnnotation {
+    String value();
+  }
+
+  @FourthAnnotation
+  @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
+  @Retention(RetentionPolicy.RUNTIME)
+  private @interface ThirdAnnotation {}
+
+  @ThirdAnnotation
+  @Target(ElementType.ANNOTATION_TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  private @interface FourthAnnotation {}
 
   private static class MyClass implements TheInterface {
 
@@ -129,26 +151,4 @@ public class TupleProxyUtilsTest {
   }
 
   private static class ExceptingClass implements ExceptingInterface {}
-
-  @SecondAnnotation("mno")
-  @Target(ElementType.METHOD)
-  @Retention(RetentionPolicy.RUNTIME)
-  private @interface FirstAnnotation {}
-
-  @Metadata
-  @Target(ElementType.ANNOTATION_TYPE)
-  @Retention(RetentionPolicy.RUNTIME)
-  private @interface SecondAnnotation {
-    String value();
-  }
-
-  @FourthAnnotation
-  @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
-  @Retention(RetentionPolicy.RUNTIME)
-  private @interface ThirdAnnotation {}
-
-  @ThirdAnnotation
-  @Target(ElementType.ANNOTATION_TYPE)
-  @Retention(RetentionPolicy.RUNTIME)
-  private @interface FourthAnnotation {}
 }

@@ -4,8 +4,8 @@ import com.mmnaseri.utils.tuples.LabeledTuple;
 import com.mmnaseri.utils.tuples.Tuple;
 import com.mmnaseri.utils.tuples.annotations.AtIndex;
 import com.mmnaseri.utils.tuples.annotations.WithLabel;
-import com.mmnaseri.utils.tuples.reflection.MethodInvocation;
 import com.mmnaseri.utils.tuples.reflection.InvocationElementResolver;
+import com.mmnaseri.utils.tuples.reflection.MethodInvocation;
 
 /**
  * A method element resolver that uses the annotations found in {@link

@@ -28,7 +28,10 @@ public class ElementResolvingTupleInvocationHandlerTest {
     assertThat(value, is("value"));
   }
 
-  @Test(expectedExceptions = IllegalStateException.class, expectedExceptionsMessageRegExp = "Could not match invocation of invalid to any elements on tuple .*")
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp =
+          "Could not match invocation of invalid to any elements on tuple .*")
   public void testHandleInvalid() throws Throwable {
     handler.handle(Tuple.of("value").withLabels("valid"), invocation("invalid"));
   }

@@ -14,9 +14,7 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-/**
- * Converter that can convert all of JDK's standard number types to one-another.
- */
+/** Converter that can convert all of JDK's standard number types to one-another. */
 public class NumberTypeConverter extends ClassTypeConverter {
 
   private static final Map<Class<? extends Number>, Function<Number, Number>> READERS =

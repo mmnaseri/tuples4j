@@ -27,6 +27,10 @@ public class DefaultElementConverterRegistry implements ElementConverterRegistry
     return converters.computeIfAbsent(type, TupleProxyUtils::instantiate);
   }
 
+  protected DefaultElementConverterRegistry readResolve() {
+    return getInstance();
+  }
+
   public static DefaultElementConverterRegistry getInstance() {
     if (defaultInstance == null) {
       synchronized (DefaultElementConverterRegistry.class) {
@@ -36,9 +40,5 @@ public class DefaultElementConverterRegistry implements ElementConverterRegistry
       }
     }
     return defaultInstance;
-  }
-
-  protected DefaultElementConverterRegistry readResolve() {
-    return getInstance();
   }
 }

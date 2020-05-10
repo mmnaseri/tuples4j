@@ -13,8 +13,6 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
 
 public class ProvidedMethodTupleInvocationHandlerTest {
 
@@ -37,10 +35,10 @@ public class ProvidedMethodTupleInvocationHandlerTest {
 
   private ImmutableMethodInvocation getInvocation() throws NoSuchMethodException {
     return new ImmutableMethodInvocation(
-      new Object(),
-      new Object[] {new Integer[] {4, 5, 6}},
-      ProxyInterface.class.getDeclaredMethod("valueFromProvider", Integer[].class),
-      ProxyInterface.class);
+        new Object(),
+        new Object[] {new Integer[] {4, 5, 6}},
+        ProxyInterface.class.getDeclaredMethod("valueFromProvider", Integer[].class),
+        ProxyInterface.class);
   }
 
   private interface ProxyInterface {
@@ -53,7 +51,8 @@ public class ProvidedMethodTupleInvocationHandlerTest {
 
     @Override
     public Object handle(final Tuple<?> tuple, final MethodInvocation invocation) {
-      return FluentList.<Object>of(Arrays.asList(1, 2, 3)).with((Integer[]) invocation.arguments()[0]);
+      return FluentList.<Object>of(Arrays.asList(1, 2, 3))
+          .with((Integer[]) invocation.arguments()[0]);
     }
   }
 }

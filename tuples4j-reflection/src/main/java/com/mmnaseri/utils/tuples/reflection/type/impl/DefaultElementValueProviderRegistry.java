@@ -1,7 +1,6 @@
 package com.mmnaseri.utils.tuples.reflection.type.impl;
 
 import com.mmnaseri.utils.tuples.reflection.impl.TupleProxyUtils;
-import com.mmnaseri.utils.tuples.reflection.type.ElementConverterRegistry;
 import com.mmnaseri.utils.tuples.reflection.type.ElementValueProvider;
 import com.mmnaseri.utils.tuples.reflection.type.ElementValueProviderRegistry;
 
@@ -28,6 +27,10 @@ public class DefaultElementValueProviderRegistry implements ElementValueProvider
     return providers.computeIfAbsent(type, TupleProxyUtils::instantiate);
   }
 
+  protected DefaultElementValueProviderRegistry readResolve() {
+    return getInstance();
+  }
+
   public static DefaultElementValueProviderRegistry getInstance() {
     if (defaultInstance == null) {
       synchronized (DefaultElementValueProviderRegistry.class) {
@@ -37,9 +40,5 @@ public class DefaultElementValueProviderRegistry implements ElementValueProvider
       }
     }
     return defaultInstance;
-  }
-
-  protected DefaultElementValueProviderRegistry readResolve() {
-    return getInstance();
   }
 }

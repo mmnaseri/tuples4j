@@ -5,9 +5,7 @@ import com.mmnaseri.utils.tuples.utils.FluentMap;
 import java.util.Map;
 import java.util.function.Function;
 
-/**
- * Converter that can convert object between the boxed and primitive types.
- */
+/** Converter that can convert object between the boxed and primitive types. */
 public class PrimitiveTypeConverter extends ClassTypeConverter {
 
   static final FluentMap<Class<?>, Class<?>> PRIMITIVES =
@@ -35,8 +33,7 @@ public class PrimitiveTypeConverter extends ClassTypeConverter {
 
   @Override
   protected boolean supportsConversion(final Class<?> expectedType, final Object value) {
-    return value != null
-            && PRIMITIVES.containsKey(value.getClass())
+    return value != null && PRIMITIVES.containsKey(value.getClass())
         || value != null
             && PRIMITIVES.containsKey(expectedType)
             && PRIMITIVES.get(expectedType).equals(value.getClass());

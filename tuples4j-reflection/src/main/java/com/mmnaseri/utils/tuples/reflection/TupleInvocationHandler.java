@@ -12,5 +12,4 @@ public interface TupleInvocationHandler extends ElementValueProvider {
 
   /** Indicates if this handler handles the provided invocation. */
   boolean handles(Tuple<?> tuple, MethodInvocation invocation);
-
 }
