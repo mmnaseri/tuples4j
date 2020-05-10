@@ -3,10 +3,6 @@ jdk:
 - openjdk8
 script:
 - 'echo "${TRAVIS_COMMIT_MESSAGE}"'
-after_success:
-- cd tuples4j-build
-- '[[ "$(echo $JAVA_HOME | grep -o 8)" == "8" ]] && mvn -P coverage clean cobertura:cobertura coveralls:report'
-- '[[ $TRAVIS_BRANCH == "master" && ( "${TRAVIS_PULL_REQUEST}" == "false" || -z "${TRAVIS_PULL_REQUEST}") && ( "$(echo $JAVA_HOME | grep -o 8)" == "8" ) ]] && bash ../deployment/deploy.sh ab4567ade088 ../deployment/key.asc.enc ../deployment/settings.xml'
 os: linux
 dist: bionic
 env:
