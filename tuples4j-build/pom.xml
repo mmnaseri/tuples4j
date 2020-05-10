@@ -40,6 +40,11 @@
                             <!-- aggregated reports for multi-module projects -->
                             <aggregate>true</aggregate>
                             <check/>
+                            <instrumentation>
+                                <excludes>
+                                    <exclude>com/mmnaseri/utils/tuples/reflection/impl/InterfaceDefaultMethodTupleInvocationHandler.java</exclude>
+                                </excludes>
+                            </instrumentation>
                         </configuration>
                     </plugin>
                     <plugin>
