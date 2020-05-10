@@ -1,5 +1,6 @@
-package com.mmnaseri.utils.tuples.reflection.impl;
+package com.mmnaseri.utils.tuples.reflection.type.impl;
 
+import com.mmnaseri.utils.tuples.reflection.type.impl.EnumTypeConverter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

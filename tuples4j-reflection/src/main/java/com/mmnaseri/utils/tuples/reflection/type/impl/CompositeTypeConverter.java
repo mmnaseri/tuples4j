@@ -1,6 +1,6 @@
-package com.mmnaseri.utils.tuples.reflection.impl;
+package com.mmnaseri.utils.tuples.reflection.type.impl;
 
-import com.mmnaseri.utils.tuples.reflection.TypeConverter;
+import com.mmnaseri.utils.tuples.reflection.type.TypeConverter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

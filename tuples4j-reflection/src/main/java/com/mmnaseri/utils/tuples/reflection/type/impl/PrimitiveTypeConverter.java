@@ -1,4 +1,4 @@
-package com.mmnaseri.utils.tuples.reflection.impl;
+package com.mmnaseri.utils.tuples.reflection.type.impl;
 
 import com.mmnaseri.utils.tuples.utils.FluentMap;
 

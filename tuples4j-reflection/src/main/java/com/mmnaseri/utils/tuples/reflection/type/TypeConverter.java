@@ -1,4 +1,4 @@
-package com.mmnaseri.utils.tuples.reflection;
+package com.mmnaseri.utils.tuples.reflection.type;
 
 import java.lang.reflect.Type;
 

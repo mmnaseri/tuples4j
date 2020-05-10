@@ -1,6 +1,8 @@
-package com.mmnaseri.utils.tuples.reflection.impl;
+package com.mmnaseri.utils.tuples.reflection.type.impl;
 
 import com.mmnaseri.utils.tuples.Tuple;
+import com.mmnaseri.utils.tuples.reflection.type.impl.NumberTypeConverter;
+import com.mmnaseri.utils.tuples.utils.FluentList;
 import com.mmnaseri.utils.tuples.utils.FluentMap;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -17,18 +19,33 @@ import java.util.concurrent.atomic.LongAccumulator;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.function.BiConsumer;
 
-import static com.mmnaseri.utils.tuples.reflection.impl.NumberTypeConverterTest.CLASSES_WITHOUT_EQUALITY;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 
-public class StringNumberTypeConverterTest {
+public class NumberTypeConverterTest {
 
-  private StringNumberTypeConverter converter;
+  /**
+   * These are Java number classes that do not implement an equals method that can correctly verify
+   * that the wrapped values are the same. As such, in the case of these classes, we will use the
+   * string representation to compare the underlying values, since that is at least comfortably the
+   * same.
+   */
+  @SuppressWarnings("unchecked")
+  public static final FluentList<Class<? extends Number>> CLASSES_WITHOUT_EQUALITY =
+      FluentList.of(
+          AtomicInteger.class,
+          AtomicLong.class,
+          DoubleAdder.class,
+          LongAdder.class,
+          DoubleAccumulator.class,
+          LongAccumulator.class);
+
+  private NumberTypeConverter converter;
 
   @BeforeMethod
   public void setUp() {
-    converter = new StringNumberTypeConverter();
+    converter = new NumberTypeConverter();
   }
 
   @Test(
@@ -39,7 +56,7 @@ public class StringNumberTypeConverterTest {
   }
 
   /**
-   * Supplies test data with the signature {@code (String, Class&lt;? extends Number&gt;, Number)},
+   * Supplies test data with the signature {@code (Number, Class&lt;? extends Number&gt;, Number)},
    * where the first element is the number to be converted, the second element is the output type,
    * and the third element is the expected value.
    */
@@ -58,7 +75,7 @@ public class StringNumberTypeConverterTest {
             .with(int.class, 1)
             .with(long.class, 1L)
             .with(short.class, (short) 1)
-            .with(BigDecimal.class, new BigDecimal("1"))
+            .with(BigDecimal.class, new BigDecimal("1.0"))
             .with(AtomicLong.class, new AtomicLong(1L))
             .with(AtomicInteger.class, new AtomicInteger(1))
             .with(DoubleAccumulator.class, new DoubleAccumulator(Double::sum, 1D))
@@ -67,14 +84,17 @@ public class StringNumberTypeConverterTest {
             .with(LongAdder.class, accumulate(new LongAdder(), 1L, LongAdder::add))
             .with(BigInteger.class, new BigInteger("1"));
     return values.entrySet().stream()
-        .map(entry -> Tuple.of(String.valueOf(entry.getValue()), entry.getKey(), entry.getValue()))
+        .flatMap(
+            left ->
+                values.entrySet().stream()
+                    .map(right -> Tuple.of(left.getValue(), right.getKey(), right.getValue())))
         .map(Tuple::asArray)
         .toArray(Object[][]::new);
   }
 
   @Test(dataProvider = "numberSupplier")
   public void testConversion(
-      String value, Class<? extends Number> expectedType, Number expectedValue) {
+      Number value, Class<? extends Number> expectedType, Number expectedValue) {
     assertThat(converter.supportsConversion(expectedType, value), is(true));
     if (CLASSES_WITHOUT_EQUALITY.contains(expectedType)) {
       assertThat(converter.convert(expectedType, value).toString(), is(expectedValue.toString()));
