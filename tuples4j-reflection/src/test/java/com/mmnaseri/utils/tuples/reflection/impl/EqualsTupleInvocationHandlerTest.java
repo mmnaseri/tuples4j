@@ -55,7 +55,7 @@ public class EqualsTupleInvocationHandlerTest {
                 new Object[] {new Object()},
                 Object.class.getDeclaredMethod("equals", Object.class),
                 TheInterface.class)),
-        is(true));
+        is(false));
   }
 
   private interface TheInterface {
