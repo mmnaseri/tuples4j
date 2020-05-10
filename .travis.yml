@@ -12,7 +12,7 @@ jdk:
 - oraclejdk13
 - oraclejdk14
 script:
-- cd tuples4j
+- cd tuples4j-build
 - mvn test -B
 after_success:
 - cd tuples4j
