@@ -7,6 +7,7 @@ import com.mmnaseri.utils.tuples.facade.HasSecond;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -60,6 +61,18 @@ public final class TupleProxyUtils {
     } catch (Exception e) {
       Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
       throw new RuntimeException("Could not call method " + method + " on " + instance, cause);
+    }
+  }
+
+  /** Creates a new instance of the indicated type using the default constructor. */
+  public static <E> E instantiate(Class<E> type) {
+    try {
+      Constructor<E> constructor = type.getDeclaredConstructor();
+      constructor.setAccessible(true);
+      return constructor.newInstance();
+    } catch (Exception e) {
+      Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
+      throw new RuntimeException("Failed to instantiate type " + type, cause);
     }
   }
 

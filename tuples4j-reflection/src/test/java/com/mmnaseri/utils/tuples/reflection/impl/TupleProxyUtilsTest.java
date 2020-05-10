@@ -23,13 +23,11 @@ import static org.testng.Assert.fail;
 public class TupleProxyUtilsTest {
 
   @Test
-  public void testInstantiation() throws Exception {
-    Constructor<TupleProxyUtils> constructor = TupleProxyUtils.class.getDeclaredConstructor();
-    constructor.setAccessible(true);
+  public void testInstantiation() {
     try {
-      constructor.newInstance();
+      TupleProxyUtils.instantiate(TupleProxyUtils.class);
     } catch (Exception e) {
-      assertThat(e, is(instanceOf(InvocationTargetException.class)));
+      assertThat(e, is(instanceOf(RuntimeException.class)));
       assertThat(e.getCause(), is(notNullValue()));
       Throwable cause = e.getCause();
       assertThat(cause, is(instanceOf(IllegalStateException.class)));
