@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>tuples4j-build</artifactId>
@@ -10,11 +10,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tuples4j</artifactId>
-    <version>1.1.0</version>
+    <artifactId>tuples4j-reflection</artifactId>
+    <version>1.0.0</version>
 
-    <name>Tuples4J</name>
-    <description>Tiny framework for using tuples as first-class citizens in Java.</description>
+    <name>Tuples4J : Reflection</name>
+    <description>Tools to effectively use tuples to represent class instances.</description>
     <url>https://mmnaseri.github.io/tuples4j</url>
     <inceptionYear>2020</inceptionYear>
     <licenses>
@@ -60,6 +60,7 @@
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
         <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+        <tuples4j.version>1.1.0</tuples4j.version>
     </properties>
 
     <dependencies>
@@ -74,6 +75,11 @@
             <artifactId>hamcrest-all</artifactId>
             <version>${hamcrest.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mmnaseri.utils</groupId>
+            <artifactId>tuples4j</artifactId>
+            <version>${tuples4j.version}</version>
         </dependency>
     </dependencies>
 
@@ -181,6 +187,11 @@
                             <!-- aggregated reports for multi-module projects -->
                             <aggregate>true</aggregate>
                             <check/>
+                            <instrumentation>
+                                <excludes>
+                                    <exclude>com/mmnaseri/utils/tuples/reflection/impl/InterfaceDefaultMethodTupleInvocationHandler.java</exclude>
+                                </excludes>
+                            </instrumentation>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -212,4 +223,5 @@
             </build>
         </profile>
     </profiles>
+
 </project>
