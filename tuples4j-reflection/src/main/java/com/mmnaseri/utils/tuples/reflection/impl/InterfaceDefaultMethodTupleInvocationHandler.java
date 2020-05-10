@@ -5,6 +5,7 @@ import com.mmnaseri.utils.tuples.reflection.MethodInvocation;
 import com.mmnaseri.utils.tuples.reflection.TupleInvocationHandler;
 
 import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -60,11 +61,27 @@ public class InterfaceDefaultMethodTupleInvocationHandler implements TupleInvoca
 
   private Object callDefaultMethodWithLookup(
       MethodHandles.Lookup lookup, MethodInvocation invocation) throws Throwable {
-    return lookup
-        .in(invocation.method().getDeclaringClass())
-        .unreflectSpecial(invocation.method(), invocation.instance().getClass())
-        .bindTo(invocation.instance())
-        .invokeWithArguments(invocation.arguments());
+    try {
+      return lookup
+          .in(invocation.method().getDeclaringClass())
+          .unreflectSpecial(invocation.method(), invocation.instance().getClass())
+          .bindTo(invocation.instance())
+          .invokeWithArguments(invocation.arguments());
+    } catch (IllegalAccessException exception) {
+      if (exception.getMessage().contains("no private access for invokespecial")) {
+        return lookup
+            .findSpecial(
+                invocation.method().getDeclaringClass(),
+                invocation.method().getName(),
+                MethodType.methodType(
+                    invocation.method().getReturnType(), invocation.method().getParameterTypes()),
+                invocation.method().getDeclaringClass())
+            .bindTo(invocation.instance())
+            .invokeWithArguments(invocation.arguments());
+      } else {
+        throw exception;
+      }
+    }
   }
 
   private static MethodHandles.Lookup defaultLookup() {

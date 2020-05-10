@@ -33,7 +33,7 @@ public class CachingReflector implements Reflector {
       throw new IllegalArgumentException("Proxies can only be created using interface types.");
     }
     return Proxy.newProxyInstance(
-        ClassLoader.getSystemClassLoader(),
+        Thread.currentThread().getContextClassLoader(),
         new Class[] {type},
         new DefaultTupleMethodInvocationHandler(type, tuple, typeConverter, resolver));
   }
