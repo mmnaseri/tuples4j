@@ -1,5 +1,6 @@
 package com.mmnaseri.utils.tuples;
 
+import com.mmnaseri.utils.tuples.annotations.AtIndex;
 import com.mmnaseri.utils.tuples.impl.FourTuple;
 import com.mmnaseri.utils.tuples.model.Continent;
 import com.mmnaseri.utils.tuples.model.Country;
@@ -154,5 +155,29 @@ public class ReflectiveTupleTest {
             .collect(toList());
     assertThat(
         names, contains("Egypt", "China", "Iran", "Germany", "Mexico", "United States", "Brazil"));
+  }
+
+  @Test
+  public void testReflectingFromIndexed() {
+    List<CountryCountryCode> list =
+        DATA.stream()
+            .map(ReflectiveTuple::of)
+            .map(tuple -> tuple.as(CountryCountryCode.class))
+            .collect(toList());
+    assertThat(list, hasSize(DATA.size()));
+    for (int i = 0; i < list.size(); i++) {
+      final CountryCountryCode item = list.get(i);
+      assertThat(item.countryName(), is(DATA.get(i).first()));
+      assertThat(item.countryCode(), is(DATA.get(i).second()));
+    }
+  }
+
+  private interface CountryCountryCode {
+
+    @AtIndex(0)
+    String countryName();
+
+    @AtIndex(1)
+    String countryCode();
   }
 }
