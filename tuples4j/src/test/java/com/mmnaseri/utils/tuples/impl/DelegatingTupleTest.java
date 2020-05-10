@@ -53,4 +53,9 @@ public class DelegatingTupleTest {
   public void testAsList() {
     assertThat(delegatingTuple.asList(), is(tuple.asList()));
   }
+
+  @Test
+  public void testClear() {
+    assertThat(delegatingTuple.clear(), is(tuple.clear()));
+  }
 }

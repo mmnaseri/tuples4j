@@ -18,6 +18,12 @@ import static org.hamcrest.Matchers.notNullValue;
 public class FluentMapTest {
 
   @Test
+  public void testCreatingEmptyMap() {
+    FluentMap<Object, Object> map = FluentMap.empty();
+    assertThat(map.size(), is(0));
+  }
+
+  @Test
   public void testAddingSingleItem() {
     FluentMap<String, Integer> map = FluentMap.of(Collections.emptyMap());
     assertThat(map, is(notNullValue()));

@@ -32,13 +32,13 @@ import com.mmnaseri.utils.tuples.utils.FluentList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static com.mmnaseri.utils.tuples.utils.TupleUtils.checkSize;
-import static java.util.stream.Collectors.toCollection;
 
 /**
  * The base definition for a tuple.
@@ -65,9 +65,7 @@ public interface Tuple<Z> {
   Tuple<Z> change(int index, Supplier<? extends Z> value);
 
   /** Returns a new, empty tuple. This is the same as called {@link #empty()}. */
-  default Tuple<Z> clear() {
-    return EmptyTuple.of();
-  }
+  Tuple<Z> clear();
 
   /** Returns a new tuple formed by dropping the element at the indicated index. */
   Tuple<Z> drop(int index);
@@ -78,9 +76,7 @@ public interface Tuple<Z> {
   }
 
   /** Returns the items in the tuple as an instance of {@link FluentList}. */
-  default FluentList<Z> asList() {
-    return stream().collect(toCollection(FluentList::new));
-  }
+  FluentList<Z> asList();
 
   /**
    * Extends this tuple by returning a new tuple that has the provided element added to the end of
@@ -115,6 +111,16 @@ public interface Tuple<Z> {
    */
   default LabeledTuple<Z> withLabels(List<String> labels) {
     return new DefaultLabeledTuple<>(this, labels);
+  }
+
+  /** Creates an array from the current tuple. */
+  default Z[] asArray(IntFunction<Z[]> generator) {
+    return stream().toArray(generator);
+  }
+
+  /** Creates an array from the current tuple. */
+  default Object[] asArray() {
+    return stream().toArray();
   }
 
   /**
@@ -265,7 +271,7 @@ public interface Tuple<Z> {
    * @see #withLabels(String[])
    */
   static <Z> Function<Tuple<Z>, LabeledTuple<Z>> labelWith(String... labels) {
-    return labelWith(Arrays.asList(labels));
+    return tuple -> tuple.withLabels(labels);
   }
 
   /**

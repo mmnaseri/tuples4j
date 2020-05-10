@@ -4,6 +4,8 @@ import com.mmnaseri.utils.tuples.impl.DefaultLabeledTuple;
 import com.mmnaseri.utils.tuples.utils.FluentMap;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
@@ -89,7 +91,7 @@ public class LabeledTupleTest {
 
   @Test
   public void testDroppingByName() {
-    LabeledTuple<Object> tuple = LabeledTuple.of("a", 1, "b", 2);
+    LabeledTuple<Object> tuple = Tuple.labelWith("a", "b").apply(Tuple.of(1, 2));
     assertThat(tuple.size(), is(2));
     LabeledTuple<Object> dropped = tuple.drop("b");
     assertThat(tuple.size(), is(2));
@@ -99,7 +101,7 @@ public class LabeledTupleTest {
 
   @Test
   public void testConvertingToMap() {
-    LabeledTuple<Object> tuple = LabeledTuple.of("a", 1, "b", 2);
+    LabeledTuple<Object> tuple = Tuple.labelWith(Arrays.asList("a", "b")).apply(Tuple.of(1, 2));
     LabeledTuple<Integer> tightened = tuple.tighten();
     FluentMap<String, Integer> map = tightened.asMap();
     assertThat(map.size(), is(2));

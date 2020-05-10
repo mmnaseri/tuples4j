@@ -7,13 +7,17 @@ jdk:
 - openjdk12
 - openjdk13
 - openjdk14
+- oraclejdk11
+- oraclejdk12
+- oraclejdk13
+- oraclejdk14
 script:
-- cd tuples4j
+- cd tuples4j-build
 - mvn test -B
 after_success:
-- cd tuples4j
-- mvn -P coverage clean cobertura:cobertura coveralls:report
-- '[[ $TRAVIS_BRANCH == "master" && ( "${TRAVIS_PULL_REQUEST}" == "false" || -z "${TRAVIS_PULL_REQUEST}") && ( "$(echo $JAVA_HOME | grep -o 8)" == "8" ) ]] && bash ../deployment/deploy.sh ab4567ade088 ../deployment/key.asc.enc ../deployment/settings.xml'
+- cd tuples4j-build
+- '[[ "$(echo $JAVA_HOME | grep -o 8)" == "8" ]] && mvn -P coverage clean cobertura:cobertura coveralls:report'
+- bash ../deployment/perform-release.sh
 os: linux
 dist: bionic
 env:
