@@ -1,25 +1,34 @@
 #!/usr/bin/env bash
 
+release_module() {
+  local module="$1"
+    if [[ ! -d "../${module}" ]];
+    then
+      echo "Cannot perform release on unknown target <${module}>"
+      exit 1
+    fi
+  echo "Deploying target ${module}"
+  cd "../${module}" || exit
+  bash ../deployment/deploy.sh ab4567ade088 ../deployment/key.asc.enc ../deployment/settings.xml
+}
+
 # If the merge commit message for the pull request being merged into master contains the line '$release:....$'
 # the indicated module will be released into central.
 main() {
   if [[ -n $(echo "${TRAVIS_COMMIT_MESSAGE}" | grep -E '\$release:.+\$') ]]; then
     local target
-    target="$(echo "${TRAVIS_COMMIT_MESSAGE}" | grep -E '\$release:.+\$' | sed -E 's/\$release:(.*)\$/\1/')"
-    if [[ ! -d "../${target}" ]];
-    then
-      echo "Cannot perform release on unknown target <${target}>"
-      exit 1
-    fi
+    IFS=$'\n' target=($(echo "${TRAVIS_COMMIT_MESSAGE}" | grep -E '\$release:.+\$' | sed -E 's/\$release:(.*)\$/\1/'))
     echo "Building the entire Maven reactor"
     cd "../tuples4j-build" || exit
     mvn install
-    echo "Deploying target ${target}"
-    cd "../${target}" || exit
     if [[ $TRAVIS_BRANCH == "master" ]]; then
       if [[ ("${TRAVIS_PULL_REQUEST}" == "false" || -z "${TRAVIS_PULL_REQUEST}") ]]; then
         if [[ "$(echo "${JAVA_HOME}" | grep -o 8)" == "8" ]]; then
-          bash ../deployment/deploy.sh ab4567ade088 ../deployment/key.asc.enc ../deployment/settings.xml
+          for module in "${target[@]}";
+          do
+            module="$(echo "${module}" | sed -E 's/\$release:(.*)\$/\1/')"
+            release_module "${module}"
+          done
         else
           echo "Not attempting to release ${target} since we are on JDK ${JAVA_HOME}"
         fi
