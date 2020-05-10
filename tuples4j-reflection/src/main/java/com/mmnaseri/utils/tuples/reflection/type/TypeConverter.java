@@ -7,11 +7,8 @@ import java.lang.reflect.Type;
  *
  * @author Milad Naseri (m.m.naseri@gmail.com)
  */
-public interface TypeConverter {
+public interface TypeConverter extends ElementConverter<Object> {
 
   /** Indicates if this converter supports converting the provided value to the expected type. */
   boolean supportsConversion(Type expectedType, Object value);
-
-  /** Converts the provided value to the expected type. */
-  Object convert(Type expectedType, Object value);
 }

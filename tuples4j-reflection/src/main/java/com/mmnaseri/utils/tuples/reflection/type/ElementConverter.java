@@ -1,13 +1,13 @@
 package com.mmnaseri.utils.tuples.reflection.type;
 
-import com.mmnaseri.utils.tuples.Tuple;
-import com.mmnaseri.utils.tuples.reflection.MethodInvocation;
+import java.lang.reflect.Type;
 
 /**
- * A converter that can be used to convert values from the element to a desired type. This is used in conjunction with
+ * A converter that can be used to convert values from the element to a desired type. This is used
+ * in conjunction with
  */
 public interface ElementConverter<E> {
 
-  E convert(Tuple<?> tuple, MethodInvocation invocation);
-
+  /** Converts the type of the given object to the expected type. */
+  E convert(Type type, Object value);
 }

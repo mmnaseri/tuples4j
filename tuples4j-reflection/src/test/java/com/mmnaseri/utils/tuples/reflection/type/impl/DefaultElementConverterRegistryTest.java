@@ -1,10 +1,10 @@
 package com.mmnaseri.utils.tuples.reflection.type.impl;
 
-import com.mmnaseri.utils.tuples.Tuple;
-import com.mmnaseri.utils.tuples.reflection.MethodInvocation;
 import com.mmnaseri.utils.tuples.reflection.impl.TupleProxyUtils;
 import com.mmnaseri.utils.tuples.reflection.type.ElementConverter;
 import org.testng.annotations.Test;
+
+import java.lang.reflect.Type;
 
 import static com.mmnaseri.utils.tuples.reflection.type.ElementConverterRegistry.defaultRegistry;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -54,7 +54,7 @@ public class DefaultElementConverterRegistryTest {
   private static class MyConverter implements ElementConverter<String> {
 
     @Override
-    public String convert(final Tuple<?> tuple, final MethodInvocation invocation) {
+    public String convert(final Type type, final Object value) {
       return null;
     }
   }
