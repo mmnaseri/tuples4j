@@ -1,29 +1,14 @@
 = ROADMAP
 
-1. Add more tools to the library [**DONE**]
-  a. We need supplier-based methods for all the mappings:
-    - `one.extendWith(() -> new Random().nextInt())`
-    - `one.first(UUID::randomUUID)`
-  b. The above need to exposed statically as well:
-    - `Tuple.extendOne(() -> null)`
-    - `Tuple.mappingFirst(() -> null)`
-  c. All `Has*` facades need to expose type-changing mappings:
+The reflection utility should also define a *scope* or *context*
+which is consulted by the registries and proxy creators to control
+caching.
 
-      TwoTuple<Object, Integer, Integer> t1 = Tuple.of(1, 2);
-      TwoTuple<Object, String, Integer> t2 = t1.changeFirst(Objects::toString);
-      TwoTuple<Object, String, Double> t3 = t2.changeSecond(t1.first() * 1.0D);
+Currently, our caching applies to everything, and we cache per-type.
 
-  d. The above methods will need to be exposed statically as well:
+This might not be desired in some situations, and a more fine-grained
+control over how scopes are defined can be useful.
 
-      Tuple.changingFirst(Objects::toString)
-
-  e. We might need to remove the `T` type from `FixedTuple` and instead use the
-  generic `Tuple<Z>` with appropriate downstream type-tightening.
-
-2. Write tests for the main module. [**DONE**]
-3. Set up TravisCI build. [**DONE**]
-4. Write JavaDoc for the main module. [**DONE**]
-5. Write an illustrative README with appropriate badging. [**DONE**]
-6. Run the code through Codeacy and Coveralls. [**DONE**]
-7. Set up deployment via OSSRH.
-8. Implement the reflection utility.
+Ideally a scope or context should be hierarchical and allow for a parent-child
+relationship, so that we can have an application-level context, for instance,
+which is inherited and used by the request-level context.
