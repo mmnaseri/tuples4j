@@ -66,6 +66,11 @@ public class TupleProxyUtilsTest {
     assertThat(annotation.value(), is("mno"));
   }
 
+  @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = "Could not call method.*\\.value\\(\\).*")
+  public void testExceptingMethodPreventsMapCreation() {
+    TupleProxyUtils.mapOf(ExceptingInterface.class, new ExceptingClass());
+  }
+
   private interface TheSuperInterface {
 
     Integer value();
@@ -73,6 +78,7 @@ public class TupleProxyUtilsTest {
 
   private interface TheInterface extends TheSuperInterface {
 
+    @ThirdAnnotation
     String string();
 
     @FirstAnnotation
@@ -81,6 +87,13 @@ public class TupleProxyUtilsTest {
     void doStuff();
 
     String string2(String param1);
+  }
+
+  private interface ExceptingInterface {
+
+    default String value() throws IllegalAccessException {
+      throw new IllegalAccessException();
+    }
   }
 
   private static class MyClass implements TheInterface {
@@ -117,6 +130,8 @@ public class TupleProxyUtilsTest {
     }
   }
 
+  private static class ExceptingClass implements ExceptingInterface {}
+
   @SecondAnnotation("mno")
   @Target(ElementType.METHOD)
   @Retention(RetentionPolicy.RUNTIME)
@@ -128,4 +143,14 @@ public class TupleProxyUtilsTest {
   private @interface SecondAnnotation {
     String value();
   }
+
+  @FourthAnnotation
+  @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD})
+  @Retention(RetentionPolicy.RUNTIME)
+  private @interface ThirdAnnotation {}
+
+  @ThirdAnnotation
+  @Target(ElementType.ANNOTATION_TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  private @interface FourthAnnotation {}
 }

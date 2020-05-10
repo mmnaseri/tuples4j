@@ -7,10 +7,14 @@ import com.mmnaseri.utils.tuples.facade.HasSecond;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -26,6 +30,8 @@ public final class TupleProxyUtils {
   /** Returns a map of all no-arg method's name to the values returned from the call. */
   public static Map<String, Object> mapOf(Class<?> proxyType, Object proxy) {
     return Arrays.stream(proxyType.getMethods())
+        // Filter out all methods defined on the Object class.
+        .filter(method -> !method.getDeclaringClass().equals(Object.class))
         // Filter down to non-static, non-void, no-arg methods of the proxy type.
         .filter(
             method ->
@@ -52,7 +58,8 @@ public final class TupleProxyUtils {
     try {
       return method.invoke(instance);
     } catch (Exception e) {
-      throw new RuntimeException("Could not call method " + method + " on " + instance, e);
+      Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
+      throw new RuntimeException("Could not call method " + method + " on " + instance, cause);
     }
   }
 
@@ -62,9 +69,7 @@ public final class TupleProxyUtils {
    */
   public static boolean hasAnnotation(
       Class<? extends Annotation> annotationType, AnnotatedElement element) {
-    return element.isAnnotationPresent(annotationType)
-        || Arrays.stream(element.getDeclaredAnnotations())
-            .anyMatch(annotation -> hasAnnotation(annotationType, annotation.annotationType()));
+    return getAnnotation(annotationType, element) != null;
   }
 
   /**
@@ -73,11 +78,25 @@ public final class TupleProxyUtils {
    */
   public static <A extends Annotation> A getAnnotation(
       Class<A> annotationType, AnnotatedElement element) {
+    return getAnnotation(annotationType, element, new HashSet<>());
+  }
+
+  /**
+   * Looks for the provided annotation type on the given element, while maintaining a cache of all
+   * elements considered so far, to avoid getting stuck in an infinite loop.
+   */
+  private static <A extends Annotation> A getAnnotation(
+      Class<A> annotationType, AnnotatedElement element, Set<AnnotatedElement> considered) {
+    if (considered.contains(element)) {
+      return null;
+    }
+    considered.add(element);
     if (element.isAnnotationPresent(annotationType)) {
       return element.getAnnotation(annotationType);
     }
     return Arrays.stream(element.getAnnotations())
-        .map(annotation -> getAnnotation(annotationType, annotation.annotationType()))
+        .map(annotation -> getAnnotation(annotationType, annotation.annotationType(), considered))
+        .filter(Objects::nonNull)
         .findFirst()
         .orElse(null);
   }
