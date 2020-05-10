@@ -60,9 +60,11 @@ public final class TupleProxyUtils {
   private static Object invokeMethod(Method method, Object instance) {
     try {
       return method.invoke(instance);
+    } catch (InvocationTargetException e) {
+      throw new RuntimeException(
+          "Could not call method " + method + " on " + instance, e.getCause());
     } catch (Exception e) {
-      Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
-      throw new RuntimeException("Could not call method " + method + " on " + instance, cause);
+      throw new RuntimeException("Could not call method " + method + " on " + instance, e);
     }
   }
 
@@ -72,9 +74,10 @@ public final class TupleProxyUtils {
       Constructor<E> constructor = type.getDeclaredConstructor();
       constructor.setAccessible(true);
       return constructor.newInstance();
+    } catch (InvocationTargetException e) {
+      throw new RuntimeException("Failed to instantiate type " + type, e.getCause());
     } catch (Exception e) {
-      Throwable cause = e instanceof InvocationTargetException ? e.getCause() : e;
-      throw new RuntimeException("Failed to instantiate type " + type, cause);
+      throw new RuntimeException("Failed to instantiate type " + type, e);
     }
   }
 

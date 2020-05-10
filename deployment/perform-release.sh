@@ -11,6 +11,10 @@ main() {
       echo "Cannot perform release on unknown target <${target}>"
       exit 1
     fi
+    echo "Building the entire Maven reactor"
+    cd "../tuples4j-build" || exit
+    mvn install
+    echo "Deploying target ${target}"
     cd "../${target}" || exit
     if [[ $TRAVIS_BRANCH == "master" ]]; then
       if [[ ("${TRAVIS_PULL_REQUEST}" == "false" || -z "${TRAVIS_PULL_REQUEST}") ]]; then

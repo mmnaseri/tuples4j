@@ -35,6 +35,11 @@ public class TupleProxyUtilsTest {
     fail();
   }
 
+  @Test(expectedExceptions = RuntimeException.class, expectedExceptionsMessageRegExp = "Failed to instantiate type class .*")
+  public void testInstantiatingClassWithoutDefaultConstructor() {
+    TupleProxyUtils.instantiate(ClassWithoutDefaultConstructor.class);
+  }
+
   @Test
   public void testGettingAMapFromValues() {
     MyClass object = new MyClass();
@@ -134,7 +139,9 @@ public class TupleProxyUtilsTest {
     }
 
     @Override
-    public void doStuff() {}
+    public void doStuff() {
+      // Empty method that does not do anything.
+    }
 
     @Override
     public String string2(final String param1) {
@@ -151,4 +158,19 @@ public class TupleProxyUtilsTest {
   }
 
   private static class ExceptingClass implements ExceptingInterface {}
+
+  @SuppressWarnings("unused")
+  private static class ClassWithoutDefaultConstructor {
+
+    private final String someValue;
+
+    public ClassWithoutDefaultConstructor(String someValue) {
+      this.someValue = someValue;
+    }
+
+    public String someValue() {
+      return someValue;
+    }
+
+  }
 }
