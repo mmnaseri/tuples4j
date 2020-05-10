@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tuples4j-reflection</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.1</version>
 
     <name>Tuples4J : Reflection</name>
     <description>Tools to effectively use tuples to represent class instances.</description>
@@ -60,7 +60,7 @@
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
         <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
-        <tuples4j.version>1.1.0</tuples4j.version>
+        <tuples4j.version>1.1.1</tuples4j.version>
     </properties>
 
     <dependencies>
