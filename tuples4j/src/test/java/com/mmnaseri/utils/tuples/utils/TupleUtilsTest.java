@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.testng.Assert.fail;
 
 public class TupleUtilsTest {
 
@@ -24,6 +25,8 @@ public class TupleUtilsTest {
       assertThat(cause, is(notNullValue()));
       assertThat(cause, is(instanceOf(IllegalStateException.class)));
       assertThat(cause.getMessage(), is("This class should not be instantiated."));
+      return;
     }
+    fail();
   }
 }

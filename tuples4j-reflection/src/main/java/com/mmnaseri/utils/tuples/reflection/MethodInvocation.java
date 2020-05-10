@@ -16,4 +16,7 @@ public interface MethodInvocation {
 
   /** The method being invoked. */
   Method method();
+
+  /** The type of the proxied object as requested from the tuple. */
+  Class<?> type();
 }

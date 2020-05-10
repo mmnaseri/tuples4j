@@ -58,7 +58,7 @@ public class AnnotationInvocationElementResolverTest {
 
   private ImmutableMethodInvocation invocation(final String name) throws NoSuchMethodException {
     return new ImmutableMethodInvocation(
-        new Object(), new Object[0], Sample.class.getDeclaredMethod(name));
+            new Object(), new Object[0], Sample.class.getDeclaredMethod(name), Object.class);
   }
 
   private interface Sample {

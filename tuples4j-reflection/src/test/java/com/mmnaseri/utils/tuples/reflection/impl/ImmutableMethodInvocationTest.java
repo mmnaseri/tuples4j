@@ -16,7 +16,8 @@ public class ImmutableMethodInvocationTest {
         new ImmutableMethodInvocation(
             this,
             arguments,
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedAfterInstantiation"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedAfterInstantiation"),
+            Object.class);
 
     assertThat(invocation.arguments(), is(arrayContaining(1)));
 
@@ -31,7 +32,8 @@ public class ImmutableMethodInvocationTest {
         new ImmutableMethodInvocation(
             this,
             new Object[] {1},
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"),
+            Object.class);
 
     Object[] arguments = invocation.arguments();
     assertThat(arguments, is(arrayContaining(1)));
@@ -47,12 +49,14 @@ public class ImmutableMethodInvocationTest {
         new ImmutableMethodInvocation(
             this,
             new Object[] {1},
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"),
+            Object.class);
     ImmutableMethodInvocation second =
         new ImmutableMethodInvocation(
             this,
             new Object[] {1},
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"),
+            Object.class);
 
     assertThat(first, is(first));
     assertThat(first, is(not(new Object())));
@@ -66,27 +70,32 @@ public class ImmutableMethodInvocationTest {
         new ImmutableMethodInvocation(
             this,
             new Object[] {1},
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"),
+            Object.class);
     ImmutableMethodInvocation second =
         new ImmutableMethodInvocation(
             this,
             new Object[] {1},
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"),
+            Object.class);
 
     assertThat(first.hashCode(), is(second.hashCode()));
   }
+
   @Test
   public void testToString() throws Exception {
     ImmutableMethodInvocation first =
         new ImmutableMethodInvocation(
             this,
             new Object[] {1},
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"),
+            Object.class);
     ImmutableMethodInvocation second =
         new ImmutableMethodInvocation(
             this,
             new Object[] {1},
-            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"));
+            getClass().getDeclaredMethod("testArgumentsCannotBeModifiedViaGetter"),
+            Object.class);
 
     assertThat(first.toString(), is(second.toString()));
   }

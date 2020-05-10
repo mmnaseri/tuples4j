@@ -12,12 +12,14 @@ public class ImmutableMethodInvocation implements MethodInvocation {
   private final Object instance;
   private final Object[] arguments;
   private final Method method;
+  private final Class<?> type;
 
   public ImmutableMethodInvocation(
-      final Object instance, final Object[] arguments, final Method method) {
+      final Object instance, final Object[] arguments, final Method method, final Class<?> type) {
     this.instance = instance;
     this.arguments = arguments == null ? new Object[0] : Arrays.copyOf(arguments, arguments.length);
     this.method = method;
+    this.type = type;
   }
 
   @Override
@@ -36,14 +38,21 @@ public class ImmutableMethodInvocation implements MethodInvocation {
   }
 
   @Override
+  public Class<?> type() {
+    return type;
+  }
+
+  @Override
   public String toString() {
     return "ImmutableMethodInvocation{"
         + "instance="
-        + instance()
+        + instance
         + ", arguments="
         + Arrays.toString(arguments)
         + ", method="
-        + method()
+        + method
+        + ", type="
+        + type
         + '}';
   }
 
@@ -56,14 +65,15 @@ public class ImmutableMethodInvocation implements MethodInvocation {
       return false;
     }
     final ImmutableMethodInvocation that = (ImmutableMethodInvocation) o;
-    return instance.equals(that.instance())
-        && Arrays.equals(arguments, that.arguments())
-        && method.equals(that.method());
+    return Objects.equals(instance, that.instance)
+        && Arrays.equals(arguments, that.arguments)
+        && Objects.equals(method, that.method)
+        && Objects.equals(type, that.type);
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(instance(), method());
+    int result = Objects.hash(instance, method, type);
     result = 31 * result + Arrays.hashCode(arguments);
     return result;
   }
