@@ -13,5 +13,5 @@ public interface TupleInvocationHandler {
   boolean handles(Tuple<?> tuple, MethodInvocation invocation);
 
   /** Handles the invocation and returns the requisite value (if any). */
-  Object handle(Tuple<?> tuple, MethodInvocation invocation);
+  Object handle(Tuple<?> tuple, MethodInvocation invocation) throws Throwable;
 }

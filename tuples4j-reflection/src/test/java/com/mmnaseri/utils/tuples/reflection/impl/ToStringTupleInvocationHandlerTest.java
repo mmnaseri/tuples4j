@@ -5,9 +5,6 @@ import com.mmnaseri.utils.tuples.impl.FourTuple;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -34,17 +31,21 @@ public class ToStringTupleInvocationHandlerTest {
   }
 
   @Test
-  public void testHandle() throws Exception {
+  public void testHandle() {
     FourTuple<Object, Integer, Integer, Integer, Integer> tuple = Tuple.of(1, 2, 3, 4);
-    assertThat(
-        handler.handle(
-            tuple,
-            new ImmutableMethodInvocation(
-                new MyClass(),
-                new Object[0],
-                Object.class.getDeclaredMethod("toString"),
-                TheInterface.class)),
-        is("{intValue=123456, strValue=str-value}"));
+    try {
+      assertThat(
+          handler.handle(
+              tuple,
+              new ImmutableMethodInvocation(
+                  new MyClass(),
+                  new Object[0],
+                  Object.class.getDeclaredMethod("toString"),
+                  TheInterface.class)),
+          is("{intValue=123456, strValue=str-value}"));
+    } catch (Throwable throwable) {
+      throwable.printStackTrace();
+    }
   }
 
   private interface TheInterface {

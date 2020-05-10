@@ -34,20 +34,24 @@ public class HashCodeTupleInvocationHandlerTest {
   }
 
   @Test
-  public void testHandle() throws Exception {
+  public void testHandle() {
     FourTuple<Object, Integer, Integer, Integer, Integer> tuple = Tuple.of(1, 2, 3, 4);
     Map<Object, Object> map = new HashMap<>();
     map.put("strValue", "str-value");
     map.put("intValue", 123456);
-    assertThat(
-        handler.handle(
-            tuple,
-            new ImmutableMethodInvocation(
-                new MyClass(),
-                new Object[0],
-                Object.class.getDeclaredMethod("hashCode"),
-                TheInterface.class)),
-        is(map.hashCode()));
+    try {
+      assertThat(
+          handler.handle(
+              tuple,
+              new ImmutableMethodInvocation(
+                  new MyClass(),
+                  new Object[0],
+                  Object.class.getDeclaredMethod("hashCode"),
+                  TheInterface.class)),
+          is(map.hashCode()));
+    } catch (Throwable throwable) {
+      throwable.printStackTrace();
+    }
   }
 
   private interface TheInterface {
