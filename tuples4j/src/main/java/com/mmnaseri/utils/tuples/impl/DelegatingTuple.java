@@ -30,6 +30,11 @@ public class DelegatingTuple<Z> implements Tuple<Z> {
   }
 
   @Override
+  public Tuple<Z> clear() {
+    return delegate.clear();
+  }
+
+  @Override
   public Tuple<Z> drop(final int index) {
     return delegate.drop(index);
   }

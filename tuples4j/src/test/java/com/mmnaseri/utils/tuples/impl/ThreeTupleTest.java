@@ -8,6 +8,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -24,6 +25,239 @@ public class ThreeTupleTest {
     ThreeTuple<Object, Integer, Integer, Integer> tuple = Tuple.three(0, 1, 2);
     assertThat(tuple, is(notNullValue()));
     assertThat(tuple.size(), is(3));
+  }
+
+  @Test
+  public void testToArray() {
+    Tuple<Object> tuple = Tuple.of(0, 1, 2);
+    Object[] first = tuple.asArray();
+    Object[] second = tuple.asArray(Object[]::new);
+    assertThat(first, is(notNullValue()));
+    assertThat(second, is(notNullValue()));
+    assertThat(first, is(arrayWithSize(tuple.size())));
+    assertThat(second, is(arrayWithSize(tuple.size())));
+    for (int i = 0; i < tuple.size(); i++) {
+      assertThat(first[i], is(tuple.get(i)));
+      assertThat(second[i], is(tuple.get(i)));
+    }
+  }
+
+  @Test
+  public void testResizeAsEmpty() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    EmptyTuple<Object> other = tuple.asEmpty();
+    assertThat(other.size(), is(0));
+  }
+
+  @Test
+  public void testResizeAsOne() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    OneTuple<Object, Object> other = tuple.asOne();
+    assertThat(other.size(), is(1));
+    assertThat(other.first(), is(tuple.get(0)));
+  }
+
+  @Test
+  public void testResizeAsTwo() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    TwoTuple<Object, Object, Object> other = tuple.asTwo();
+    assertThat(other.size(), is(2));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+  }
+
+  @Test
+  public void testResizeAsThree() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    ThreeTuple<Object, Object, Object, Object> other = tuple.asThree();
+    assertThat(other.size(), is(3));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsFour() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    FourTuple<Object, Object, Object, Object, Object> other = tuple.asFour();
+    assertThat(other.size(), is(4));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsFive() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    FiveTuple<Object, Object, Object, Object, Object, Object> other = tuple.asFive();
+    assertThat(other.size(), is(5));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsSix() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    SixTuple<Object, Object, Object, Object, Object, Object, Object> other = tuple.asSix();
+    assertThat(other.size(), is(6));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+    assertThat(other.sixth(), is(tuple.get(5)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsSeven() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    SevenTuple<Object, Object, Object, Object, Object, Object, Object, Object> other =
+        tuple.asSeven();
+    assertThat(other.size(), is(7));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+    assertThat(other.sixth(), is(tuple.get(5)));
+    assertThat(other.seventh(), is(tuple.get(6)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsEight() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    EightTuple<Object, Object, Object, Object, Object, Object, Object, Object, Object> other =
+        tuple.asEight();
+    assertThat(other.size(), is(8));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+    assertThat(other.sixth(), is(tuple.get(5)));
+    assertThat(other.seventh(), is(tuple.get(6)));
+    assertThat(other.eighth(), is(tuple.get(7)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsNine() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    NineTuple<Object, Object, Object, Object, Object, Object, Object, Object, Object, Object>
+        other = tuple.asNine();
+    assertThat(other.size(), is(9));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+    assertThat(other.sixth(), is(tuple.get(5)));
+    assertThat(other.seventh(), is(tuple.get(6)));
+    assertThat(other.eighth(), is(tuple.get(7)));
+    assertThat(other.ninth(), is(tuple.get(8)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsTen() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    TenTuple<Object, Object, Object, Object, Object, Object, Object, Object, Object, Object, Object>
+        other = tuple.asTen();
+    assertThat(other.size(), is(10));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+    assertThat(other.sixth(), is(tuple.get(5)));
+    assertThat(other.seventh(), is(tuple.get(6)));
+    assertThat(other.eighth(), is(tuple.get(7)));
+    assertThat(other.ninth(), is(tuple.get(8)));
+    assertThat(other.tenth(), is(tuple.get(9)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsEleven() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    ElevenTuple<
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object>
+        other = tuple.asEleven();
+    assertThat(other.size(), is(11));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+    assertThat(other.sixth(), is(tuple.get(5)));
+    assertThat(other.seventh(), is(tuple.get(6)));
+    assertThat(other.eighth(), is(tuple.get(7)));
+    assertThat(other.ninth(), is(tuple.get(8)));
+    assertThat(other.tenth(), is(tuple.get(9)));
+    assertThat(other.eleventh(), is(tuple.get(10)));
+  }
+
+  @Test(
+      expectedExceptions = IllegalStateException.class,
+      expectedExceptionsMessageRegExp = "Expected a size of at least \\d+ but received \\d+")
+  public void testResizeAsTwelve() {
+    Tuple<Object> tuple = Tuple.three(0, 1, 2);
+    TwelveTuple<
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object,
+            Object>
+        other = tuple.asTwelve();
+    assertThat(other.size(), is(12));
+    assertThat(other.first(), is(tuple.get(0)));
+    assertThat(other.second(), is(tuple.get(1)));
+    assertThat(other.third(), is(tuple.get(2)));
+    assertThat(other.fourth(), is(tuple.get(3)));
+    assertThat(other.fifth(), is(tuple.get(4)));
+    assertThat(other.sixth(), is(tuple.get(5)));
+    assertThat(other.seventh(), is(tuple.get(6)));
+    assertThat(other.eighth(), is(tuple.get(7)));
+    assertThat(other.ninth(), is(tuple.get(8)));
+    assertThat(other.tenth(), is(tuple.get(9)));
+    assertThat(other.eleventh(), is(tuple.get(10)));
+    assertThat(other.twelfth(), is(tuple.get(11)));
   }
 
   @Test

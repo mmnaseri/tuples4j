@@ -86,4 +86,9 @@ public class FluentMap<K, V> extends HashMap<K, V> {
     map.put(key, value);
     return map;
   }
+
+  /** Returns an empty map. */
+  public static <K, V> FluentMap<K, V> empty() {
+    return new FluentMap<>();
+  }
 }
