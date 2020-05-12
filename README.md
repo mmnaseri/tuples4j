@@ -6,7 +6,6 @@
 [![Build Status](https://travis-ci.org/mmnaseri/tuples4j.svg?branch=master)](https://travis-ci.org/mmnaseri/tuples4j)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d667baee2084c42bf3c4b1db9c8a30e)](https://www.codacy.com/manual/mmnaseri/tuples4j?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mmnaseri/tuples4j&amp;utm_campaign=Badge_Grade)[![CodeFactor](https://www.codefactor.io/repository/github/mmnaseri/tuples4j/badge)](https://www.codefactor.io/repository/github/mmnaseri/tuples4j)
 [![Coverage Status](https://coveralls.io/repos/github/mmnaseri/tuples4j/badge.svg)](https://coveralls.io/github/mmnaseri/tuples4j)
-[![Coverage Status (coverity)](https://img.shields.io/coverity/scan/21090.svg)](https://scan.coverity.com/projects/mmnaseri-tuples4j)
 
 ---
 
