@@ -6,6 +6,7 @@
 [![Build Status](https://travis-ci.org/mmnaseri/tuples4j.svg?branch=master)](https://travis-ci.org/mmnaseri/tuples4j)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1d667baee2084c42bf3c4b1db9c8a30e)](https://www.codacy.com/manual/mmnaseri/tuples4j?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mmnaseri/tuples4j&amp;utm_campaign=Badge_Grade)[![CodeFactor](https://www.codefactor.io/repository/github/mmnaseri/tuples4j/badge)](https://www.codefactor.io/repository/github/mmnaseri/tuples4j)
 [![Coverage Status](https://coveralls.io/repos/github/mmnaseri/tuples4j/badge.svg)](https://coveralls.io/github/mmnaseri/tuples4j)
+[![Coverage Status (coverity)](https://img.shields.io/coverity/scan/21090.svg)](https://scan.coverity.com/projects/mmnaseri-tuples4j)
 
 ---
 
@@ -125,3 +126,66 @@ This means that to get the second element in the tuple, instead of writing `tupl
 write `tuple.second()`. This also applies to changing values on the tuples. Instead of calling
 `tuple.change(2, "a")`, you can write `tuple.third("a")`. Not only is this syntax semantically
 stronger, but also it can help preserve type arguments on the tuple itself.
+
+## Reflective Access
+
+The companion module `tuples4j-reflection` can be used to get tuples represented as classes:
+
+```java
+ReflectiveTuple<?> reflectiveTuple = ReflectiveTuple.of(tuple);
+Customer customer = reflectiveTuple.as(Customer.class);
+String name = customer.name();
+BigDecimal income = customer.income();
+```
+
+You can do all sorts of customizations in how a value is read from the tuple and conveyed as a method's return value:
+
+```java
+public interface Customer {
+
+  String name();
+  
+  BigDecimal income();
+  
+  State state();
+
+  @Provided(by = IncomeBracketProvider.class)
+  IncomeBracket incomeBracket();
+  
+  double raise();
+  
+  default nextYearIncome() {
+    return income().multiply(raise());
+  }
+  
+  enum State {
+    TX, WA, CA, OR
+  }
+
+}
+```
+
+Look at [tuples4j-reflection/~/test/~/model/Country.java](https://github.com/mmnaseri/tuples4j/blob/master/tuples4j-reflection/src/test/java/com/mmnaseri/utils/tuples/model/Country.java) for a better example of the sort of things you can do with the reflective code.
+
+### Using the Reflection Module
+
+To use the reflection module, get yourself a copy by either cloning this project or using Maven:
+
+    <dependency>
+        <groupId>com.mmnaseri.utils</groupId>
+        <artifactId>tuples4j-reflection</artifactId>
+        <version>${tuples4j.version}</version>
+    </dependency>
+
+## Building and Contributing
+
+Contributions are more than welcome :)
+
+To build the code and/or to contribute, you can use the provided `Dockerfile` image. This image sets up an Ubuntu Bionic (18.04 LTS) with OpenJDK 8. This is the minimum required environment for the project to work.
+
+You can get a working Docker image by running:
+
+```bash
+docker build -t tuples4j:jdk8 .
+docker run -it tuples4j:jdk8
+```
