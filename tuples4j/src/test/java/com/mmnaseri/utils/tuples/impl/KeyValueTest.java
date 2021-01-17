@@ -121,7 +121,7 @@ public class KeyValueTest {
         if (j == i) {
           continue;
         }
-        assertThat(other.get(j < i ? j : j - 1), is(tuple.get(j)));
+        assertThat(other.get(j < i ? j : 0), is(tuple.get(j)));
       }
     }
   }
@@ -196,6 +196,7 @@ public class KeyValueTest {
     assertThat(tuple.first(), is(tuple.key()));
   }
 
+  @SuppressWarnings("unchecked")
   @Test
   public void buildingKeyValuesFromMap() {
     Set<KeyValue<String, Integer>> keyValues =
@@ -203,7 +204,6 @@ public class KeyValueTest {
             .map(KeyValue::create)
             .collect(toSet());
     assertThat(keyValues, hasSize(2));
-    //noinspection unchecked
     assertThat(keyValues, contains(KeyValue.create("a", 1), KeyValue.create("b", 2)));
   }
 }

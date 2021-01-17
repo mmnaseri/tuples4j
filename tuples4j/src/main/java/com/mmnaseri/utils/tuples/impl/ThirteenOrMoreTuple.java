@@ -56,6 +56,7 @@ public class ThirteenOrMoreTuple<
         HasTwelfth<Z, L, ThirteenOrMoreTuple<Z, A, B, C, D, E, F, G, H, I, J, K, L>> {
 
   /** Creates a new instance of this class from the provided values. */
+  @SuppressWarnings("unchecked")
   @SafeVarargs
   public ThirteenOrMoreTuple(
       A first,
@@ -72,7 +73,6 @@ public class ThirteenOrMoreTuple<
       L twelfth,
       Z thirteenth,
       Z... rest) {
-    //noinspection unchecked
     this(
         FluentList.of(
                 first,
