@@ -51,7 +51,7 @@ public class NumberTypeConverter extends ClassTypeConverter {
   @Override
   protected Object convert(final Class<?> expectedType, final Object value) {
     if (expectedType.isPrimitive() && value == null) {
-      throw new NullPointerException(
+      throw new IllegalArgumentException(
           "Cannot convert null value into an instance of " + expectedType);
     }
     if (value == null) {
