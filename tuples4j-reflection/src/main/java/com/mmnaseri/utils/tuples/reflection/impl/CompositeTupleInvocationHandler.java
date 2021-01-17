@@ -32,7 +32,7 @@ public class CompositeTupleInvocationHandler implements TupleInvocationHandler {
         .findFirst()
         .orElseThrow(
             () ->
-                new RuntimeException(
+                new IllegalStateException(
                     String.format(
                         "Could not find any suitable handler for invocation %s on tuple %s",
                         invocation, tuple)));
@@ -43,7 +43,7 @@ public class CompositeTupleInvocationHandler implements TupleInvocationHandler {
     try {
       return handler.handle(tuple, invocation);
     } catch (Throwable throwable) {
-      throw new RuntimeException(
+      throw new IllegalStateException(
           String.format(
               "Failed to call handler %s for invocation %s on tuple %s",
               handler, invocation, tuple),
