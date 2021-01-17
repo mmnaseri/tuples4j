@@ -8,8 +8,15 @@ release_module() {
       exit 1
     fi
   echo "Deploying target ${module}"
-  cd "../${module}" || exit
-  bash ../deployment/deploy.sh ab4567ade088 ../deployment/key.asc.enc ../deployment/settings.xml
+  cd "../${module}"
+  if [[ "$(pwd | grep -E -o '[^/]+' | tail -n 1)" == "${module}" ]];
+  then
+    echo "Executing deployment workflow for ${module}"
+    chmod +x ../deployment/deploy.sh
+    ../deployment/deploy.sh ab4567ade088 ../deployment/key.asc.enc ../deployment/settings.xml
+  else
+    echo "Failed to change directory, currently at $(pwd)"
+  fi
 }
 
 # If the merge commit message for the pull request being merged into master contains the line '$release:....$'
