@@ -71,7 +71,9 @@ install_gpg_key() {
     local -r ENC_KEY_FILE="$3"
     local -r KEY_FILE="$4"
 
-    openssl aes-256-cbc -K "$KEY" -iv "$IV" -in "$ENC_KEY_FILE" -out "$KEY_FILE" -d
+    echo "Running OpenSSL"
+    openssl aes-256-cbc -K "$KEY" -iv "$IV" -in "$ENC_KEY_FILE" -out "$KEY_FILE" -d -md md5
+    echo "Importing keys into GPG2"
     gpg2 --batch --import "$KEY_FILE"
 }
 
@@ -100,6 +102,7 @@ install_gpg() {
 #######################################
 mvn_deploy() {
     local -r SETTINGS_FILE="$1"
+    echo "Deploying using ${SETTINGS_FILE}"
     mvn -P release clean deploy -Drelease -s "$SETTINGS_FILE"
 }
 
