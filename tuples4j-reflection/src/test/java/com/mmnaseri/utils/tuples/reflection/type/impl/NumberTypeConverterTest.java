@@ -48,7 +48,7 @@ public class NumberTypeConverterTest {
   }
 
   @Test(
-      expectedExceptions = NullPointerException.class,
+      expectedExceptions = IllegalArgumentException.class,
       expectedExceptionsMessageRegExp = "Cannot convert null value into an instance of int")
   public void testConvertingNullToPrimitive() {
     converter.convert(int.class, null);
