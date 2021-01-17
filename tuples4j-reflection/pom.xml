@@ -6,7 +6,7 @@
 
     <groupId>com.mmnaseri.utils</groupId>
     <artifactId>tuples4j-reflection</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 
     <name>Tuples4J : Reflection</name>
     <description>Tools to effectively use tuples to represent class instances.</description>
