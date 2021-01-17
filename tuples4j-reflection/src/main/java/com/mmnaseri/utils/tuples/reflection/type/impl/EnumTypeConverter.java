@@ -17,12 +17,9 @@ public class EnumTypeConverter extends ClassTypeConverter {
   @Override
   protected Object convert(final Class<?> expectedType, final Object value) {
     if (value instanceof Number) {
-      return ((Class<?>) expectedType)
-          .asSubclass(Enum.class)
-          .getEnumConstants()[((Number) value).intValue()];
+      return expectedType.asSubclass(Enum.class).getEnumConstants()[((Number) value).intValue()];
     } else {
-      return Enum.valueOf(
-          ((Class<?>) expectedType).asSubclass(Enum.class), Objects.toString(value));
+      return Enum.valueOf(expectedType.asSubclass(Enum.class), Objects.toString(value));
     }
   }
 }
